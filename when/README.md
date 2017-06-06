@@ -20,9 +20,9 @@ PLAY [example_when] *******************************************************
 TASK [Gathering Facts] ****************************************************
 ok: [localhost]
 
-TASK [debug] **************************************************************
+TASK [Show message according to 'When' condition] *************************
 ok: [localhost] => {
-    "msg": "System epbyminw5865-t1 has gateway 10.6.86.1"
+    "msg": "OS: CentOS 7"
 }
 
 PLAY RECAP ****************************************************************
