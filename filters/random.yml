@@ -1,0 +1,14 @@
+- hosts: localhost
+  connection: local
+  vars:
+    list: [1,2,1,3,1]
+  tasks:
+    - name: "A random number from list [1,2,1,3,1]"
+      debug:
+        msg: "{{ list | random }}"
+    - name: "A random number from 0 to 100 but in steps of 10"
+      debug:
+        msg: "{{ 100 | random(step=10) }}"
+    - name: "A random number from 1 to 100 but in steps of 10"
+      debug:
+        msg: "{{ 100 | random(1,10) }}"
