@@ -1,0 +1,22 @@
+- name: Setting local facts
+  hosts: localhost
+
+  tasks:
+    - name: Ensure directory for ansible facts exists
+      file: state=directory recurse=yes path=/etc/ansible/facts.d
+      become: true
+      become_user: root
+
+    - name: Ensure example fact exists
+      copy: src=example.fact dest=/etc/ansible/facts.d    
+      become: true
+      become_user: root
+
+- name: Getting local fact
+  hosts: localhost
+
+  tasks:
+    - name: Display variable 'foo'
+      debug:
+        msg: "foo = {{ ansible_local.example.general.foo }}"
+
