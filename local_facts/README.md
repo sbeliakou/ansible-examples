@@ -5,17 +5,15 @@
 - [Ansible Docs](http://docs.ansible.com/ansible/playbooks_variables.html#local-facts-facts-d)
 - [Demo Playbook](example_local-facts.yml)
 
-## Examples:
+## Example:
 
 ```sh
-$ ansible-playbook  example_local-facts.yml -c local
+$ ansible-playbook example_local-facts.yml -c local
 ```
 
 **Output:**
 
 ```sh
-
-[root@epbyminw5865-t1 local_facts]# ansible-playbook example_local-facts.yml
 
 PLAY [Setting local facts] *************************************************
 
