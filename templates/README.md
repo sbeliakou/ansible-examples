@@ -26,7 +26,6 @@ localhost                  : ok=2    changed=1    unreachable=0    failed=0
 
 Generated virtual hosts config:
 ```sh
-shreben@ubuntu-box:~/ansible/ansible-examples/templates$ cat templates/virtual-host.conf
 <VirtualHost *:80>
   ServerName www.domain.com
   DocumentRoot /www/domain_com
