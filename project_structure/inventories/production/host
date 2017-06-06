@@ -1,0 +1,36 @@
+# file: production
+
+[atlanta-webservers]
+www-atl-1.example.com
+www-atl-2.example.com
+
+[boston-webservers]
+www-bos-1.example.com
+www-bos-2.example.com
+
+[atlanta-dbservers]
+db-atl-1.example.com
+db-atl-2.example.com
+
+[boston-dbservers]
+db-bos-1.example.com
+
+# webservers in all geos
+[webservers:children]
+atlanta-webservers
+boston-webservers
+
+# dbservers in all geos
+[dbservers:children]
+atlanta-dbservers
+boston-dbservers
+
+# everything in the atlanta geo
+[atlanta:children]
+atlanta-webservers
+atlanta-dbservers
+
+# everything in the boston geo
+[boston:children]
+boston-webservers
+boston-dbservers

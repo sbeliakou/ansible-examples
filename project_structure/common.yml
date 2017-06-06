@@ -1,0 +1,6 @@
+---
+# file: common.yml
+- hosts: single_server
+  roles:
+    - common
+
