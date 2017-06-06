@@ -3,7 +3,9 @@
 [http://docs.ansible.com/ansible/playbooks_filters.html]
 
 ### Filters For Formatting Data
-ansible-playbook formatting.yml
+```
+$ ansible-playbook formatting.yml
+```
 ```
 PLAY ***************************************************************************
 
@@ -52,7 +54,9 @@ PLAY RECAP *********************************************************************
 localhost                  : ok=5    changed=1    unreachable=0    failed=0   
 ```
 ### List Filters
-ansible-playbook list.yml
+```
+$ ansible-playbook list.yml
+```
 ```
 PLAY ***************************************************************************
 
@@ -84,7 +88,9 @@ PLAY RECAP *********************************************************************
 localhost                  : ok=4    changed=0    unreachable=0    failed=0   
 ```
 ### Theory Filters
-ansible-playbook theory.yml
+```
+$ ansible-playbook theory.yml
+```
 ```
 PLAY ***************************************************************************
 
@@ -142,7 +148,9 @@ PLAY RECAP *********************************************************************
 localhost                  : ok=6    changed=0    unreachable=0    failed=0   
 ```
 ### Random Number Filters
-ansible-playbook random.yml
+```
+$ ansible-playbook random.yml
+```
 ```
 PLAY ***************************************************************************
 
@@ -168,7 +176,9 @@ PLAY RECAP *********************************************************************
 localhost                  : ok=4    changed=0    unreachable=0    failed=0   
 ```
 ### Math Filters
-ansible-playbook math.yml
+```
+$ ansible-playbook math.yml
+```
 ```
 PLAY ***************************************************************************
 
@@ -189,7 +199,9 @@ PLAY RECAP *********************************************************************
 localhost                  : ok=3    changed=0    unreachable=0    failed=0   
 ```
 ### IP Address Filters
-ansible-playbook ip.yml
+```
+$ ansible-playbook ip.yml
+```
 ```
 PLAY ***************************************************************************
 
@@ -220,7 +232,9 @@ PLAY RECAP *********************************************************************
 localhost                  : ok=5    changed=0    unreachable=0    failed=0   
 ```
 ### Hashing Filters
-ansible-playbook hash.yml
+```
+$ ansible-playbook hash.yml
+```
 ```
 PLAY ***************************************************************************
 
