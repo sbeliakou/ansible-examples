@@ -1,0 +1,8 @@
+- name: example_when
+  hosts: localhost
+
+  tasks:
+    - debug:
+        msg: "System {{ ansible_hostname }} has gateway {{ ansible_default_ipv4.gateway }}"
+      when: ansible_distribution == "CentOS" and ansible_distribution_major_version == "7"
+
