@@ -1,0 +1,16 @@
+- name: Tags example
+  hosts: localhost
+
+  tasks:
+
+    - name: run playbook with tag 1
+      debug:
+        msg: "Running 'tag 1' part of the playbook"
+      tags:
+        - tag 1
+
+    - name: run playbook with tag 2
+      debug:
+        msg: "Running 'tag 2' part of tha playbook"
+      tags:
+        - tag 2
