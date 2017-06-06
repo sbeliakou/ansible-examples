@@ -4,6 +4,8 @@
 - [Ansible Docs](http://docs.ansible.com/ansible/playbooks_tags.html)
 - [Demo Playbook](example-tags.yml)
 
+## Examples:
+
 **Using ```--tags ``` key:**
  ```sh
 $ ansible-playbook example-tags.yml -c local --tags "tag 1"
