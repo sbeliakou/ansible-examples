@@ -1,0 +1,24 @@
+- name: Tags example
+  hosts: localhost
+
+  tasks:
+
+    - name: run playbook with tag 1
+      debug: msg="runs when you use tag1"
+      tags:
+        - tag 1
+
+    - name: reuse tag 1
+      debug: msg="runs when you use tag1 (reuse)"
+      tags:
+        - tag 1
+
+    - name: run playbook with tag 2
+      debug: msg="runs when you use tag2"
+      tags:
+        - tag 2
+
+    - name: using special tag always
+      debug: msg="Always runs"
+      tags:
+        - always
