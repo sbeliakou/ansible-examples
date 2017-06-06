@@ -1,16 +1,15 @@
 # Ansible tags example
 
+## Resources:
+- [Ansible Docs](http://docs.ansible.com/ansible/playbooks_tags.html)
+- [Demo Playbook](example-tags.yml)
+
 **Using ```--tags ``` key:**
  ```sh
 $ ansible-playbook example-tags.yml -c local --tags "tag 1"
 ```
 **Output:**
  ```sh
- [WARNING]: Host file not found: /etc/ansible/hosts
-
- [WARNING]: provided hosts list is empty, only localhost is available
-
-
 PLAY [Tags example] ************************************************************
 
 TASK [setup] *******************************************************************
@@ -40,11 +39,6 @@ $ ansible-playbook example-tags.yml -c local --skip-tags "always,tag 1"
 ```
 **Output:**
 ```sh
- [WARNING]: Host file not found: /etc/ansible/hosts
-
- [WARNING]: provided hosts list is empty, only localhost is available
-
-
 PLAY [Tags example] ************************************************************
 
 TASK [run playbook with tag 2] *************************************************
@@ -55,5 +49,3 @@ ok: [localhost] => {
 PLAY RECAP *********************************************************************
 localhost                  : ok=1    changed=0    unreachable=0    failed=0
 ```
-
-**See [documentation](http://docs.ansible.com/ansible/playbooks_tags.html) for more details.**
