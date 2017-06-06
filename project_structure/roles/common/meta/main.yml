@@ -1,4 +1,4 @@
 ---
 dependencies:
-  - { role: webserver, apache_port: 80 }
-  - { role: dbserver, dbname: blarg, some_parameter: 12 }
+  - { role: webserver, apache_port: 80, n: 1 }
+  - { role: dbserver, dbname: blarg, n: 2}
