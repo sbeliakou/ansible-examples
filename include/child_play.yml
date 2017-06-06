@@ -1,0 +1,7 @@
+- name: Child play
+  hosts: localhost
+
+  tasks:
+  - name: task of child_play
+    debug:
+      msg: "It is a task of a child play"
