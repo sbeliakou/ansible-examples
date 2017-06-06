@@ -1,0 +1,24 @@
+- name: Including vars
+  hosts: localhost
+
+  tasks:
+    - name: Include vars of test.yml into the 'var_test' variable.
+      include_vars:
+        file: test.yml
+        name: var_test
+
+    - name: Display value of 'message' variable
+      debug:
+        msg: "{{ var_test.message }}"
+  
+
+    - name: Load a variable file based on the OS type, or a default if not found.
+      include_vars: "{{ item }}"
+      with_first_found:
+        - "{{ ansible_distribution }}.yml"
+        - "{{ ansible_os_family }}.yml"
+        - "default.yml"
+
+    - name: Display value of 'foo' variable
+      debug:
+        msg: "foo = {{ foo }}" 
