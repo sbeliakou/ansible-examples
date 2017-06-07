@@ -9,7 +9,10 @@ Example contents:
 To run this example you should add a couple of hosts to the inventory
 and configure connectivity between ansible host and these hosts.
 
-Example of a linear strategy (default).
+Example of a linear strategy (default):
+```sh
+strategy:linear
+```
 ```sh
 $ ansible-playbook strategy_example.yml
 ```
@@ -63,6 +66,9 @@ localhost                  : ok=4    changed=0    unreachable=0    failed=0
 
 Example of a free strategy, which allows each host to run until the end
  of the play as fast as it can.
+```sh
+strategy:free
+```
 ```sh
 $ ansible-playbook strategy_example.yml
 ```
