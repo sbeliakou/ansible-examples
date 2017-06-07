@@ -1,0 +1,4 @@
+- name: Example of role_task
+  debug:
+    msg: "This is a task from 'some_role'"
+
