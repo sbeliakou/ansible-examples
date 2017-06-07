@@ -1,0 +1,10 @@
+- name: Using custom python module
+  hosts: localhost
+
+  tasks:
+  - name: Getting current time and date
+    bash-module: phrase="Hello_world"
+    register: result
+
+  - name: Show output
+    debug: var=result
