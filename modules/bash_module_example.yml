@@ -1,8 +1,8 @@
-- name: Using custom python module
+- name: Using custom bash module
   hosts: localhost
 
   tasks:
-  - name: Getting current time and date
+  - name: Print some phrase
     bash-module: phrase="Hello_world"
     register: result
 
