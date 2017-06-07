@@ -4,7 +4,7 @@
 - [Ansible Docs](http://docs.ansible.com/ansible/dev_guide/developing_modules.html)
 - [Demo Python module](library/python-module.py)
 - [Demo Bash module](library/bash-module.sh)
-- [Demo Ansible Facts module](library/facts-module.py)
+- [Demo Ansible Facts module](library/fact-module.py)
 
 ## Examples:
 
