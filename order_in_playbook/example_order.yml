@@ -16,13 +16,13 @@
       notify:
         - Some trigger
 
-  handlers:
-    - name: Some trigger
-      debug:
-        msg: "Something triggers me to say Hello!"
-
   post_tasks:
     - name: Example of post-task
       debug:
         msg: "Good evening!"
+
+  handlers:
+    - name: Some trigger
+      debug:
+        msg: "Something triggered me to say Hello!"
 
