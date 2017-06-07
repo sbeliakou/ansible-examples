@@ -1,0 +1,11 @@
+---
+- hosts: all
+  strategy: linear
+  tasks:
+    - name: "First step"
+      debug: msg="Step 1. Something is done here"
+    - name: "Second step"
+      debug: msg="Step 2. Something is done here"
+    - name: "Third step"
+      debug: msg="Step 3. Something is done here"
+
