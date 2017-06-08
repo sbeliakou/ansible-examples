@@ -44,6 +44,7 @@ PLAY RECAP *********************************************************************
 localhost                  : ok=2    changed=0    unreachable=0    failed=0
 ```
 
+----------
 
 **Condition based on success or failure of registering**
 
@@ -83,7 +84,7 @@ localhost                  : ok=3    changed=0    unreachable=0    failed=0
 ```
 
 
-
+----------
 
 
 **Condition when + using the |default filter**
@@ -128,7 +129,7 @@ localhost                  : ok=2    changed=0    unreachable=0    failed=0
 ```
 
 
-
+----------
 
 
 **Condition based on (un)defined variables:**
@@ -162,11 +163,7 @@ PLAY RECAP *********************************************************************
 localhost                  : ok=2    changed=0    unreachable=0    failed=1
 ```
 
-
-
-
-
-
+----------
 
 
 **Condition based on registered variables:**
@@ -202,9 +199,7 @@ localhost                  : ok=4    changed=2    unreachable=0    failed=0
 
 ```
 
-
-
-
+----------
 
 
 **Condition based on a variable’s boolean value:**
@@ -236,7 +231,7 @@ PLAY RECAP *********************************************************************
 localhost                  : ok=2    changed=0    unreachable=0    failed=0
 ```
 
-
+----------
 
 
 **Condition 'when item':**
