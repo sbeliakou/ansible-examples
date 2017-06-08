@@ -1,0 +1,17 @@
+- hosts: localhost
+  connection: local
+  tasks:
+    - debug: var=myvar
+
+- hosts: localhost
+  connection: local
+  vars:
+    myvar: "myvar defined in playbook"
+  tasks:
+    - debug: var=myvar
+
+- hosts: localhost
+  connection: local
+  tasks:
+    - name: Example of the builtin variable ansible-version
+      debug: var=ansible_version
