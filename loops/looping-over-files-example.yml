@@ -1,0 +1,9 @@
+- name: Looping over Files Example 
+  hosts: localhost
+
+  tasks:
+    - name: Print content of each file
+      debug: msg="{{ item }}"
+      with_file:
+        - files/first_file
+        - files/second_file

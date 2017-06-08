@@ -1,0 +1,9 @@
+- name: content | First Mached Files Example
+  hosts: localhost
+
+  tasks:
+    - name: Print random phrase"
+      debug: msg="{{ item }}"
+      with_first_found:
+        - files/second_file
+        - files/first_file

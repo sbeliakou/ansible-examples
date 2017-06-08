@@ -1,0 +1,35 @@
+- name: Looping over Subelements Example 
+  hosts: localhost
+
+  vars:
+    users:
+      - name: alice
+        files:
+          - files/first_file
+        properties:
+          password: 
+            - alice-123
+          groups: 
+            - "root"
+            - "wheel"
+      - name: bob
+        files:
+          - files/second_file
+        properties:
+          password:
+            - bob-789
+          groups:
+            - "root"   
+            - "wheel"
+
+  tasks:
+    - name: Print users with appropriate file content
+      debug: msg="User {{ item.0.name }} wrote '{{ lookup ('file', item.1) }}' in file {{ item.1 }}"
+      with_subelements:
+        - "{{ users }}"
+        - files
+    - name: Print users with appropriate properties
+      debug: msg="User {{ item.0.name }} is in groups {{ item.0.properties.groups | join(',') }} and has password {{ item.1 }}" 
+      with_subelements:
+        - "{{ users }}"
+        - properties.password

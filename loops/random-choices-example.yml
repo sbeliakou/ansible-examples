@@ -1,0 +1,11 @@
+- name: Random Choices Example
+  hosts: localhost
+
+  tasks:
+    - name: Print random phrase"
+      debug: msg="{{ item }}"
+      with_random_choice:
+        - "go through the door"
+        - "drink from the goblet"
+        - "press the red button"
+        - "do nothing"

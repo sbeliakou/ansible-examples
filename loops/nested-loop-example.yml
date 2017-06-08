@@ -1,0 +1,9 @@
+- name: Nested Loops Example 
+  hosts: localhost
+
+  tasks:
+  - name: print several users with multiple groups
+    debug: msg="User {{ item[0] }} will be added to group {{ item[1] }}"
+    with_nested:
+      - [ 'alice', 'bob' ]
+      - [ 'wheel', 'root' ]

@@ -1,0 +1,8 @@
+- name: Looping over Fileglobs Example 
+  hosts: localhost
+
+  tasks:
+    - name: Show full path to each file in folder
+      debug: msg="{{ item }}"
+      with_fileglob:
+        - files/*
