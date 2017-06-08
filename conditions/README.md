@@ -15,7 +15,7 @@
 ## Examples:
 
 
-**Condition based on variables**
+### Condition based on variables:
 
 - [Demo Playbook when-variables](example_conditions_variables.yml)
 
@@ -46,7 +46,7 @@ localhost                  : ok=2    changed=0    unreachable=0    failed=0
 
 ----------
 
-**Condition based on success or failure of registering**
+### Condition based on success or failure of registering:
 
 - [Demo Playbook when-succeeded](example_conditions_succeeded.yml)
 
@@ -87,7 +87,7 @@ localhost                  : ok=3    changed=0    unreachable=0    failed=0
 ----------
 
 
-**Condition when + using the |default filter**
+### Condition when + using the |default filter:
 
 - [Demo Playbook when-default](example_conditions_default.yml)
 
@@ -132,7 +132,7 @@ localhost                  : ok=2    changed=0    unreachable=0    failed=0
 ----------
 
 
-**Condition based on (un)defined variables:**
+### Condition based on (un)defined variables:
 
 - [Demo Playbook when-(un)defined](example_conditions_defined.yml)
 
@@ -166,7 +166,7 @@ localhost                  : ok=2    changed=0    unreachable=0    failed=1
 ----------
 
 
-**Condition based on registered variables:**
+### Condition based on registered variables:
 
 - [Demo Playbook when-register](example_conditions_register.yml)
 
@@ -202,7 +202,7 @@ localhost                  : ok=4    changed=2    unreachable=0    failed=0
 ----------
 
 
-**Condition based on a variable’s boolean value:**
+### Condition based on a variable’s boolean value:
 
 - [Demo Playbook when-boolean](example_conditions_boolean.yml)
 
@@ -234,7 +234,7 @@ localhost                  : ok=2    changed=0    unreachable=0    failed=0
 ----------
 
 
-**Condition 'when item':**
+### Condition 'when item':
 
 - [Demo Playbook when-item](example_conditions_when-item.yml)
 
