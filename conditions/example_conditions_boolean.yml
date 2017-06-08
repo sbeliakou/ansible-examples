@@ -1,0 +1,17 @@
+- name: Execution of a task based on a variable’s boolean value
+  hosts: localhost
+
+  vars:
+    epic: true
+  
+  tasks:
+    - name: Step when epic is True
+      debug:
+        msg: "This certainly is epic!"
+      when: epic
+
+    - name: Step when epic is not True
+      debug:
+        msg: "This certainly isn't epic!"
+      when: not epic
+         
