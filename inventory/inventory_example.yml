@@ -1,0 +1,17 @@
+---
+- hosts: atlanta
+  tasks:
+    - name: "Atlanta group"
+      debug: var=region
+- hosts: raleigh
+  tasks:
+    - name: "Raleigh group"
+      debug: var=region
+- hosts: southeast
+  tasks:
+    - name: "Southeast group"
+      debug: var=region
+- hosts: usa
+  tasks:
+    - name: "USA group"
+      debug: var=region
