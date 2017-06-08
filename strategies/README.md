@@ -70,7 +70,7 @@ Example of a free strategy, which allows each host to run until the end
 strategy:free
 ```
 ```sh
-$ ansible-playbook strategy_example.yml
+$ ansible-playbook strategy_example.yml -i inventory
 ```
 ```sh
 PLAY ***************************************************************************
