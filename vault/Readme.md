@@ -7,7 +7,9 @@
 
 ## Encryption
 
-**$ ansible-vault encrypt_string "Hello world"**
+```sh
+$ ansible-vault encrypt_string "Hello world"
+```
 ```sh
 New Vault password:
 Confirm New Vault password:
@@ -21,7 +23,9 @@ Confirm New Vault password:
 Encryption successful
 ```
 
-**$ ansible-vault encrypt resources/secret-variables.yml**
+```sh
+$ ansible-vault encrypt resources/secret-variables.yml
+```
 ```sh
 New Vault password:
 Confirm New Vault password:
