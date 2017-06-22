@@ -1,0 +1,17 @@
+- name: Statement is based on variables
+  hosts: localhost
+  
+  tasks:
+  
+  - name: "Echo something on Debian systems"
+    debug: msg="OS is Debian"
+    when:
+      - ansible_distribution == "Debian"
+  
+  - name: "Echo something on CentOS 7 systems"
+    debug: msg="OS is CentOS 7"
+    when:
+      - ansible_distribution == "CentOS"
+      - ansible_distribution_major_version == "7"
+ 
+

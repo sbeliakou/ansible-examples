@@ -1,0 +1,9 @@
+- name: Combining when with with_items
+  hosts: localhost
+
+  tasks:
+    - name: statement WHEN is processed separately for each item
+      debug:
+        msg: "{{ item }} is > 5 "
+      with_items: [ 0, 2, 4, 6, 8, 10 ]
+      when: item > 5  

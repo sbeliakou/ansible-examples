@@ -1,0 +1,17 @@
+- name: Using when + default filter
+  hosts: localhost
+
+  vars:
+    mylist: [ 0, 2, 4, 6, 8, 10 ]
+  tasks:
+
+    - name: When list does not exist step is using default. Default is empty --> SKIP it
+      debug: msg="{{ item }}"
+      with_items: "{{ list|default([]) }}"
+      when: item > 5
+
+    - name: When mylist does not exist step is using default. Mylist exists --> DO it
+      debug: msg="{{ item }}"
+      with_items: "{{ mylist|default([]) }}"
+      when: item > 5
+

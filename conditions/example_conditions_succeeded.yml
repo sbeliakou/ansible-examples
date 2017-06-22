@@ -1,0 +1,20 @@
+- name: Statement based on the result of registering
+  hosts: localhost
+  
+  tasks:
+  - name: Echo something
+    debug: msg="Hello world!"
+    register: result
+
+  - name: Do it if the result of the first step was failed
+    debug: msg="Ooops.."
+    when: result|failed
+
+  - name: Do it if the result of the first step was succeeded
+    debug: msg="Everything is OK"
+    when: result|succeeded
+
+  - name: Do it if the result of the first step was skipped
+    debug: msg="Goodbye"
+    when: result|skipped
+ 

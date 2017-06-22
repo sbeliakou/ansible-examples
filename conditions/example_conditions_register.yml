@@ -1,0 +1,18 @@
+- name: Check registered variable for emptiness
+  hosts: localhost
+
+  tasks:
+    - name: Ensure directory exists
+      file:
+        path: mydir
+        state: directory
+        mode: 0755
+  
+    - name: list contents of directory
+      command: ls mydir
+      register: contents
+
+    - name: check contents for emptiness
+      debug: msg="Directory is empty"
+      when: contents.stdout == ""
+
