@@ -1,3 +1,6 @@
+## Prerequisites
+- Ansible v2.3.1 + 
+
 ## Encryption
 
 **$ ansible-vault encrypt_string "Hello world"**
