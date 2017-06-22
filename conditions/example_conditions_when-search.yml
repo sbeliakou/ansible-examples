@@ -1,0 +1,13 @@
+- hosts: localhost
+  connection: local
+
+  vars:
+    myvar1: "asdfasdfasdfAAAasdfasdfasdf"
+    myvar2: "qweqwerqweqweqqweqweqweqweq"
+
+  tasks:
+  - debug: msg="Variable contains 'AAA' -> '{{ item }}'"
+    when: item | search('AAA')
+    with_items:
+    - '{{ myvar1 }}'
+    - '{{ myvar2 }}'
