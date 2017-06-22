@@ -1,0 +1,30 @@
+- name: Tags example
+  hosts: localhost
+
+  tasks:
+
+    - name: install apache
+      yum: name={{ item }} state=installed
+      with_items:
+         - httpd
+      become: yes
+      become_user: root
+      tags:
+         - install
+
+    - name: add vhost.conf
+      copy :  src=config/vhosts.conf dest=/etc/httpd/conf.d owner=root group=root
+      become: yes
+      become_user: root
+      notify: 
+         - restart apache
+      tags:
+         - configuration
+  
+  handlers:
+    - name: restart apache
+      service:
+        name: httpd
+        state: restarted
+      become: yes
+      become_user: root
