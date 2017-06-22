@@ -10,7 +10,7 @@
 - [Demo Playbook when-register](example_conditions_register.yml)
 - [Demo Playbook when-boolean](example_conditions_boolean.yml)
 - [Demo Playbook when-item](example_conditions_when-item.yml)
-
+- [Demo Playbook when-search](example_conditions_when-search.yml)
 
 ## Examples:
 
