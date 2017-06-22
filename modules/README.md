@@ -2,6 +2,7 @@
 
 ## Resources:
 - [Ansible Docs](http://docs.ansible.com/ansible/dev_guide/developing_modules.html)
+- [Testing modules](http://docs.ansible.com/ansible/dev_guide/developing_modules_general.html#testing-your-module)
 - [Demo Python module](library/python-module.py)
 - [Demo Bash module](library/bash-module.sh)
 - [Demo Ansible Facts module](library/fact-module.py)
@@ -85,4 +86,22 @@ ok: [localhost] => {
 
 PLAY RECAP *********************************************************************
 localhost                  : ok=3    changed=1    unreachable=0    failed=0
+```
+
+**Module testing:**
+```sh
+ansible/hacking/test-module -m ./library/python-module.py
+```
+**Output:**
+```sh
+***********************************
+RAW OUTPUT
+{"time": "2017-06-22 10:14:47.017274"}
+
+
+***********************************
+PARSED OUTPUT
+{
+    "time": "2017-06-22 10:14:47.017274"
+}
 ```
