@@ -12,80 +12,79 @@
 .
 ├── common.yml
 ├── dbservers.yml
-├── filter_plugins
+├── filter_plugins/
 │   └── some_plugin
-├── inventories
-│   ├── production
-│   │   ├── group_vars
+├── inventories/
+│   ├── production/
+│   │   ├── group_vars/
 │   │   │   ├── all
 │   │   │   ├── atlanta
 │   │   │   └── webservers
-│   │   ├── host
 │   │   ├── hosts
-│   │   └── host_vars
+│   │   └── host_vars/
 │   │       └── db-bos-1.example.com
-│   └── staging
-│       ├── group_vars
+│   └── staging/
+│       ├── group_vars/
 │       │   ├── group1
 │       │   └── group2
 │       ├── hosts
-│       └── host_vars
+│       └── host_vars/
 │           ├── stagehost1
 │           └── stagehost2
-├── library
+├── library/
 │   └── some_module
 ├── README.md
-├── roles
-│   ├── common
-│   │   ├── defaults
+├── roles/
+│   ├── common/
+│   │   ├── defaults/
 │   │   │   └── main.yml
-│   │   ├── files
-│   │   ├── handlers
+│   │   ├── files/
+│   │   ├── handlers/
 │   │   │   └── main.yml
-│   │   ├── meta
-│   │   │   └── main.yml
-│   │   ├── README.md
-│   │   ├── tasks
-│   │   │   └── main.yml
-│   │   ├── templates
-│   │   ├── tests
-│   │   │   ├── inventory
-│   │   │   └── test.yml
-│   │   └── vars
-│   │       └── main.yml
-│   ├── dbserver
-│   │   ├── defaults
-│   │   │   └── main.yml
-│   │   ├── files
-│   │   ├── handlers
-│   │   │   └── main.yml
-│   │   ├── meta
+│   │   ├── meta/
 │   │   │   └── main.yml
 │   │   ├── README.md
-│   │   ├── tasks
+│   │   ├── tasks/
 │   │   │   └── main.yml
-│   │   ├── templates
-│   │   ├── tests
+│   │   ├── templates/
+│   │   ├── tests/
 │   │   │   ├── inventory
 │   │   │   └── test.yml
-│   │   └── vars
+│   │   └── vars/
 │   │       └── main.yml
-│   └── webserver
-│       ├── defaults
+│   ├── dbserver/
+│   │   ├── defaults/
+│   │   │   └── main.yml
+│   │   ├── files/
+│   │   ├── handlers/
+│   │   │   └── main.yml
+│   │   ├── meta/
+│   │   │   └── main.yml
+│   │   ├── README.md
+│   │   ├── tasks/
+│   │   │   └── main.yml
+│   │   ├── templates/
+│   │   ├── tests/
+│   │   │   ├── inventory
+│   │   │   └── test.yml
+│   │   └── vars/
+│   │       └── main.yml
+│   └── webserver/
+│       ├── defaults/
 │       │   └── main.yml
-│       ├── files
-│       ├── handlers
+│       ├── files/
+│       ├── handlers/
 │       │   └── main.yml
-│       ├── meta
+│       ├── meta/
 │       │   └── main.yml
 │       ├── README.md
-│       ├── tasks
+│       ├── tasks/
 │       │   └── main.yml
-│       ├── templates
-│       ├── tests
+│       ├── templates/
+│       ├── tests/
 │       │   ├── inventory
 │       │   └── test.yml
-│       └── vars
+│       └── vars/
 │           └── main.yml
 ├── site.yml
 └── webservers.yml
