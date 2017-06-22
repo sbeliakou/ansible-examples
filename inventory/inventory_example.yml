@@ -3,15 +3,44 @@
   tasks:
     - name: "Atlanta group"
       debug: var=region
+
 - hosts: raleigh
   tasks:
     - name: "Raleigh group"
       debug: var=region
+
 - hosts: southeast
   tasks:
     - name: "Southeast group"
       debug: var=region
+
 - hosts: usa
   tasks:
     - name: "USA group"
       debug: var=region
+
+- hosts: dbservers:webservers
+  tasks:
+    - name: task runs on dbservers or webservers
+      debug: var=hostvars[inventory_hostname]["ansible_fqdn"]
+
+- hosts: dbservers:!backup
+  tasks:
+    - name: task runs on hosts that are in dbservers AND NOT in backup
+      debug: var=hostvars[inventory_hostname]["ansible_fqdn"]
+
+- hosts: dbservers:webservers:!backup
+  tasks:
+    - name: task runs on hosts that are in dbservers,webservers AND NOT in backup
+      debug: var=hostvars[inventory_hostname]["ansible_fqdn"]
+
+- hosts: webservers:&backup
+  tasks:
+    - name: task runs on hosts that are in webservers AND in backup
+      debug: var=hostvars[inventory_hostname]["ansible_fqdn"]
+
+- hosts: webservers[0]:backup[-1]
+  tasks:
+    - name: task runs on the first host from webservers and on last host in backup
+      debug: var=hostvars[inventory_hostname]["ansible_fqdn"]
+
