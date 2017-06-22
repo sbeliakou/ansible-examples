@@ -21,7 +21,9 @@ Confirm New Vault password:
 Encryption successful
 ```
 
-## [Use in Playbook](vault-1.yml#L5)
+## Use in Playbook
+- [Explicit Secret Variable](test-secret-variable.yml#5)
+- [Encrypted File with Secret Variables](test-secret-file.yml#5)
 
 ## Testing Secret variables
 
