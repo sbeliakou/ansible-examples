@@ -1,0 +1,9 @@
+- name: Standart Loops Example 
+  hosts: localhost
+
+  tasks:
+  - name: print several users
+    debug: msg="User {{ item.name }} will be addedd to group {{ item.groups }}"
+    with_items:
+      - { name: 'alice', groups: 'wheel' }
+      - { name: 'bob', groups: 'root' }

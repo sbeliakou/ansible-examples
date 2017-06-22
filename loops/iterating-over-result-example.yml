@@ -1,0 +1,11 @@
+- name: Iterating Over The Results of a Program Execution Example
+  hosts: localhost
+  
+  tasks:
+    - name: Show result of 'cat files/third_file' row by row
+      shell: "echo {{ item }}"
+      register: result
+      with_lines:
+        - "cat files/third_file"
+    
+    - debug: var=result
