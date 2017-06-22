@@ -33,10 +33,10 @@ Encryption successful
 - [Encrypted File with Secret Variables](test-secret-file.yml#L5)
 
 ## Testing Secret variables
-- [With Prompting Password]()
-- [With Password File]()
-- [With Encrypted Variables File]()
-- [With ANSIBLE_VAULT_PASSWORD_FILE Env Variable]()
+- [With Prompting Password](#with-prompting-password)
+- [With Password File](#with-password-file)
+- [With Encrypted Variables File](#with-encrypted-variables-file)
+- [With ANSIBLE_VAULT_PASSWORD_FILE Env Variable](#with-ansible_vault_password_file-env-variable)
 
 ### With Prompting Password
 
