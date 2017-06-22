@@ -22,8 +22,8 @@ Encryption successful
 ```
 
 ## Use in Playbook
-- [Explicit Secret Variable](test-secret-variable.yml#5)
-- [Encrypted File with Secret Variables](test-secret-file.yml#5)
+- [Explicit Secret Variable](test-secret-variable.yml#L5)
+- [Encrypted File with Secret Variables](test-secret-file.yml#L5)
 
 ## Testing Secret variables
 
