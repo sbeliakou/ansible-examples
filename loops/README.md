@@ -3,9 +3,20 @@
 ## Resources:
 - [Ansible Docs](http://docs.ansible.com/ansible/playbooks_loops.html)
 
+- [Demo playbook standart loop](standart-loop-example.yml)
+- [Demo playbook nested loop](nested-loop-example.yml)
+- [Demo playbook looping over hashes](looping-over-hashes-example.yml)
+- [Demo playbook looping over files](looping-over-files-example.yml)
+- [Demo playbook looping over fileglobs](looping-over-fileglobs-example.yml)
+- [Demo playbook looping-over parallel sets data](looping-over-parallel-sets-data-example.yml)
+- [Demo playbook looping over subelements](looping-over-subelements-example.yml)
+- [Demo playbook looping over integer sequences](looping-over-integer-sequences-example.yum)
+- [Demo playbook random choices](random-choices-example.yml)
+- [Demo playbook iterating over result](iterating-over-result-example.yml)
 ## Examples:
 
 **Running ansible playbook with different loops:**
+- [Demo playbook standart loop](standart-loop-example.yml)
 ```sh 
 $ ansible-playbook standart-loop-example.yml -vv
 ```
@@ -36,7 +47,7 @@ ok: [localhost] => (item={u'name': u'alice', u'groups': u'wheel'}) => {
 PLAY RECAP *********************************************************************
 localhost                  : ok=2    changed=0    unreachable=0    failed=0
 ```
-
+- [Demo playbook nested loop](nested-loop-example.yml)
 ```sh
 $ ansible-playbook nested-loop-example.yml -vv
 ```
@@ -81,7 +92,7 @@ ok: [localhost] => (item=[u'alice', u'wheel']) => {
 PLAY RECAP *********************************************************************
 localhost                  : ok=2    changed=0    unreachable=0    failed=0
 ```
-
+- [Demo playbook looping over hashes](looping-over-hashes-example.yml)
 ```sh
 $ ansible-playbook looping-over-hashes-example.yml -vv
 ```
@@ -119,7 +130,7 @@ PLAY RECAP *********************************************************************
 localhost                  : ok=2    changed=0    unreachable=0    failed=0
 ```
 
-
+- [Demo playbook looping over files](looping-over-files-example.yml)
 ```sh
 $ ansible-playbook looping-over-files-example.yml -vv
 ```
@@ -144,7 +155,7 @@ ok: [localhost] => (item=This is content of first file) => {
 PLAY RECAP *********************************************************************
 localhost                  : ok=2    changed=0    unreachable=0    failed=0
 ```
-
+- [Demo playbook looping over fileglobs](looping-over-fileglobs-example.yml)
 ```sh
 $ ansible-playbook looping-over-fileglobs-example.yml -vv 
 ```
@@ -173,7 +184,7 @@ ok: [localhost] => (item=/home/vagrant/ansible-examples/loops/files/first_file) 
 PLAY RECAP *********************************************************************
 localhost                  : ok=2    changed=0    unreachable=0    failed=0
 ```
-
+- [Demo playbook looping-over parallel sets data](looping-over-parallel-sets-data-example.yml)
 ```sh
 $ ansible-playbook looping-over-parallel-sets-data-example.yml -vv
 ```
@@ -218,7 +229,7 @@ ok: [localhost] => (item=[u'a', 1]) => {
 PLAY RECAP *********************************************************************
 localhost                  : ok=2    changed=0    unreachable=0    failed=0
 ```
-
+- [Demo playbook looping over subelements](looping-over-subelements-example.yml)
 ```sh
 $ ansible-playbook looping-over-subelements-example.yml
 ```
@@ -308,7 +319,7 @@ ok: [localhost] => (item=({u'files': [u'files/first_file'], u'name': u'alice', u
 PLAY RECAP *********************************************************************
 localhost                  : ok=3    changed=0    unreachable=0    failed=0
 ```
-
+- [Demo playbook looping over integer sequences](looping-over-integer-sequences-example.yum)
 ```sh
 $ ansible-playbook looping-over-integer-sequences-example.yum -vv
 ```
@@ -376,7 +387,7 @@ ok: [localhost] => (item=1) => {
 PLAY RECAP *********************************************************************
 localhost                  : ok=3    changed=0    unreachable=0    failed=0
 ```
-
+- [Demo playbook random choices](random-choices-example.yml)
 ```sh
 $ ansible-playbook random-choices-example.yml -vv
 ```
@@ -415,7 +426,7 @@ ok: [localhost] => (item=go through the door) => {
 PLAY RECAP *********************************************************************
 localhost                  : ok=2    changed=0    unreachable=0    failed=0
 ```
-
+- [Demo playbook iterating-over-result](iterating-over-result-example.yml)
 ```sh
 $ ansible-playbook iterating-over-result-example.yml -vv 
 ```
