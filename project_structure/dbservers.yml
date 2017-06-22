@@ -1,5 +1,5 @@
 ---
 # file: dbservers.yml
-- hosts: webservers
+- hosts: dbservers
   roles:
     - dbserver
