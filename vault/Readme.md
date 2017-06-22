@@ -40,7 +40,9 @@ Encryption successful
 
 ### With Prompting Password
 
-**$ ansible-playbook test-secret-variable.yml --ask-vault-pass**
+```sh
+$ ansible-playbook test-secret-variable.yml --ask-vault-pass
+```
 ```sh
 Vault password:
 
@@ -60,7 +62,9 @@ localhost                  : ok=2    changed=0    unreachable=0    failed=0
 
 ### With Password File:
 
-**$ ansible-playbook test-secret-variable.yml --vault-password-file resources/vault-secret-password.txt**
+```sh
+$ ansible-playbook test-secret-variable.yml --vault-password-file resources/vault-secret-password.txt
+```
 ```sh
 PLAY [localhost] **********************************************************
 
@@ -78,7 +82,9 @@ localhost                  : ok=2    changed=0    unreachable=0    failed=0
 
 ### With Encrypted Variables File:
 
-**$ ansible-playbook test-secret-file.yml --vault-password-file resources/vault-secret-password.txt**
+```sh
+$ ansible-playbook test-secret-file.yml --vault-password-file resources/vault-secret-password.txt
+```
 ```sh
 PLAY [localhost] **********************************************************
 
@@ -96,8 +102,10 @@ localhost                  : ok=2    changed=0    unreachable=0    failed=0
 
 ### With `ANSIBLE_VAULT_PASSWORD_FILE` Env Variable:
 
-**$ export ANSIBLE_VAULT_PASSWORD_FILE=resources/vault-secret-password.txt**
-**$ ansible-playbook test-secret-file.yml**
+```sh
+$ export ANSIBLE_VAULT_PASSWORD_FILE=resources/vault-secret-password.txt
+$ ansible-playbook test-secret-file.yml
+```
 ```sh
 PLAY [localhost] *********************************************************************************************************************************************************
 
