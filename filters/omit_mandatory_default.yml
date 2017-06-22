@@ -1,0 +1,35 @@
+- hosts: localhost
+  connection: local
+  vars:
+    myvar: defined 
+  tasks:
+  - name: example of default filter
+    debug: msg="myvar value is {{ myvar | default('default') }}"
+
+- hosts: localhost
+  connection: local
+  tasks:
+  - name: example of default filter
+    debug: msg="myvar value is {{ myvar | default('default') }}"
+
+- hosts: localhost
+  connection: local
+  tasks:
+  - name: touch files with an optional mode
+    file: dest={{item.path}} state=touch mode={{item.mode|default(omit)}}
+    with_items:
+      - path: /tmp/foo
+      - path: /tmp/bar
+      - path: /tmp/baz
+        mode: "0444"
+
+- hosts: localhost
+  connection: local
+  tasks:
+  - name: touch files with a mandatory mode
+    file: dest={{item.path}} state=touch mode={{item.mode|mandatory}}
+    with_items:
+      - path: /tmp/foo
+      - path: /tmp/bar
+      - path: /tmp/baz
+        mode: "0444"
