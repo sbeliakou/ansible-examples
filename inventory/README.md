@@ -6,80 +6,78 @@ Example contents:
 - [demo playbook](inventory_example.yml)
 - [sample inventory](inventory)
 
-In order to be able to run this example you should configure a couple of hosts and add them to the sample inventory.
-
 ```sh
 ansible-playbook inventory_example.yml -i inventory
 ```
 ```sh
-PLAY [atlanta] *************************************************************************************************************************************************
+PLAY [Play runs on hosts in atlanta group] *********************************************************************************************************************
 
 TASK [Gathering Facts] *****************************************************************************************************************************************
-ok: [35.184.194.164]
+ok: [atlanta-host]
 
 TASK [Atlanta group] *******************************************************************************************************************************************
-ok: [35.184.194.164] => {
+ok: [atlanta-host] => {
     "region": "atlanta"
 }
 
-PLAY [raleigh] *************************************************************************************************************************************************
+PLAY [Play runs on hosts in raleigh group] *********************************************************************************************************************
 
 TASK [Gathering Facts] *****************************************************************************************************************************************
-ok: [35.184.156.100]
+ok: [raleigh-host]
 
 TASK [Raleigh group] *******************************************************************************************************************************************
-ok: [35.184.156.100] => {
+ok: [raleigh-host] => {
     "region": "raleigh"
 }
 
-PLAY [southeast] ***********************************************************************************************************************************************
+PLAY [Play runs in southeast group that includes atlanta and raleigh] ******************************************************************************************
 
 TASK [Gathering Facts] *****************************************************************************************************************************************
-ok: [35.184.156.100]
-ok: [35.184.194.164]
+ok: [atlanta-host]
+ok: [raleigh-host]
 
 TASK [Southeast group] *****************************************************************************************************************************************
-ok: [35.184.194.164] => {
+ok: [atlanta-host] => {
     "region": "atlanta"
 }
-ok: [35.184.156.100] => {
+ok: [raleigh-host] => {
     "region": "raleigh"
 }
 
-PLAY [usa] *****************************************************************************************************************************************************
+PLAY [Play runs in usa group that includes southeast] **********************************************************************************************************
 
 TASK [Gathering Facts] *****************************************************************************************************************************************
-ok: [35.184.156.100]
-ok: [35.184.194.164]
+ok: [atlanta-host]
+ok: [raleigh-host]
 
 TASK [USA group] ***********************************************************************************************************************************************
-ok: [35.184.194.164] => {
+ok: [atlanta-host] => {
     "region": "atlanta"
 }
-ok: [35.184.156.100] => {
+ok: [raleigh-host] => {
     "region": "raleigh"
 }
 
 PLAY [dbservers:webservers] ************************************************************************************************************************************
 
 TASK [Gathering Facts] *****************************************************************************************************************************************
-ok: [db1]
 ok: [web1]
-ok: [web2]
 ok: [db2]
+ok: [db1]
+ok: [web2]
 
 TASK [task runs on dbservers or webservers] ********************************************************************************************************************
 ok: [db1] => {
-    "hostvars[inventory_hostname][\"ansible_fqdn\"]": "node-1.c.cp100-167512.internal"
+    "hostvars[inventory_hostname][\"ansible_fqdn\"]": "ubuntu-box"
 }
 ok: [db2] => {
-    "hostvars[inventory_hostname][\"ansible_fqdn\"]": "prom-node-exporter.c.cp100-167512.internal"
+    "hostvars[inventory_hostname][\"ansible_fqdn\"]": "ubuntu-box"
 }
 ok: [web1] => {
-    "hostvars[inventory_hostname][\"ansible_fqdn\"]": "node-1.c.cp100-167512.internal"
+    "hostvars[inventory_hostname][\"ansible_fqdn\"]": "ubuntu-box"
 }
 ok: [web2] => {
-    "hostvars[inventory_hostname][\"ansible_fqdn\"]": "prom-node-exporter.c.cp100-167512.internal"
+    "hostvars[inventory_hostname][\"ansible_fqdn\"]": "ubuntu-box"
 }
 
 PLAY [dbservers:!backup] ***************************************************************************************************************************************
@@ -89,7 +87,7 @@ ok: [db1]
 
 TASK [task runs on hosts that are in dbservers AND NOT in backup] **********************************************************************************************
 ok: [db1] => {
-    "hostvars[inventory_hostname][\"ansible_fqdn\"]": "node-1.c.cp100-167512.internal"
+    "hostvars[inventory_hostname]['ansible_fqdn']": "ubuntu-box"
 }
 
 PLAY [dbservers:webservers:!backup] ****************************************************************************************************************************
@@ -100,10 +98,10 @@ ok: [web1]
 
 TASK [task runs on hosts that are in dbservers,webservers AND NOT in backup] ***********************************************************************************
 ok: [db1] => {
-    "hostvars[inventory_hostname][\"ansible_fqdn\"]": "node-1.c.cp100-167512.internal"
+    "hostvars[inventory_hostname].ansible_fqdn": "ubuntu-box"
 }
 ok: [web1] => {
-    "hostvars[inventory_hostname][\"ansible_fqdn\"]": "node-1.c.cp100-167512.internal"
+    "hostvars[inventory_hostname].ansible_fqdn": "ubuntu-box"
 }
 
 PLAY [webservers:&backup] **************************************************************************************************************************************
@@ -113,29 +111,28 @@ ok: [web2]
 
 TASK [task runs on hosts that are in webservers AND in backup] *************************************************************************************************
 ok: [web2] => {
-    "hostvars[inventory_hostname][\"ansible_fqdn\"]": "prom-node-exporter.c.cp100-167512.internal"
+    "hostvars[inventory_hostname].ansible_fqdn": "ubuntu-box"
 }
 
 PLAY [webservers[0]:backup[-1]] ********************************************************************************************************************************
 
 TASK [Gathering Facts] *****************************************************************************************************************************************
-ok: [web2]
 ok: [web1]
+ok: [web2]
 
-TASK [task runs on the first host from webservers and on last host in backup] **********************************************************************************
+TASK [task runs on the first host in webservers and on the last host in backup] ********************************************************************************
 ok: [web1] => {
-    "hostvars[inventory_hostname][\"ansible_fqdn\"]": "node-1.c.cp100-167512.internal"
+    "hostvars[inventory_hostname].ansible_fqdn": "ubuntu-box"
 }
 ok: [web2] => {
-    "hostvars[inventory_hostname][\"ansible_fqdn\"]": "prom-node-exporter.c.cp100-167512.internal"
+    "hostvars[inventory_hostname].ansible_fqdn": "ubuntu-box"
 }
 
 PLAY RECAP *****************************************************************************************************************************************************
-35.184.156.100             : ok=6    changed=0    unreachable=0    failed=0   
-35.184.194.164             : ok=6    changed=0    unreachable=0    failed=0   
+atlanta-host               : ok=6    changed=0    unreachable=0    failed=0   
 db1                        : ok=6    changed=0    unreachable=0    failed=0   
 db2                        : ok=2    changed=0    unreachable=0    failed=0   
+raleigh-host               : ok=6    changed=0    unreachable=0    failed=0   
 web1                       : ok=6    changed=0    unreachable=0    failed=0   
-web2                       : ok=6    changed=0    unreachable=0    failed=0   
-
+web2                       : ok=6    changed=0    unreachable=0    failed=0 
 ```
