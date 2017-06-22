@@ -1,0 +1,4 @@
+---
+dependencies:
+  - { role: webserver, apache_port: 80, n: 1 }
+  - { role: dbserver, dbname: blarg, n: 2}
