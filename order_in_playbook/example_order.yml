@@ -1,0 +1,28 @@
+- name: Order in playbook
+  hosts: localhost
+
+  pre_tasks:
+    - name: Example of pre_task
+      debug:
+        msg: "Good morning!"
+
+  roles:
+    - { role: some_role }
+
+  tasks:
+    
+    - name: Example of main task
+      shell: echo 'Hello world'
+      notify:
+        - Some trigger
+
+  post_tasks:
+    - name: Example of post-task
+      debug:
+        msg: "Good evening!"
+
+  handlers:
+    - name: Some trigger
+      debug:
+        msg: "Something triggered me to say Hello!"
+
