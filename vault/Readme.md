@@ -1,6 +1,10 @@
 ## Prerequisites
 - Ansible v2.3.1 + 
 
+## References:
+- [Ansible Valut](http://docs.ansible.com/ansible/playbooks_vault.html)
+- [Best Practices with Vault](http://docs.ansible.com/ansible/playbooks_best_practices.html#variables-and-vaults)
+
 ## Encryption
 
 **$ ansible-vault encrypt_string "Hello world"**
@@ -29,8 +33,12 @@ Encryption successful
 - [Encrypted File with Secret Variables](test-secret-file.yml#L5)
 
 ## Testing Secret variables
+- [With Prompting Password]()
+- [With Password File]()
+- [With Encrypted Variables File]()
+- [With ANSIBLE_VAULT_PASSWORD_FILE Env Variable]()
 
-With Prompting Password:
+### With Prompting Password
 
 **$ ansible-playbook test-secret-variable.yml --ask-vault-pass**
 ```sh
@@ -50,7 +58,7 @@ PLAY RECAP ****************************************************************
 localhost                  : ok=2    changed=0    unreachable=0    failed=0
 ```
 
-With Password File:
+### With Password File:
 
 **$ ansible-playbook test-secret-variable.yml --vault-password-file resources/vault-secret-password.txt**
 ```sh
@@ -68,7 +76,7 @@ PLAY RECAP ****************************************************************
 localhost                  : ok=2    changed=0    unreachable=0    failed=0
 ```
 
-With Encrypted Variables File:
+### With Encrypted Variables File:
 
 **$ ansible-playbook test-secret-file.yml --vault-password-file resources/vault-secret-password.txt**
 ```sh
@@ -85,3 +93,23 @@ ok: [localhost] => {
 PLAY RECAP ****************************************************************
 localhost                  : ok=2    changed=0    unreachable=0    failed=0
 ```
+
+### With `ANSIBLE_VAULT_PASSWORD_FILE` Env Variable:
+
+**$ export ANSIBLE_VAULT_PASSWORD_FILE=resources/vault-secret-password.txt**
+**$ ansible-playbook test-secret-file.yml**
+```sh
+PLAY [localhost] *********************************************************************************************************************************************************
+
+TASK [Gathering Facts] ***************************************************************************************************************************************************
+ok: [localhost]
+
+TASK [debug] *************************************************************************************************************************************************************
+ok: [localhost] => {
+    "spoiler": "Hello from Encrypted File"
+}
+
+PLAY RECAP ***************************************************************************************************************************************************************
+localhost                  : ok=2    changed=0    unreachable=0    failed=0
+```
+
