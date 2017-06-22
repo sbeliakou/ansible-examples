@@ -271,3 +271,33 @@ PLAY RECAP *********************************************************************
 localhost                  : ok=2    changed=0    unreachable=0    failed=0
 ```
 
+### Condition 'when search':
+
+- [Demo Playbook when-search](example_conditions_when-search.yml)
+
+```sh
+$ ansible-playbook  example_conditions_when-search.yml
+```
+
+**Output:**
+
+```sh
+PLAYBOOK: example_conditions_when-search.yml ***********************************
+1 plays in example_conditions_when-search.yml
+
+PLAY [localhost] ***************************************************************
+
+TASK [setup] *******************************************************************
+ok: [localhost]
+
+TASK [debug] *******************************************************************
+task path: /private/tmp/example_conditions_when-search.yml:9
+ok: [localhost] => (item=asdfasdfasdfAAAasdfasdfasdf) => {
+    "item": "asdfasdfasdfAAAasdfasdfasdf",
+    "msg": "Variable contains 'AAA' -> 'asdfasdfasdfAAAasdfasdfasdf'"
+}
+skipping: [localhost] => (item=qweqwerqweqweqqweqweqweqweq)  => {"changed": false, "item": "qweqwerqweqweqqweqweqweqweq", "skip_reason": "Conditional check failed", "skipped": true}
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=2    changed=0    unreachable=0    failed=0
+```
