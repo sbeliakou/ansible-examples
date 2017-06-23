@@ -1,9 +1,0 @@
-- name: Using custom ansible facts module
-  hosts: localhost
-
-  tasks:
-  - name: Adding custom ansible facts
-    fact-module: phrase=Hello_World
-
-  - name: Show output
-    debug: var=phrase
