@@ -11,7 +11,7 @@
 - [Demo Ansible Facts module](library/fact-module.py)
 - [Demo playbook with custom modules](custom_modules_examples.yml)
 
-Custom modules can be written in any language and should be placed in the library folder by default. You should test your module before using (See more information about module testing [here](http://docs.ansible.com/ansible/dev_guide/developing_modules_general.html#testing-your-module). 
+Custom modules can be written in any language and should be placed in the library folder by default. Extension is not required. You should test your module before using (See more information about module testing [here](http://docs.ansible.com/ansible/dev_guide/developing_modules_general.html#testing-your-module). 
 ## Testing examples:
 ```sh
 $ git clone git://github.com/ansible/ansible.git
