@@ -8,55 +8,116 @@
 - [Demo Python Boilerplate module](library/boilerplate.py)
 - [Demo Bash module](library/bash-module.sh)
 - [Demo Ansible Facts module](library/fact-module.py)
+- [Demo playbook with cstom modules](custom_modules_examples.yml)
 
-Custom modules can be written in any language and should be placed in the library folder by default.
-
-## Examples:
-
-**Running ansible playbook with custom modules:**
-```sh 
-$ ansible-playbook python_module_example.yml -vv
+Custom modules can be written in any language and should be placed in the library folder by default. You should test your module before using (See more information about module testing [here](http://docs.ansible.com/ansible/dev_guide/developing_modules_general.html#testing-your-module). 
+## Testing examples:
+```sh
+$ git clone git://github.com/ansible/ansible.git
+$ source ansible/hacking/env-setup
+$ ansible/hacking/test-module -m library/bash-module.sh -a "phrase=Hello_world"
 ```
 **Output:**
- ```sh
-PLAY [Using custom python module] **********************************************
+```sh
+* including generated source, if any, saving to: /home/vagrant/.ansible_module_generated
+***********************************
+RAW OUTPUT
+{"failed": false, "changed": false, "phrase": "Hello_world"}
 
-TASK [setup] *******************************************************************
-ok: [localhost]
-
-TASK [Getting current time and date] *******************************************
-task path: /home/vagrant/ansible-examples/modules/python_module_example.yml:5
-ok: [localhost] => {"changed": false, "time": "2017-06-07 12:46:48.724681"}
-
-TASK [Show output] *************************************************************
-task path: /home/vagrant/ansible-examples/modules/python_module_example.yml:9
-ok: [localhost] => {
-    "result": {
-        "changed": false,
-        "time": "2017-06-07 12:46:48.724681"
-    }
+***********************************
+PARSED OUTPUT
+{
+    "changed": false,
+    "failed": false,
+    "phrase": "Hello_world"
 }
-
-PLAY RECAP *********************************************************************
-localhost                  : ok=3    changed=0    unreachable=0    failed=0
 ```
-
 ```sh
-$ ansible-playbook bash_module_example.yml -vv
+$ ansible/hacking/test-module -m library/python-module.py
 ```
 **Output:**
 ```sh
-PLAY [Using custom bash module] ************************************************
+* including generated source, if any, saving to: /home/vagrant/.ansible_module_generated
+***********************************
+RAW OUTPUT
+{"time": "2017-06-23 07:28:37.142400"}
+
+
+***********************************
+PARSED OUTPUT
+{
+    "time": "2017-06-23 07:28:37.142400"
+}
+```
+```sh
+$ ansible/hacking/test-module -m library/boilerplate.py -a "file=directory owner=vagrant mode=0755 recurse=True"
+```
+**Output:**
+```sh
+* including generated source, if any, saving to: /home/vagrant/.ansible_module_generated
+* ansiballz module detected; extracted module source to: /home/vagrant/debug_dir
+***********************************
+RAW OUTPUT
+
+{"owner": "vagrant", "permossions": "0755", "changed": true, "created": "directory", "invocation": {"module_args": {"owner": "vagrant", "recurse": true, "mode": "0755", "file": "directory"}}}
+
+
+***********************************
+PARSED OUTPUT
+{
+    "changed": true,
+    "created": "directory",
+    "invocation": {
+        "module_args": {
+            "file": "directory",
+            "mode": "0755",
+            "owner": "vagrant",
+            "recurse": true
+        }
+    },
+    "owner": "vagrant",
+    "permossions": "0755"
+}
+```
+```sh
+$ ansible/hacking/test-module -m library/fact-module.py -a "myfact=myvalue"
+```
+**Output:**
+```sh
+* including generated source, if any, saving to: /home/vagrant/.ansible_module_generated
+***********************************
+RAW OUTPUT
+{"changed": true, "ansible_facts": {"myfact": "myvalue"}}
+
+
+***********************************
+PARSED OUTPUT
+{
+    "ansible_facts": {
+        "myfact": "myvalue"
+    },
+    "changed": true
+}
+```
+
+## Running ansible playbook with custom modules:
+
+```sh
+$ ansible-playbook custom_modules_examples.yml -vv
+```
+**Output:**
+```sh
+PLAY [Examples Of Using Custom Modules] ****************************************
 
 TASK [setup] *******************************************************************
 ok: [localhost]
 
-TASK [Print some phrase] *******************************************************
-task path: /home/vagrant/ansible-examples/modules/bash_module_example.yml:5
+TASK [Using simple bash module] ************************************************
+task path: /home/vagrant/playbooks/ansible-examples/modules/custom_modules_examples.yml:5
 ok: [localhost] => {"changed": false, "failed": false, "phrase": "Hello_world"}
 
 TASK [Show output] *************************************************************
-task path: /home/vagrant/ansible-examples/modules/bash_module_example.yml:9
+task path: /home/vagrant/playbooks/ansible-examples/modules/custom_modules_examples.yml:9
 ok: [localhost] => {
     "result": {
         "changed": false,
@@ -65,66 +126,49 @@ ok: [localhost] => {
     }
 }
 
-PLAY RECAP *********************************************************************
-localhost                  : ok=3    changed=0    unreachable=0    failed=0
-```
-```sh
-$ ansible-playbook facts_module_example.yml -vv
-```
-**Output:**
-```sh
-PLAY [Using custom ansible facts module] ***************************************
-
-TASK [setup] *******************************************************************
-ok: [localhost]
-
-TASK [Adding custom ansible facts] *********************************************
-task path: /home/vagrant/ansible-examples/modules/facts_module_example.yml:5
-changed: [localhost] => {"ansible_facts": {"phrase": "Hello_World"}, "changed": true}
+TASK [Using simple python module] **********************************************
+task path: /home/vagrant/playbooks/ansible-examples/modules/custom_modules_examples.yml:12
+ok: [localhost] => {"changed": false, "time": "2017-06-23 08:24:16.712942"}
 
 TASK [Show output] *************************************************************
-task path: /home/vagrant/ansible-examples/modules/facts_module_example.yml:8
+task path: /home/vagrant/playbooks/ansible-examples/modules/custom_modules_examples.yml:16
 ok: [localhost] => {
-    "phrase": "Hello_World"
+    "result": {
+        "changed": false,
+        "time": "2017-06-23 08:24:16.712942"
+    }
 }
 
-PLAY RECAP *********************************************************************
-localhost                  : ok=3    changed=1    unreachable=0    failed=0
-```
+TASK [Using module boilerplate] ************************************************
+task path: /home/vagrant/playbooks/ansible-examples/modules/custom_modules_examples.yml:19
+changed: [localhost] => {"changed": true, "created": "directory", "owner": "vagrant", "permossions": "0755"}
 
-```sh
-$ ansible-playbook python_module_boilerplate_example.yml -vv
-```
-**Output:**
-```sh
-PLAY [Using custom module boilerplate] ******************************************
-
-TASK [Gathering Facts] **********************************************************
-ok: [localhost]
-META: ran handlers
-
-TASK [Show some info] ***********************************************************
-task path: /home/vagrant/playbooks/ansible-examples/modules/python_module_boilerplate_example.yml:5
-changed: [localhost] => {"changed": true, "created": "directory", "failed": false, "owner": "vagrant", "permossions": "0755"}
-
-TASK [Show output] **************************************************************
-task path: /home/vagrant/playbooks/ansible-examples/modules/python_module_boilerplate_example.yml:9
+TASK [Show output] *************************************************************
+task path: /home/vagrant/playbooks/ansible-examples/modules/custom_modules_examples.yml:23
 ok: [localhost] => {
-    "failed": false,
     "result": {
         "changed": true,
         "created": "directory",
-        "failed": false,
         "owner": "vagrant",
         "permossions": "0755"
     }
 }
-META: ran handlers
-META: ran handlers
 
-PLAY RECAP ********************************************************************
-localhost                  : ok=3    changed=1    unreachable=0    failed=0
+TASK [Using module for adding custom ansible fact] *****************************
+task path: /home/vagrant/playbooks/ansible-examples/modules/custom_modules_examples.yml:26
+changed: [localhost] => {"ansible_facts": {"myfact": "myvalue"}, "changed": true}
+
+TASK [Show output] *************************************************************
+task path: /home/vagrant/playbooks/ansible-examples/modules/custom_modules_examples.yml:29
+ok: [localhost] => {
+    "myfact": "myvalue"
+}
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=9    changed=2    unreachable=0    failed=0
+
 ```
+
 **If module support check mode, you can execute ansible-playbook with ```--check``` key (See more information about check mode [here](http://docs.ansible.com/ansible/playbooks_checkmode.html) ):**
 ```sh
 $ ansible-playbook python_module_boilerplate_example.yml --check
@@ -153,22 +197,4 @@ ok: [localhost] => {
 PLAY RECAP *******************************************************************
 localhost                  : ok=3    changed=1    unreachable=0    failed=0
 
-```
-
-**Module testing with :**
-```sh
-$ ansible/hacking/test-module -m ./library/python-module.py
-```
-**Output:**
-```sh
-***********************************
-RAW OUTPUT
-{"time": "2017-06-22 10:14:47.017274"}
-
-
-***********************************
-PARSED OUTPUT
-{
-    "time": "2017-06-22 10:14:47.017274"
-}
 ```
