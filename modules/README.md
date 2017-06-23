@@ -8,7 +8,7 @@
 - [Demo Python Boilerplate module](library/boilerplate.py)
 - [Demo Bash module](library/bash-module.sh)
 - [Demo Ansible Facts module](library/fact-module.py)
-- [Demo playbook with cstom modules](custom_modules_examples.yml)
+- [Demo playbook with custom modules](custom_modules_examples.yml)
 
 Custom modules can be written in any language and should be placed in the library folder by default. You should test your module before using (See more information about module testing [here](http://docs.ansible.com/ansible/dev_guide/developing_modules_general.html#testing-your-module). 
 ## Testing examples:
