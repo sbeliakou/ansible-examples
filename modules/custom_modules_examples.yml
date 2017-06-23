@@ -1,0 +1,30 @@
+- name: Examples Of Using Custom Modules
+  hosts: localhost
+
+  tasks:
+  - name: Using simple bash module 
+    bash-module: phrase="Hello_world"
+    register: result
+
+  - name: Show output
+    debug: var=result
+
+  - name: Using simple python module
+    python-module:
+    register: result
+
+  - name: Show output
+    debug: var=result
+
+  - name: Using module boilerplate
+    boilerplate: file=directory owner=vagrant mode=0755 recurse=True
+    register: result
+
+  - name: Show output
+    debug: var=result
+
+  - name: Using module for adding custom ansible fact
+    fact-module: myfact=myvalue
+
+  - name: Show output
+    debug: var=myfact
