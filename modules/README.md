@@ -3,9 +3,13 @@
 ## Resources:
 - [Ansible Docs](http://docs.ansible.com/ansible/dev_guide/developing_modules.html)
 - [Testing modules](http://docs.ansible.com/ansible/dev_guide/developing_modules_general.html#testing-your-module)
+- [Return values common to all modules](http://docs.ansible.com/ansible/common_return_values.html)
 - [Demo Python module](library/python-module.py)
+- [Demo Python Boilerplate module](library/boilerplate.py)
 - [Demo Bash module](library/bash-module.sh)
 - [Demo Ansible Facts module](library/fact-module.py)
+
+Custom modules can be written in any language and should be placed in the library folder by default.
 
 ## Examples:
 
@@ -65,7 +69,7 @@ PLAY RECAP *********************************************************************
 localhost                  : ok=3    changed=0    unreachable=0    failed=0
 ```
 ```sh
-ansible-playbook facts_module_example.yml -vv
+$ ansible-playbook facts_module_example.yml -vv
 ```
 **Output:**
 ```sh
@@ -88,9 +92,72 @@ PLAY RECAP *********************************************************************
 localhost                  : ok=3    changed=1    unreachable=0    failed=0
 ```
 
-**Module testing:**
 ```sh
-ansible/hacking/test-module -m ./library/python-module.py
+$ ansible-playbook python_module_boilerplate_example.yml -vv
+```
+**Output:**
+```sh
+PLAY [Using custom module boilerplate] ******************************************
+
+TASK [Gathering Facts] **********************************************************
+ok: [localhost]
+META: ran handlers
+
+TASK [Show some info] ***********************************************************
+task path: /home/vagrant/playbooks/ansible-examples/modules/python_module_boilerplate_example.yml:5
+changed: [localhost] => {"changed": true, "created": "directory", "failed": false, "owner": "vagrant", "permossions": "0755"}
+
+TASK [Show output] **************************************************************
+task path: /home/vagrant/playbooks/ansible-examples/modules/python_module_boilerplate_example.yml:9
+ok: [localhost] => {
+    "failed": false,
+    "result": {
+        "changed": true,
+        "created": "directory",
+        "failed": false,
+        "owner": "vagrant",
+        "permossions": "0755"
+    }
+}
+META: ran handlers
+META: ran handlers
+
+PLAY RECAP ********************************************************************
+localhost                  : ok=3    changed=1    unreachable=0    failed=0
+```
+**If module support check mode, you can execute ansible-playbook with ```--check``` key (See more information about check mode [here](http://docs.ansible.com/ansible/playbooks_checkmode.html) ):**
+```sh
+$ ansible-playbook python_module_boilerplate_example.yml --check
+```
+```sh
+PLAY [Using custom module boilerplate] **************************************
+
+TASK [Gathering Facts] ******************************************************
+ok: [localhost]
+
+TASK [Show some info] *******************************************************
+changed: [localhost]
+
+TASK [Show output] ***********************************************************
+ok: [localhost] => {
+    "failed": false,
+    "result": {
+        "changed": true,
+        "created": "directory",
+        "failed": false,
+        "owner": "vagrant",
+        "permossions": "0755"
+    }
+}
+
+PLAY RECAP *******************************************************************
+localhost                  : ok=3    changed=1    unreachable=0    failed=0
+
+```
+
+**Module testing with :**
+```sh
+$ ansible/hacking/test-module -m ./library/python-module.py
 ```
 **Output:**
 ```sh
