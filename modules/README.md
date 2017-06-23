@@ -2,6 +2,7 @@
 
 ## Resources:
 - [Ansible Docs](http://docs.ansible.com/ansible/dev_guide/developing_modules.html)
+- [Building a simle modules](http://docs.ansible.com/ansible/dev_guide/developing_modules_general.html)
 - [Testing modules](http://docs.ansible.com/ansible/dev_guide/developing_modules_general.html#testing-your-module)
 - [Return values common to all modules](http://docs.ansible.com/ansible/common_return_values.html)
 - [Demo Python module](library/python-module.py)
