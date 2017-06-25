@@ -1,0 +1,11 @@
+- name: Using custom module boilerplate
+  hosts: localhost
+
+  tasks:
+  - name: Show some info
+    boilerplate: file=directory owner=vagrant mode=0755 recurse=True
+    register: result
+
+  - name: Show output
+    debug: var=result
+
