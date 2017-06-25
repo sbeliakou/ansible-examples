@@ -1,0 +1,35 @@
+- hosts: localhost
+  connection: local
+  tasks:
+    - debug: var=myvar
+
+- hosts: localhost
+  connection: local
+  vars:
+    myvar: myvar defined in playbook
+  tasks:
+    - debug: var=myvar
+
+- hosts: localhost
+  connection: local
+  vars:
+    myvar: myvar defined in vars section
+    myvar2: myvar2 defined in vars section
+  tasks:
+    - name: Variables from Play scope
+      debug: var={{ item }}
+      with_items:
+      - myvar
+      - myvar2
+    - name: Variables from Host scope
+      include_vars: host_vars.yml
+    - debug: var=hostvars[inventory_hostname]["{{ item }}"]
+      with_items:
+      - myvar
+      - myvar2
+      
+- hosts: localhost
+  connection: local
+  tasks:
+    - name: Example of the builtin variable ansible-version
+      debug: var=ansible_version
