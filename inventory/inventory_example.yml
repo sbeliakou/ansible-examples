@@ -1,0 +1,59 @@
+---
+- name: Play runs on hosts in atlanta group
+  hosts: atlanta
+  connection: local
+  tasks:
+    - name: "Atlanta group"
+      debug: var=region
+
+- name: Play runs on hosts in raleigh group
+  hosts: raleigh
+  connection: local
+  tasks:
+    - name: "Raleigh group"
+      debug: var=region
+
+- name: Play runs in southeast group that includes atlanta and raleigh
+  hosts: southeast
+  connection: local
+  tasks:
+    - name: "Southeast group"
+      debug: var=region
+
+- name: Play runs in usa group that includes southeast
+  hosts: usa
+  connection: local
+  tasks:
+    - name: "USA group"
+      debug: var=region
+
+- hosts: dbservers:webservers
+  connection: local
+  tasks:
+    - name: task runs on dbservers or webservers
+      debug: var=hostvars[inventory_hostname]["ansible_fqdn"]
+
+- hosts: dbservers:!backup
+  connection: local
+  tasks:
+    - name: task runs on hosts that are in dbservers AND NOT in backup
+      debug: var=hostvars[inventory_hostname]['ansible_fqdn']
+
+- hosts: dbservers:webservers:!backup
+  connection: local
+  tasks:
+    - name: task runs on hosts that are in dbservers,webservers AND NOT in backup
+      debug: var=hostvars[inventory_hostname].ansible_fqdn
+
+- hosts: webservers:&backup
+  connection: local
+  tasks:
+    - name: task runs on hosts that are in webservers AND in backup
+      debug: var=hostvars[inventory_hostname].ansible_fqdn
+
+- hosts: webservers[0]:backup[-1]
+  connection: local
+  tasks:
+    - name: task runs on the first host in webservers and on the last host in backup
+      debug: var=hostvars[inventory_hostname].ansible_fqdn
+

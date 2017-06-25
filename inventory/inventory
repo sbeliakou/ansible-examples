@@ -1,0 +1,36 @@
+[atlanta]
+atlanta-host ansible_host=127.0.0.1
+
+[raleigh]
+raleigh-host ansible_host=127.0.0.1
+
+[dbservers]
+db1 ansible_host=127.0.0.1
+db2 ansible_host=127.0.0.1
+
+[webservers]
+web1 ansible_host=127.0.0.1
+web2 ansible_host=127.0.0.1
+
+[backup]
+db2 ansible_host=127.0.0.1
+web2 ansible_host=127.0.0.1
+
+[atlanta:vars]
+region=atlanta
+
+[raleigh:vars]
+region=raleigh
+
+[southeast:children]
+atlanta
+raleigh
+
+[southeast:vars]
+region=southeast
+
+[usa:children]
+southeast
+
+[usa:vars]
+region=usa
