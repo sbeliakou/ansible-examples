@@ -6,7 +6,7 @@
 - [Setup module](http://docs.ansible.com/ansible/setup_module.html)
 
 ## Resources:
-- [Demo Playbook](example_local-facts.yml)
+- [Demo Playbook](example_local-facts.yml) - *Playbook puts the facts to the `/etc/ansible/facts.d` directory and after that gets the facts*
 
 ## Overview:
 
@@ -95,19 +95,28 @@ Local facts. **INI** format:
 foo=1
 bar=2
 ```
-
+Put `ini_example.fact` to the `/etc/ansible/facts.d` directory.
 
 ```sh
-$ ansible-playbook example_local-facts.yml -c local
+$ ansible localhost -m setup -a 'filter=ansible_local'
 ```
 
 
 **Output:**
 
 ```sh
-TASK [Display variable from INI file] **************************************************************************
-ok: [localhost] => {
-    "msg": "foo = 1"
+localhost | SUCCESS => {
+    "ansible_facts": {
+        "ansible_local": {
+            "ini_example": {
+                "general": {
+                    "bar": "2",
+                    "foo": "1"
+                }
+            }
+        }
+    },
+    "changed": false
 }
 ```
 
@@ -133,24 +142,41 @@ Local facts. **JSON** format:
         }
     }
 }
-
 ```
+Put `json_example.fact` to the `/etc/ansible/facts.d` directory.
 
 
 ```sh
-$ ansible-playbook example_local-facts.yml -c local
+$ ansible localhost -m setup -a 'filter=ansible_local'
 ```
 
 
 **Output:**
 
 ```sh
-
-TASK [Display variable from JSON file] *************************************************************************
-ok: [localhost] => {
-    "msg": "Apache version = 2.4"
+localhost | SUCCESS => {
+    "ansible_facts": {
+        "ansible_local": {
+            "json_example": {
+                "software": {
+                    "apache": {
+                        "install_src": "backport_deb",
+                        "version": "2.4"
+                    },
+                    "mysql-server": {
+                        "install_src": "manual_compile",
+                        "version": "5.5"
+                    },
+                    "redis": {
+                        "install_src": "manual_compile",
+                        "version": "3.0.7"
+                    }
+                }
+            }
+        }
+    },
+    "changed": false
 }
-
 ```
 
 --------------------------------------------------------------------------------
@@ -168,21 +194,25 @@ cat <<EOF
 }
 EOF
 ```
-
+Put `exec_java.fact` to the `/etc/ansible/facts.d` directory. Make sure that script is executable.
 
 ```sh
-$ ansible-playbook example_local-facts.yml -c local
+$ ansible localhost -m setup -a 'filter=ansible_local'
 ```
 
 
 **Output:**
 
 ```sh
-
-TASK [Display variable from executable script] *****************************************************************
-ok: [localhost] => {
-    "msg": "java = 1.8.0_131"
+localhost | SUCCESS => {
+    "ansible_facts": {
+        "ansible_local": {
+            "exec_java": {
+                "java_version": "1.8.0_131"
+            }
+        }
+    },
+    "changed": false
 }
-
 ```
 
