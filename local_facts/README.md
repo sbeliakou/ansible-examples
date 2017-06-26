@@ -8,7 +8,6 @@
 ## Resources:
 - [Demo Playbook](example_local-facts.yml)
 
-<<<<<<< HEAD
 ## Overview:
 
 Setup module is automatically called by playbooks to gather useful variables
@@ -17,9 +16,6 @@ about remote hosts that can be used in playbooks.
 If a remotely managed system has an `/etc/ansible/facts.d` directory, any files in this directory ending in `.fact`, can be JSON, INI, or executable files returning JSON, and these can supply local facts in Ansible. An alternate directory can be specified using the `fact_path` play directive.
 
 ## Examples:
-=======
-## Example:
->>>>>>> 447887ca997849b8b8486655a155f6895fd92d48
 
 Module setup. Display all facts from localhost.
 
@@ -55,18 +51,13 @@ localhost | SUCCESS => {
 Module setup. Display only facts regarding memory found by ansible on localhost and output them.
 
 ```sh
-<<<<<<< HEAD
 $ ansible localhost -m setup -a 'filter=ansible_*_mb'
-=======
-$ ansible-playbook example_local-facts.yml -c local
->>>>>>> 447887ca997849b8b8486655a155f6895fd92d48
 ```
 
 **Output:**
 
 ```sh
 
-<<<<<<< HEAD
 localhost | SUCCESS => {
     "ansible_facts": {
         "ansible_memfree_mb": 1515,
@@ -96,9 +87,6 @@ localhost | SUCCESS => {
 
 ```
 --------------------------------------------------------------------------------
-=======
-PLAY [Setting local facts] *************************************************
->>>>>>> 447887ca997849b8b8486655a155f6895fd92d48
 
 Local facts. **INI** format:
 
