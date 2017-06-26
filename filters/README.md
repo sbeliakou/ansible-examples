@@ -1,8 +1,9 @@
 # Filters
 
-[http://docs.ansible.com/ansible/playbooks_filters.html]
+- [Filters](http://docs.ansible.com/ansible/playbooks_filters.html)
+- [Tests](https://docs.ansible.com/ansible/playbooks_tests.html)
 
-Filter examples:
+## Filter examples:
 - formatting data filter ([formatting.yml](formatting.yml))
 - list filter ([list.yml](list.yml))
 - theory filter ([theory.yml](theory.yml))
