@@ -1,0 +1,10 @@
+#!/bin/bash
+
+JAVA_VERSION=`java -version 2>&1 | awk -F '"' '/version/ {print $2}'`
+
+cat <<EOF
+{
+    "java_version" : "$JAVA_VERSION"
+}
+EOF
+
