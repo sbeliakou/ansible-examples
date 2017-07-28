@@ -1,0 +1,33 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+from ansible.module_utils.basic import AnsibleModule
+import socket
+
+def main():
+    
+    module = AnsibleModule(
+        argument_spec = dict(
+            test_argument      = dict(required=True, type='str'),
+	    task_var	       = dict(default={}, type='dict')
+        )
+    )
+
+    args = module.params
+    
+    hostname = socket.gethostname()
+    
+    msg = []
+    msg.append("Hello! I am a module!")
+    msg.append("I am executed on %s." % hostname)
+    msg.append("I require one argument - test_argument = %s" % args['test_argument'])
+    if args['task_var']:
+	msg.append("Since I am called by action plugin I now have access to a variety of variables.")
+	msg.append("Like ansible_version = %s." % args['task_var']['ansible_version'])
+	msg.append("Or the secret text = '%s' from a file on ansible host." % args['task_var']['secret'])
+    else:
+	msg.append("Since I am executed on remote host I don't have access to playbook and environment variables")
+
+    module.exit_json(_ansible_verbose_always=True, module_msg=msg)
+
+if __name__ == '__main__':
+    main()
