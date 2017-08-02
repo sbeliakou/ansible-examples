@@ -1,0 +1,12 @@
+---
+- hosts: localhost
+  connection: local
+  tasks:
+    - name: First filter usage example
+      debug:
+        msg: "{{ 'test' | one_filter() }}"
+    - name: Second filter usage example
+      debug:
+        msg: "{{ 'one' | another_filter('two','three') }}"
+
+
