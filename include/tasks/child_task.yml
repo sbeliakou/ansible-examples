@@ -1,0 +1,4 @@
+- name: child task
+  debug:
+    msg: "It is a child task"
+

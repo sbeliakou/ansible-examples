@@ -1,0 +1,11 @@
+- name: Example of including a play and a task
+  hosts: localhost
+
+  tasks:
+  - name: main task
+    debug:
+      msg: "It is a main task"
+          
+  - include: tasks/child_task.yml
+
+- include: child_play.yml
