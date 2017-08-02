@@ -1,0 +1,12 @@
+- hosts: localhost
+  connection: local
+  tasks:
+    - name: "Shell step 'cat playbook.yml'. Output is registered to result variable"
+      shell: cat playbook.yml
+      register: result
+    - name: "Registering custom fact from the formatted result variable"
+      set_fact: from_yaml="{{ result.stdout | from_yaml }}"
+    - name: "Output of result.stdout"
+      debug: var=result.stdout
+    - name: "Output of the custom fact"
+      debug: var=from_yaml
