@@ -1,0 +1,11 @@
+- hosts: localhost
+  connection: local
+  vars:
+    myvar: 4
+  tasks:
+    - name: "The power of 4"
+      debug:
+        msg: "{{ myvar | pow(2) }}"
+    - name: "The square root of 4"
+      debug:
+        msg: "{{ myvar | root }}"

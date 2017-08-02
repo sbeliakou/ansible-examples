@@ -1,0 +1,10 @@
+- hosts: localhost
+  connection: local
+  tasks:
+    - shell: cat filters/formatting.yml
+      register: result
+    - set_fact: from_yaml="{{ result.stdout | from_yaml }}"
+    - name: "Shell output of the current playbook"
+      debug: var=result.stdout
+    - name: "YAML-formatted output of the current playbook"
+      debug: var=from_yaml

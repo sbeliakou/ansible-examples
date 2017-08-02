@@ -1,0 +1,15 @@
+- hosts: localhost
+  connection: local
+  tasks:
+    - name: "Sha1 hash of a string 'test1'"
+      debug:
+        msg: "{{ 'test1'|hash('sha1') }}"
+    - name: "Md5 hash of a string 'test1'"
+      debug:
+        msg: "{{ 'test1'|hash('md5') }}"
+    - name: "Checksum of a string 'test2'"
+      debug:
+        msg: "{{ 'test2'|checksum }}"
+    - name: "Sha512 password hash (random salt)"
+      debug:
+        msg: "{{ 'passwordsaresecret'|password_hash('sha512') }}"

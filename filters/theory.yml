@@ -1,0 +1,21 @@
+- hosts: localhost
+  connection: local
+  vars:
+    list1: [1,2,1,3,1]
+    list2: [4,5,4,6,1]
+  tasks:
+    - name: "A unique set from a list [1,2,1,3,1]"
+      debug:
+        msg: "{{ list1 | unique }}"
+    - name: "A union of list [1,2,1,3,1] and list [4,5,4,6,1]"
+      debug:
+        msg: "{{ list1 | union(list2) }}"
+    - name: "An intersection of list [1,2,1,3,1] and list [4,5,4,6,1]"
+      debug:
+        msg: "{{ list1 | intersect(list2) }}"
+    - name: "A difference between list [1,2,1,3,1] and list [4,5,4,6,1]"
+      debug:
+        msg: "{{ list1 | difference(list2) }}"
+    - name: "A symmetric difference between list [1,2,1,3,1] and list [4,5,4,6,1]"
+      debug:
+        msg: "{{ list1 | symmetric_difference(list2) }}"

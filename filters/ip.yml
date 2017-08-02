@@ -1,0 +1,18 @@
+- hosts: localhost
+  connection: local
+  vars:
+    ip1: '192.168.0.1'
+    ip2: '192.168.257.1'
+  tasks:
+    - name: "Test if a string '192.168.0.1' is a valid IP address"
+      debug:
+        msg: "{{ ip1 | ipaddr }}"
+    - name: "Test if a string '192.168.257.1' is a valid IP address"
+      debug:
+        msg: "{{ ip2 | ipaddr }}"
+    - name: "Test if a string '192.168.0.1' is a valid IPv6 address"
+      debug:
+        msg: "{{ ip1 | ipv6 }}"
+    - name: "Get the IP address itself from a CIDR '192.0.2.1/24'"
+      debug:
+        msg: "{{ '192.0.2.1/24' | ipaddr('address') }}"
