@@ -1,0 +1,13 @@
+- hosts: localhost
+  connection: local
+  vars:
+    apache_vhosts:
+      - {servername: "www.domain.com", documentroot: "/www/domain_com"}
+      - {servername: "www.domain.by", documentroot: "/www/domain_by", serveradmin: "webmaster@domain.by"}
+  tasks:
+    - name: "Generating virtual hosts config"
+      template:
+        src: templates/virtual-host.conf.j2
+        dest: templates/virtual-host.conf
+        mode: '0644'
+        backup: yes
