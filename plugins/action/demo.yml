@@ -1,0 +1,19 @@
+- name: ANSIBLE PLUGINS DEMO
+  hosts: all
+
+  vars:
+    test_variable: "test_text"
+
+  tasks:
+
+    - name: test module
+      echo_module:
+        test_argument: "some_text"
+
+    - name: test simple action type 1
+      action: echo_action_no_module
+
+    - name: test simple action type 2
+      echo_action_with_module:
+        secret: "./secretfile"
+        test_variable: "my_variable_value"
