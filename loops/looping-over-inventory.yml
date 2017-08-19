@@ -4,6 +4,18 @@
   # show all the hosts in the inventory
   - debug:
       msg: "{{ item }}"
+    with_items:
+      - "{{ groups['all'] }}"
+
+  # show all the hosts in the current play
+  - debug:
+      msg: "{{ item }}"
+    with_items:
+      - "{{ play_hosts }}"
+  
+  # show all the hosts in the inventory
+  - debug:
+      msg: "{{ item }}"
     with_inventory_hostnames:
       - all
 
