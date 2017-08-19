@@ -1,0 +1,14 @@
+- hosts: localhost
+
+  tasks:
+  # show all the hosts in the inventory
+  - debug:
+      msg: "{{ item }}"
+    with_inventory_hostnames:
+      - all
+
+  # show all the hosts matching the pattern, ie all but the group www
+  - debug:
+      msg: "{{ item }}"
+    with_inventory_hostnames:
+      - all:!www
