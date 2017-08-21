@@ -25,6 +25,6 @@ class CallbackModule(CallbackBase):
         msg['From'] = 'test@gmail.com'
         msg['To'] = '%s' % self.play.vars['email']
         if self.play.vars['email']:
-            s = smtplib.SMTP('localhost')
-            s.sendmail(msg['From'], [msg['To']], msg.as_string())
-            s.quit()
+            send = smtplib.SMTP('localhost')
+            send.sendmail(msg['From'], [msg['To']], msg.as_string())
+            send.quit()
