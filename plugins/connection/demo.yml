@@ -1,0 +1,18 @@
+- name: ANSIBLE CONNECTION PLUGIN DEMO
+  hosts: all
+
+  tasks:
+
+    - name: story
+      debug:
+        msg: "Connection plugin defines how ansible communicates with the target host."
+    
+    - name: some more story
+      debug:
+        msg: "The necessary methods are: connect, close, exec_command, put_file, fetch_file" 
+
+    - name: Testing fetch functionality (is the only one not used during pre-run tasks)
+      fetch:
+        src: /etc/fstab
+        dest: /tmp/
+        flat: yes

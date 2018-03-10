@@ -1,0 +1,26 @@
+- name: ANSIBLE PLUGINS DEMO
+  hosts: all
+
+  vars_prompt:
+
+    - name: email
+
+  tasks:
+
+    - name: 
+      debug:
+        msg: "In this playbook we use 3 callback plugins configured in ansible.cfg."
+
+    - name:
+      debug:
+        msg: "First plugin is cb_stdout. It is configured to be the stdout plugin. All output you see is processed by it. Only one stdout plugin can be active at a time."
+      when: false
+
+    - name:
+      fail:
+        msg: "Second plugin is cb_log. It writes output to logfile log.txt with some additional information like time it took to run playbook and parameters of yeah step in playbook, which could be useful for debugging."
+      ignore_errors: true
+
+    - name:
+      fail:
+        msg: "Third plugin will send you an email notification upon playbook completion with its status if you have entered a valid email when prompted. It has access to play variables through playbook_on_play_start method."
