@@ -1,5 +1,5 @@
 ---
-- name: Deploy Fill Stack
+- name: Deploy Full Stack
   hosts: farm
 
   roles:

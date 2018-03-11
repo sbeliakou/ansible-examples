@@ -1,5 +1,5 @@
 ---
-- name: Deploy Tomcat
+- name: Deploy Java
   hosts: app
 
   roles:
