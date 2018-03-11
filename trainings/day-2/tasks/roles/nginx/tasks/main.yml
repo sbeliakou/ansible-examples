@@ -1,0 +1,46 @@
+---
+- name: Add Nginx Repository
+  yum_repository:
+    name: Nginx
+    description: Nginx Centos Repo
+    baseurl: http://nginx.org/packages/centos/$releasever/$basearch/
+    gpgcheck: no
+    enabled: yes
+  become: yes
+
+- name: Ensure Nginx Installed
+  yum: name=nginx
+  notify:
+    - save nginx details
+  become: yes
+
+- name: Get Nginx Version
+  shell: /usr/sbin/nginx -v 2>&1 | awk -F'/' '{print $2}'
+  register: nginx_version
+
+- name: Get Nginx TLS Settings
+  shell: /usr/sbin/nginx -V 2>&1 | grep TLS
+  register: nginx_tls
+
+- name: Get Nginx Configured Settings
+  shell: /usr/sbin/nginx -V 2>&1 | grep 'configure arguments' | sed 's/ --/\n--/g' | sed '1d'
+  register: nginx_configure_arguments
+
+- name: Ensure Nginx Service Running and Enabled
+  service: name=nginx state=started enabled=yes
+  become: yes
+
+- name: Check if Nginx Process Running
+  shell: ps -ef | grep -v grep | grep "nginx. master process"
+  args:
+    warn: false
+
+- name: Check if Nginx Responds 200
+  shell: curl -sL -w "%{http_code}" localhost -o /dev/null | grep 200
+  args:
+    warn: false
+
+- name: Check if it's really Nginx
+  shell: curl -sIL localhost | grep "^Server. nginx"
+  args:
+    warn: false

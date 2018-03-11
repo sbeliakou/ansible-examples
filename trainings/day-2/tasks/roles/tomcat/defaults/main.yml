@@ -1,0 +1,7 @@
+---
+tomcat_release: "7.0.85"
+tomcat_user: tomcat
+tomcat_group: tomcat
+tomcat_user_id: 950
+tomcat_group_id: 950
+tomcat_home: /opt/apache/tomcat

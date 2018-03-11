@@ -1,0 +1,21 @@
+---
+- name: Ensure OpenJDK Installed
+  yum: name=java-{{ jdk_release }}-openjdk
+  become: yes
+  notify:
+    - save java details
+
+- name: Java Version
+  shell: java -version 2>&1 | grep version | awk '{print $3}' | sed 's/[^0-9._]//g'
+  register: java_version
+
+- name: Java Build
+  shell: java -version 2>&1 | grep "Server VM .build"
+  register: java_build
+
+- name: Ensure Facts Directory Exists
+  file:
+    path: /etc/ansible/facts.d
+    recurse: yes
+    state: directory
+  become: yes

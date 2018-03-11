@@ -1,0 +1,7 @@
+---
+- name: Deploy Fill Stack
+  hosts: farm
+
+  roles:
+  - { role: nginx }
+  - { role: tomcat, tomcat_release: 8.5.29 }

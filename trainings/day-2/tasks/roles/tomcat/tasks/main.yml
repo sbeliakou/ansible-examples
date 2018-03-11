@@ -1,0 +1,72 @@
+---
+- name: Add Tomcat Group
+  group:
+    name: "{{ tomcat_group }}"
+    gid: "{{ tomcat_group_id }}"
+    state: present
+  become: yes
+
+- name: Add Tomcat User
+  user:
+    name: "{{ tomcat_user }}"
+    comment: "Tomcat Web Application Server"
+    uid: "{{ tomcat_user_id }}"
+    group: "{{ tomcat_group }}"
+  become: yes
+  
+- name: Create Tomcat Home Folder
+  file:
+    path: "{{ tomcat_home }}"
+    owner: "{{ tomcat_user }}"
+    group: "{{ tomcat_group }}"
+    state: directory
+    mode: 0755
+  become: yes
+
+- name: Unarchive Tomcat from remote source
+  unarchive:
+    src: "{{ tomcat_url }}"
+    dest: "{{ tomcat_home }}"
+    owner: "{{ tomcat_user }}"
+    group: "{{ tomcat_group }}"
+    remote_src: yes
+  notify:
+    - save tomcat details
+  become: yes
+
+# Because of Archive structure, all files are extracted into {{tomcat_home}}/apache-tomcat-x.x.xx
+- name: Create a Link
+  file: 
+    src: "{{ tomcat_home }}/apache-tomcat-{{ tomcat_release }}"
+    path: "{{ tomcat_home }}/current"
+    state: link
+  notify:
+    - save tomcat details
+  become: yes
+
+- name: Deploy Systemd File
+  template:
+    src: tomcat.service.j2
+    dest: /usr/lib/systemd/system/tomcat.service
+  notify:
+    - systemd daemon reload
+  become: yes
+
+- name: Ensure Tomcat Service Running and Enabled
+  service: name=tomcat state=started enabled=yes
+  become: yes
+
+- name: Check if Tomcat Process Running
+  shell: ps -eo cmd | grep -v grep | grep "tomcat"
+  args:
+    warn: false
+
+- name: Check if Tomcat Responds 200
+  shell: curl -sL -w "%{http_code}" localhost:8080 -o /dev/null | grep 200
+  args:
+    warn: false
+
+- name: Check if It's really Tomcat
+  shell: curl -s localhost:8080 | grep 'Apache Tomcat/7' >/dev/null
+  args:
+    warn: false

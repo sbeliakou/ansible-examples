@@ -1,0 +1,19 @@
+---
+- name: save nginx details
+  copy: 
+    content: >
+      {
+        "version": "{{ nginx_version.stdout }}",
+        "repository": {
+          "file": "/etc/yum.repos.d/Nginx.repo",
+          "name": "Nginx/{{ ansible_distribution_major_version }}/{{ ansible_userspace_architecture }}",
+          "description": "Nginx Centos Repo"
+        },
+        "configuration": {
+          "TLS": "{{ nginx_tls.stdout }}",
+          "configure_arguments": {{ nginx_configure_arguments.stdout_lines }}
+        },
+        "installed": "{{ ansible_date_time.iso8601 }}"
+      }
+    dest: /etc/ansible/facts.d/nginx.fact
+  become: yes

@@ -1,0 +1,3 @@
+---
+tomcat_url: "http://www-eu.apache.org/dist/tomcat/tomcat-{{ tomcat_release.split('.')[0] }}/v{{ tomcat_release }}/bin/apache-tomcat-{{ tomcat_release }}.tar.gz"
+tomcat_java_version: "1.{{ tomcat_release.split('.')[0] }}.0"

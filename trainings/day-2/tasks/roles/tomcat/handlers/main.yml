@@ -1,0 +1,26 @@
+---
+- name: systemd daemon reload
+  systemd: daemon_reload=yes
+  become: yes
+
+- name: save tomcat details
+  copy: 
+    content: >
+      {
+        "release": "{{ tomcat_release }}",
+        "user": {
+          "name": "{{ tomcat_user }}",
+          "id": "{{ tomcat_user_id }}"
+        },
+        "group": {
+          "name": "{{ tomcat_group }}",
+          "id": "{{ tomcat_group_id }}"
+        },
+        "tomcat_home": "{{ tomcat_home }}",
+        "catalina_home": "{{ tomcat_home }}/apache-tomcat-{{ tomcat_release }}",
+        "catalina_home_link": "{{ tomcat_home }}/current",
+        "tomcat_download_url": "{{ tomcat_url }}",
+        "installed": "{{ ansible_date_time.iso8601 }}"
+      }
+    dest: /etc/ansible/facts.d/tomcat.fact
+  become: yes
