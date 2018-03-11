@@ -1,0 +1,51 @@
+---
+- name: Deploy Tomcat
+  hosts: app
+  become: yes
+  
+  # Define Play Variables
+  vars:
+    jdk_release: "1.7.0"
+
+  tasks:
+  - name: Ensure OpenJDK Installed
+    yum: name=java-{{ jdk_release }}-openjdk
+
+  - name: Check Java Version
+    command: java -version | grep "{{ jdk_release }}"
+
+  - name: Ensure Tomcat Installed
+    yum: name=tomcat
+
+  - name: Ensure Tomcat Installed
+    yum: name=tomcat
+
+  - name: Ensure Tomcat Webapps Package Installed
+    yum: name=tomcat-webapps
+  
+  - name: Ensure Tomcat Service Running and Enabled
+    service: name=tomcat state=started enabled=yes
+
+- name: Tomcat Sanity Checks
+  hosts: app
+
+  tasks:
+  # We can't get variables from other Plays
+  # It means, here, ansible doesn't know what is jdk_release
+  # - name: Check that Java is Correct
+  #   shell: java -version | grep {{ jdk_release }}
+
+  - name: Check if Tomcat Process Running
+    shell: ps -eo cmd | grep -v grep | grep "tomcat"
+    args:
+      warn: false
+
+  - name: Check if Tomcat Responds 200
+    shell: curl -sL -w "%{http_code}" localhost:8080 -o /dev/null | grep 200
+    args:
+      warn: false
+
+  - name: Check if It's really Tomcat
+    shell: curl -s localhost:8080 | grep 'Apache Tomcat/7' >/dev/null
+    args:
+      warn: false

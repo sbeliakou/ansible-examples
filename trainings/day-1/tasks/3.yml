@@ -1,0 +1,88 @@
+---
+- name: Deploy Tomcat
+  hosts: app
+  become: yes
+  
+  vars:
+    jdk_release: "1.7.0"
+    tomcat_release: "7.0.85"
+    tomcat_url: "http://www-eu.apache.org/dist/tomcat/tomcat-7/v{{ tomcat_release }}/bin/apache-tomcat-{{ tomcat_release }}.tar.gz"
+    tomcat_user: tomcat
+    tomcat_group: tomcat
+    tomcat_user_id: 950
+    tomcat_group_id: 950
+    tomcat_home: /opt/apache/tomcat
+
+  tasks:
+  - name: Ensure OpenJDK Installed
+    yum: name=java-{{ jdk_release }}-openjdk
+
+  - name: Check Java Version
+    command: java -version | grep "{{ jdk_release }}"
+
+  - name: Add Tomcat Group
+    group:
+      name: "{{ tomcat_group }}"
+      gid: "{{ tomcat_group_id }}"
+      state: present
+
+  - name: Add Tomcat User
+    user:
+      name: "{{ tomcat_user }}"
+      comment: "Tomcat Web Application Server"
+      uid: "{{ tomcat_user_id }}"
+      group: "{{ tomcat_group }}"
+    
+  - name: Create Tomcat Home Folder
+    file:
+      path: "{{ tomcat_home }}"
+      state: directory
+      mode: 0755
+
+  # http://docs.ansible.com/ansible/latest/unarchive_module.html
+  - name: Unarchive Tomcat from remote source
+    unarchive:
+      src: "{{ tomcat_url }}"
+      dest: "{{ tomcat_home }}"
+      owner: "{{ tomcat_user }}"
+      group: "{{ tomcat_group }}"
+      remote_src: yes
+
+  # Because of Archive structure, all files are extracted into {{tomcat_home}}/apache-tomcat-7.0.85
+  - name: Create a Link
+    file: 
+      src: "{{ tomcat_home }}/apache-tomcat-{{ tomcat_release }}"
+      path: "{{ tomcat_home }}/current"
+      state: link
+
+  # - name: Copy Systemd File
+  #   copy: 
+  #     src: tomcat.service
+  #     dest: /usr/lib/systemd/system/tomcat.service
+
+  - name: Deploy Systemd File
+    template:
+      src: tomcat.service.j2
+      dest: /usr/lib/systemd/system/tomcat.service
+
+  - name: Ensure Tomcat Service Running and Enabled
+    service: name=tomcat state=started enabled=yes
+
+- name: Tomcat Sanity Checks
+  hosts: app
+
+  tasks:
+  - name: Check if Tomcat Process Running
+    shell: ps -eo cmd | grep -v grep | grep "tomcat"
+    args:
+      warn: false
+
+  - name: Check if Tomcat Responds 200
+    shell: curl -sL -w "%{http_code}" localhost:8080 -o /dev/null | grep 200
+    args:
+      warn: false
+
+  - name: Check if It's really Tomcat
+    shell: curl -s localhost:8080 | grep 'Apache Tomcat/7' >/dev/null
+    args:
+      warn: false

@@ -1,0 +1,19 @@
+# Systemd unit file for default tomcat
+#
+# To create clones of this service:
+# DO NOTHING, use tomcat@.service instead.
+
+[Unit]
+Description=Apache Tomcat Web Application Container
+After=syslog.target network.target
+
+[Service]
+Type=forking
+ExecStart=/opt/apache/tomcat/current/bin/startup.sh
+ExecStop=/bin/kill -15 $MAINPID
+SuccessExitStatus=143
+User=tomcat
+Group=tomcat
+
+[Install]
+WantedBy=multi-user.target

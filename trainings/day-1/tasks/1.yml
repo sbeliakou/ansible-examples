@@ -1,0 +1,50 @@
+---
+- name: Deploy Nginx
+  hosts: web
+  
+  # Define Play Variables
+  vars:
+    # This one is used as reference to Nginx repo link
+    # Following variables are used during interpolation (taken from "Gathering Facts" step):
+    # - ansible_distribution_major_version (eg. 7)
+    # - ansible_distribution (eg. CentOS)
+    nginx_repo: http://nginx.org/packages/centos/{{ ansible_distribution_major_version }}/noarch/RPMS/nginx-release-{{ ansible_distribution | lower }}-{{ ansible_distribution_major_version }}-0.el{{ ansible_distribution_major_version }}.ngx.noarch.rpm
+
+  tasks:
+  - name: Ensure Nginx Release Repo Installed
+    yum: name={{ nginx_repo }}
+    become: yes
+
+  - name: Ensure Nginx Latest Release Installes
+    yum: name=nginx state=latest
+    become: yes
+
+  - name: Ensure Nginx Service Running and Enabled
+    service: name=nginx state=started enabled=yes
+    become: yes
+
+  # Update Default Home Page
+  - name: Deploy Customized Home Page
+    copy:
+      src: nginx_home.html
+      dest: /usr/share/nginx/html/index.html
+    become: yes
+
+- name: Nginx Sanity Checks
+  hosts: web
+
+  tasks:
+  - name: Check if Nginx Process Running
+    shell: ps -ef | grep -v grep | grep "nginx. master process"
+    args:
+      warn: false
+
+  - name: Check if Nginx Responds 200
+    shell: curl -sL -w "%{http_code}" localhost -o /dev/null | grep 200
+    args:
+      warn: false
+
+  - name: Check if it's really Nginx
+    shell: curl -sIL localhost | grep "^Server. nginx"
+    args:
+      warn: false
