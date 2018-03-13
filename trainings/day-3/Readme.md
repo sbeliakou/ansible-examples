@@ -1,3 +1,8 @@
+## Environement Configuration
+- [Vargantfile](Vagrantfile)
+- [Ansible Inventory File](inventory)
+- [Ansible Configuration File](ansible.cfg)
+
 ## Change Log
 
 - Introducing vars_files directive
