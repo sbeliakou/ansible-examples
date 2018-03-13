@@ -50,13 +50,13 @@ $ ansible-playbook playbook -i inventory03
 
 ## 3. Sample Playbooks
 
-1. [Deploying Nginx](tasks/11.yml) + Sanity Tests
-2. [Deploying Tomcat (yum repo)](tasks/12.yml) + Sanity Tests
-3. [Deploying Tomcat (from sources)](tasks/13.yml) + Sanity Tests
+1. Deploying [Nginx](tasks/11.yml) + Sanity Tests
+2. Deploying [Tomcat (yum repo)](tasks/12.yml) + Sanity Tests
+3. Deploying [Tomcat (from sources)](tasks/13.yml) + Sanity Tests
 
 ## 4. Ansible [Configuration File](ansible.cfg)
 Certain settings in Ansible are adjustable via a configuration file.
-[Here](ansible.cfg)'s a basic (widely used) settings
+[Here](ansible.cfg)'s a basic (widely used) settings. Complete list of possible settings can be found [here](https://raw.githubusercontent.com/ansible/ansible/devel/examples/ansible.cfg)
 
 1. [Disabling SSH key host checking](ansible.cfg#L4)
 2. [Displaying module arguments into stdout](ansible.cfg#L15)
