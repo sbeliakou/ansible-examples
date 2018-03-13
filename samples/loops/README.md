@@ -15,6 +15,7 @@
 - [Demo playbook random choices](random-choices-example.yml)
 - [Demo playbook iterating over result](iterating-over-result-example.yml)
 - [Demo playbook of using register with a loop](looping-with-register.yml)
+- [Demo playbook of do-until loop](loop-do-until.yml)
 ## Examples:
 
 **Running ansible playbook with different loops:**
@@ -681,4 +682,32 @@ ok: [localhost] => {
 
 PLAY RECAP ********************************************************************
 localhost                  : ok=3    changed=0    unreachable=0    failed=0
+```
+
+- [Demo playbook of do-until loop](loop-do-until.yml)
+```sh
+$ ansible-playbook loop-do-until.yml
+```
+**Output:**
+```sh
+PLAY [localhost] ***************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [localhost]
+
+TASK [command] *****************************************************************
+changed: [localhost] => {"changed": true, "cmd": "sleep 10 &", "delta": "0:00:01.011679", "end": "2018-03-13 21:54:10.539652", "rc": 0, "start": "2018-03-13 21:54:09.527973", "stderr": "", "stderr_lines": [], "stdout": "", "stdout_lines": []}
+
+TASK [command] *****************************************************************
+FAILED - RETRYING: command (11 retries left).
+FAILED - RETRYING: command (10 retries left).
+FAILED - RETRYING: command (9 retries left).
+FAILED - RETRYING: command (8 retries left).
+FAILED - RETRYING: command (7 retries left).
+FAILED - RETRYING: command (6 retries left).
+FAILED - RETRYING: command (5 retries left).
+changed: [localhost] => {"attempts": 8, "changed": true, "cmd": "ps -ef | grep 'sleep 10' | grep -v grep || echo", "delta": "0:00:00.070893", "end": "2018-03-13 21:54:20.163543", "rc": 0, "start": "2018-03-13 21:54:20.092650", "stderr": "", "stderr_lines": [], "stdout": "", "stdout_lines": []}
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=3    changed=2    unreachable=0    failed=0
 ```
