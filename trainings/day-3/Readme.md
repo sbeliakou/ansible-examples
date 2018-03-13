@@ -19,6 +19,7 @@ $ vagrant halt
 
 # Destroy VM
 $ vagrant destroy -f
+```
 
 ## Examples Specification
 
