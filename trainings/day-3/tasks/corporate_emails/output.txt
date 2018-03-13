@@ -1,6 +1,6 @@
 PLAY [localhost] ***************************************************************
 
-TASK [Gathering Facts gather_subset=all, gather_timeout=10] ********************************************************************************
+TASK [Gathering Facts gather_subset=all, gather_timeout=10] ********************
 
 TASK [debug msg={{ namesdb | email | sort }}] **********************************
 ok: [localhost] => {
@@ -12,7 +12,7 @@ ok: [localhost] => {
     ]
 }
 
-TASK [debug msg={{ namesdb | email('customer.net') | sort }}] ********************************************************************************
+TASK [debug msg={{ namesdb | email('customer.net') | sort }}] ******************
     "msg": [
         "James_Vicari@customer.net",
         "Phillip_Haslett@customer.net",
