@@ -16,6 +16,7 @@
 - [Demo playbook iterating over result](iterating-over-result-example.yml)
 - [Demo playbook of using register with a loop](looping-with-register.yml)
 - [Demo playbook of do-until loop](loop-do-until.yml)
+- [Demo playbook of loop control label](loop-control.yml)
 ## Examples:
 
 **Running ansible playbook with different loops:**

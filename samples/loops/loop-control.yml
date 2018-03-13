@@ -1,0 +1,62 @@
+- hosts: localhost
+
+  tasks:
+  - name: create servers
+    debug: msg="{{ item.name }}"
+    with_items:
+      - name: server1
+        disks: 3gb
+        ram: 15Gb
+        network:
+          nic01: 100Gb
+          nic02: 10Gb
+      - name: server2
+        disks: 3gb
+        ram: 15Gb
+        network:
+          nic01: 100Gb
+          nic02: 10Gb
+    loop_control:
+      label: "{{item.name}}"
+
+#####
+
+# $ ansible-playbook loop-control.yml
+
+#####
+
+# PLAY [localhost] *********************************************************************************************************************************************
+
+# TASK [Gathering Facts] ***************************************************************************************************************************************
+# ok: [localhost]
+
+# TASK [create servers] ****************************************************************************************************************************************
+# ok: [localhost] => (item=server1) => {
+#     "changed": false,
+#     "item": {
+#         "disks": "3gb",
+#         "name": "server1",
+#         "network": {
+#             "nic01": "100Gb",
+#             "nic02": "10Gb"
+#         },
+#         "ram": "15Gb"
+#     },
+#     "msg": "server1"
+# }
+# ok: [localhost] => (item=server2) => {
+#     "changed": false,
+#     "item": {
+#         "disks": "3gb",
+#         "name": "server2",
+#         "network": {
+#             "nic01": "100Gb",
+#             "nic02": "10Gb"
+#         },
+#         "ram": "15Gb"
+#     },
+#     "msg": "server2"
+# }
+
+# PLAY RECAP ***************************************************************************************************************************************************
+# localhost                  : ok=2    changed=0    unreachable=0    failed=0
