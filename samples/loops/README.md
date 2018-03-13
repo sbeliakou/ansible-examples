@@ -10,9 +10,10 @@
 - [Demo playbook looping over fileglobs](looping-over-fileglobs-example.yml)
 - [Demo playbook looping-over parallel sets data](looping-over-parallel-sets-data-example.yml)
 - [Demo playbook looping over subelements](looping-over-subelements-example.yml)
-- [Demo playbook looping over integer sequences](looping-over-integer-sequences-example.yum)
+- [Demo playbook looping over integer sequences](looping-over-integer-sequences-example.yml)
 - [Demo playbook random choices](random-choices-example.yml)
 - [Demo playbook iterating over result](iterating-over-result-example.yml)
+- [Demo playbook of using register with a loop](looping-with-register.yml)
 ## Examples:
 
 **Running ansible playbook with different loops:**
@@ -319,9 +320,9 @@ ok: [localhost] => (item=({u'files': [u'files/first_file'], u'name': u'alice', u
 PLAY RECAP *********************************************************************
 localhost                  : ok=3    changed=0    unreachable=0    failed=0
 ```
-- [Demo playbook looping over integer sequences](looping-over-integer-sequences-example.yum)
+- [Demo playbook looping over integer sequences](looping-over-integer-sequences-example.yml)
 ```sh
-$ ansible-playbook looping-over-integer-sequences-example.yum -vv
+$ ansible-playbook looping-over-integer-sequences-example.yml -vv
 ```
 **Output:**
 ```sh
@@ -331,7 +332,7 @@ TASK [setup] *******************************************************************
 ok: [localhost]
 
 TASK [Print even numbers from 0 to 10 in format "number-X"] ********************
-task path: /home/vagrant/ansible-examples/loops/looping-over-integer-sequences-example.yum:5
+task path: /home/vagrant/ansible-examples/loops/looping-over-integer-sequences-example.yml:5
 ok: [localhost] => (item=number-8) => {
     "item": "number-8",
     "msg": "number-8"
@@ -370,7 +371,7 @@ ok: [localhost] => (item=number-10) => {
 }
 
 TASK [Print numbers from 1 to 3] ***********************************************
-task path: /home/vagrant/ansible-examples/loops/looping-over-integer-sequences-example.yum:9
+task path: /home/vagrant/ansible-examples/loops/looping-over-integer-sequences-example.yml:9
 ok: [localhost] => (item=3) => {
     "item": "3",
     "msg": "3"
@@ -575,4 +576,58 @@ ok: [localhost] => {
 
 PLAY RECAP *********************************************************************
 localhost                  : ok=3    changed=1    unreachable=0    failed=0
+```
+
+
+- [Demo playbook of using register with a loop](looping-with-register.yml)
+```sh
+$ ansible-playbook looping-with-register.yml
+```
+**Output:**
+```sh
+PLAY [localhost] ***************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [localhost]
+
+TASK [debug] *******************************************************************
+ok: [localhost] => (item=one) => {
+    "changed": false,
+    "item": "one"
+}
+ok: [localhost] => (item=two) => {
+    "changed": false,
+    "item": "two"
+}
+
+TASK [debug] *******************************************************************
+ok: [localhost] => {
+    "looprg": {
+        "changed": false,
+        "msg": "All items completed",
+        "results": [
+            {
+                "_ansible_ignore_errors": null,
+                "_ansible_item_result": true,
+                "_ansible_no_log": false,
+                "_ansible_verbose_always": true,
+                "changed": false,
+                "failed": false,
+                "item": "one"
+            },
+            {
+                "_ansible_ignore_errors": null,
+                "_ansible_item_result": true,
+                "_ansible_no_log": false,
+                "_ansible_verbose_always": true,
+                "changed": false,
+                "failed": false,
+                "item": "two"
+            }
+        ]
+    }
+}
+
+PLAY RECAP ********************************************************************
+localhost                  : ok=3    changed=0    unreachable=0    failed=0
 ```
