@@ -17,9 +17,6 @@
   - name: Ensure Tomcat Installed
     yum: name=tomcat
 
-  - name: Ensure Tomcat Installed
-    yum: name=tomcat
-
   - name: Ensure Tomcat Webapps Package Installed
     yum: name=tomcat-webapps
   

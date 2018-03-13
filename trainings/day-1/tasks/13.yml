@@ -55,11 +55,13 @@
       path: "{{ tomcat_home }}/current"
       state: link
 
+  # # file tomcat.service will be taken from files directory
   # - name: Copy Systemd File
   #   copy: 
   #     src: tomcat.service
   #     dest: /usr/lib/systemd/system/tomcat.service
 
+  # file tomcat.service.j2 will be taken from templates directory
   - name: Deploy Systemd File
     template:
       src: tomcat.service.j2

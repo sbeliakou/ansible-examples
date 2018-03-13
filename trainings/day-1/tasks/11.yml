@@ -15,7 +15,7 @@
     yum: name={{ nginx_repo }}
     become: yes
 
-  - name: Ensure Nginx Latest Release Installes
+  - name: Ensure Nginx Latest Release Installed
     yum: name=nginx state=latest
     become: yes
 
