@@ -1,5 +1,6 @@
 ## Change Log
 
+- Introducing vars_files directive
 - Introducing Custom Filter: MongoDB SRC URL selector
 - Introducing Custom Filter: Corporate Email Composer
 - Introducing Custom Module: Vagrant management (python, bash)
