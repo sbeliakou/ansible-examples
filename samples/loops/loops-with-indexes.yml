@@ -1,0 +1,60 @@
+- hosts: localhost
+
+  tasks:
+  - name: indexed loop demo
+    debug:
+      msg: "{{ item.1 }} at position {{ item.0 }}"
+    with_indexed_items:
+    - "apple"
+    - "pear"
+    - "banana"
+    - "kiwi"
+
+
+####
+
+# $ ansible-playbook loops-with-indexes.yml
+
+####
+
+# PLAY [localhost] ***************************************************************
+
+# TASK [Gathering Facts] *********************************************************
+# ok: [localhost]
+
+# TASK [indexed loop demo] *******************************************************
+# ok: [localhost] => (item=(0, u'apple')) => {
+#     "changed": false,
+#     "item": [
+#         0,
+#         "apple"
+#     ],
+#     "msg": "apple at position 0"
+# }
+# ok: [localhost] => (item=(1, u'pear')) => {
+#     "changed": false,
+#     "item": [
+#         1,
+#         "pear"
+#     ],
+#     "msg": "pear at position 1"
+# }
+# ok: [localhost] => (item=(2, u'banana')) => {
+#     "changed": false,
+#     "item": [
+#         2,
+#         "banana"
+#     ],
+#     "msg": "banana at position 2"
+# }
+# ok: [localhost] => (item=(3, u'kiwi')) => {
+#     "changed": false,
+#     "item": [
+#         3,
+#         "kiwi"
+#     ],
+#     "msg": "kiwi at position 3"
+# }
+
+# PLAY RECAP *********************************************************************
+# localhost                  : ok=2    changed=0    unreachable=0    failed=0

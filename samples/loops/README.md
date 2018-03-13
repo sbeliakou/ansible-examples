@@ -4,6 +4,7 @@
 - [Ansible Docs](http://docs.ansible.com/ansible/playbooks_loops.html)
 
 - [Demo playbook standart loop](standart-loop-example.yml)
+- [Demo playbook loop with indexes](loops-with-indexes.yml)
 - [Demo playbook nested loop](nested-loop-example.yml)
 - [Demo playbook looping over hashes](looping-over-hashes-example.yml)
 - [Demo playbook looping over files](looping-over-files-example.yml)
@@ -93,6 +94,56 @@ ok: [localhost] => (item=[u'alice', u'wheel']) => {
 PLAY RECAP *********************************************************************
 localhost                  : ok=2    changed=0    unreachable=0    failed=0
 ```
+
+- [Demo playbook loop with indexes](loops-with-indexes.yml)
+```sh
+$ ansible-playbook loops-with-indexes.yml
+```
+**Output:**
+```sh
+PLAY [localhost] ***************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [localhost]
+
+TASK [indexed loop demo] *******************************************************
+ok: [localhost] => (item=(0, u'apple')) => {
+    "changed": false,
+    "item": [
+        0,
+        "apple"
+    ],
+    "msg": "apple at position 0"
+}
+ok: [localhost] => (item=(1, u'pear')) => {
+    "changed": false,
+    "item": [
+        1,
+        "pear"
+    ],
+    "msg": "pear at position 1"
+}
+ok: [localhost] => (item=(2, u'banana')) => {
+    "changed": false,
+    "item": [
+        2,
+        "banana"
+    ],
+    "msg": "banana at position 2"
+}
+ok: [localhost] => (item=(3, u'kiwi')) => {
+    "changed": false,
+    "item": [
+        3,
+        "kiwi"
+    ],
+    "msg": "kiwi at position 3"
+}
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=2    changed=0    unreachable=0    failed=0
+```
+
 - [Demo playbook looping over hashes](looping-over-hashes-example.yml)
 ```sh
 $ ansible-playbook looping-over-hashes-example.yml -vv
