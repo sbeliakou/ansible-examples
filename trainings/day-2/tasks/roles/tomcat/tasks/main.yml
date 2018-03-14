@@ -67,6 +67,6 @@
     warn: false
 
 - name: Check if It's really Tomcat
-  shell: curl -s localhost:8080 | grep 'Apache Tomcat/7' >/dev/null
+  shell: curl -s localhost:8080 | grep '<title>Apache Tomcat' >/dev/null
   args:
     warn: false
