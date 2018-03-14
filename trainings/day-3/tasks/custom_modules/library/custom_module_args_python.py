@@ -10,6 +10,8 @@ Simple Ansible Module with Args
     msg: Hello from module
 '''
 
+from ansible.module_utils.basic import *
+
 def main():
   module = AnsibleModule(
     argument_spec = dict(
