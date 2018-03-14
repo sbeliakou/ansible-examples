@@ -1,0 +1,6 @@
+- hosts: localhost
+  gather_facts: no
+
+  tasks:
+  - simple_module:
+      msg: Hello from module
