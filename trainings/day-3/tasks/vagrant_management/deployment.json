@@ -1,0 +1,5 @@
+{
+	"tomcat_admin": "admin",
+	"tomcat_admin_password": "password",
+	"tomcat_war_context": "/samplewar"
+}
