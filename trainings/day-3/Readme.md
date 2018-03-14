@@ -7,10 +7,10 @@
 
 - [X] Introducing Custom Filter: MongoDB SRC URL selector
 - [X] Introducing Custom Filter: Corporate Email Composer
-- [ ] Introducing Custom Module: Vagrant management (python)
-- [ ] Introducing Module Which Deploys WAR into Tomcat
-- [ ] Introducing Playbook to Spin up Environment, Install Tomcat Server, Deploy WAR file
-- [ ] Introducing add_host Module
+- [X] Introducing Custom Module: Vagrant management (python)
+- [X] Introducing Module Tomcat WAR Deployment
+- [X] Introducing Playbook to Spin up Environment, Install Tomcat Server, Deploy WAR file
+- [X] Introducing add_host Module
 - [X] Ansible config file contains reference to the folder with custom modules. It simplifies operations, don't need to add `-M path/` or set `ANSIBLE_LIBRARY` env variable
 
 ## Cheat sheet
@@ -39,6 +39,11 @@ $ ansible localhost -m custom_module_args_python -a 'msg="hello from my python m
 # Testing Modules in Playbook
 $ ansible-playbook tasks/custom_modules/testing_modules.yml -v
 
+# Tomcat Stack
+$ ansible-playbook tasks/vagrant_management/vagrant.yml -v \
+  -e vagrantfile=./ \
+  -e @tasks/vagrant_management/deployment.json \
+  -e application_war=$(pwd)/sample.war
 
 ```
 
@@ -47,5 +52,5 @@ $ ansible-playbook tasks/custom_modules/testing_modules.yml -v
 ### 1. Custom Filter: MongoDB SRC URL selector
 ### 2. Custom Filter: Corporate Email Composer
 ### 3. Custom Module: Vagrant management (python, bash)
-### 4. Role Tomcat WAR Deployment
+### 4. Module Tomcat WAR Deployment
 ### 5. Playbook to Spin up Environment, Install Tomcat Server, Deploy WAR file
