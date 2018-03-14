@@ -1,0 +1,4 @@
+---
+- name: Esure Ansible Facts Dir exists
+  file: path=/etc/ansible/facts.d state=directory recurse=yes
+  become: yes
