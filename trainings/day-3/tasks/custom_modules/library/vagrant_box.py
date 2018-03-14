@@ -59,6 +59,7 @@ class VagrantVmController:
                 return (False,{'error:' : 'error creating vm'})
             has_changed = True 
         status = self.vm.conf()
+        status.update({'ip_adresses': self.vm._run_vagrant_command(['ssh', '-c', "hostname -I"]).split(' ')[0:-1]})
         status.update({'changed': has_changed,'state': 'running'})
         return status
 
