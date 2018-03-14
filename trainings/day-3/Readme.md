@@ -36,6 +36,10 @@ $ ansible localhost -m custom_module_args_bash -a 'msg="hello from my bash modul
 $ ansible localhost -m custom_module_python
 $ ansible localhost -m custom_module_args_python -a 'msg="hello from my python module"'
 
+# Testing Modules in Playbook
+$ ansible-playbook tasks/custom_modules/testing_modules.yml -v
+
+
 ```
 
 ## Examples Specification
