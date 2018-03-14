@@ -23,16 +23,16 @@
     mode: 0755
   become: yes
 
-- name: Unarchive Tomcat from remote source
-  unarchive:
-    src: "{{ tomcat_url }}"
-    dest: "{{ tomcat_home }}"
-    owner: "{{ tomcat_user }}"
-    group: "{{ tomcat_group }}"
-    remote_src: yes
-  notify:
-    - save tomcat details
-  become: yes
+# - name: Unarchive Tomcat from remote source
+#   unarchive:
+#     src: "{{ tomcat_url }}"
+#     dest: "{{ tomcat_home }}"
+#     owner: "{{ tomcat_user }}"
+#     group: "{{ tomcat_group }}"
+#     remote_src: yes
+#   notify:
+#     - save tomcat details
+#   become: yes
 
 # Because of Archive structure, all files are extracted into {{tomcat_home}}/apache-tomcat-x.x.xx
 - name: Create a Link
@@ -50,6 +50,28 @@
     dest: /usr/lib/systemd/system/tomcat.service
   notify:
     - systemd daemon reload
+  become: yes
+
+- name: Enable Tomcat Users
+  template:
+    src: tomcat-users.xml.j2
+    dest: "{{ tomcat_home }}/current/conf/tomcat-users.xml"
+    owner: "{{ tomcat_user }}"
+    group: "{{ tomcat_group }}"
+  notify:
+    - restart tomcat
+  when: tomcat_admin_enabled
+  become: yes
+
+- name: Enable Tomcat Access
+  template:
+    src: context.xml.j2
+    dest: "{{ tomcat_home }}/current/webapps/manager/META-INF/context.xml"
+    owner: "{{ tomcat_user }}"
+    group: "{{ tomcat_group }}"
+  notify:
+    - restart tomcat
+  when: tomcat_admin_enabled
   become: yes
 
 - name: Ensure Tomcat Service Running and Enabled
