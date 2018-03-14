@@ -19,14 +19,15 @@
     - mongodb-linux-x86_64-debian81-3.2.19
     - mongodb-linux-x86_64-debian81-3.7.2
 
-    mongo_version: "3.2"
+    mongo_version: "3.7"
 
     system_info: |-
+      OS Name: "{{ ansible_distribution }}"
       OS Family: '{{ ansible_os_family }}'
       Version Major Release: {{ ansible_distribution_major_version }}
 
     mongo_url_base: http://downloads.mongodb.org/linux
-    mongo_url: "{{ mongo_url_base }}/{{ mongo_src | get_mongo_src(ansible_os_family, ansible_distribution_major_version, mongo_version) }}.tgz"
+    mongo_url: "{{ mongo_url_base }}/{{ mongo_src | get_mongo_src(ansible_distribution, ansible_distribution_major_version, mongo_version) }}.tgz"
 
   tasks:
   - debug: var=system_info.split('\n')
