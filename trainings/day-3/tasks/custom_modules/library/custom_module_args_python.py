@@ -4,9 +4,9 @@
 
 DOCUMENTATION = '''
 ---
-Simple Ansible Module
+Simple Ansible Module with Args
 
-- simple_module:
+- simple_module_args_python:
     msg: Hello from module
 '''
 
@@ -31,4 +31,3 @@ def main():
 # include magic from lib/ansible/module_common.py
 #<<INCLUDE_ANSIBLE_MODULE_COMMON>>
 main()
-

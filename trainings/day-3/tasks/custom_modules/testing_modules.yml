@@ -2,5 +2,16 @@
   gather_facts: no
 
   tasks:
-  - simple_module:
-      msg: Hello from module
+  - name: module library/custom_module_bash.sh
+    custom_module_bash:
+  
+  - name: module library/custom_module_python.py
+    custom_module_python:
+  
+  - name: module library/custom_module_args_bash.sh
+    custom_module_args_bash:
+      msg: Hello from bash module
+
+  - name: module library/custom_module_args_python.sh
+    custom_module_args_python:
+      msg: Hello from python module
