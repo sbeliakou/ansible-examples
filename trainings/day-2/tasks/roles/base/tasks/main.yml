@@ -2,3 +2,8 @@
 - name: Esure Ansible Facts Dir exists
   file: path=/etc/ansible/facts.d state=directory recurse=yes
   become: yes
+
+- name: Install Python Dependencies
+  pip: name={{ item }}
+  with_items:
+  - requests
