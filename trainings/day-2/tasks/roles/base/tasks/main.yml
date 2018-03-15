@@ -3,7 +3,12 @@
   file: path=/etc/ansible/facts.d state=directory recurse=yes
   become: yes
 
+- name: Install python-pip
+  yum: name=python-pip
+  become: yes  
+
 - name: Install Python Dependencies
   pip: name={{ item }}
   with_items:
   - requests
+  become: yes
