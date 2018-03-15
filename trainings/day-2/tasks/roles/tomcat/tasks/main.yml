@@ -23,16 +23,16 @@
     mode: 0755
   become: yes
 
-# - name: Unarchive Tomcat from remote source
-#   unarchive:
-#     src: "{{ tomcat_url }}"
-#     dest: "{{ tomcat_home }}"
-#     owner: "{{ tomcat_user }}"
-#     group: "{{ tomcat_group }}"
-#     remote_src: yes
-#   notify:
-#     - save tomcat details
-#   become: yes
+- name: Unarchive Tomcat from remote source
+  unarchive:
+    src: "{{ tomcat_url }}"
+    dest: "{{ tomcat_home }}"
+    owner: "{{ tomcat_user }}"
+    group: "{{ tomcat_group }}"
+    remote_src: yes
+  notify:
+    - save tomcat details
+  become: yes
 
 # Because of Archive structure, all files are extracted into {{tomcat_home}}/apache-tomcat-x.x.xx
 - name: Create a Link
