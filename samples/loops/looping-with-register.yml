@@ -1,0 +1,61 @@
+- hosts: localhost
+
+  tasks:
+  - debug: var=item
+    with_items:
+    - "one"
+    - "two"
+    register: looprg
+
+  - debug: var=looprg
+
+# ####
+# $ ansible-playbook looping-with-register.yml
+# ####
+
+# ####
+# PLAY [localhost] ***************************************************************
+
+# TASK [Gathering Facts] *********************************************************
+# ok: [localhost]
+
+# TASK [debug] *******************************************************************
+# ok: [localhost] => (item=one) => {
+#     "changed": false,
+#     "item": "one"
+# }
+# ok: [localhost] => (item=two) => {
+#     "changed": false,
+#     "item": "two"
+# }
+
+# TASK [debug] *******************************************************************
+# ok: [localhost] => {
+#     "looprg": {
+#         "changed": false,
+#         "msg": "All items completed",
+#         "results": [
+#             {
+#                 "_ansible_ignore_errors": null,
+#                 "_ansible_item_result": true,
+#                 "_ansible_no_log": false,
+#                 "_ansible_verbose_always": true,
+#                 "changed": false,
+#                 "failed": false,
+#                 "item": "one"
+#             },
+#             {
+#                 "_ansible_ignore_errors": null,
+#                 "_ansible_item_result": true,
+#                 "_ansible_no_log": false,
+#                 "_ansible_verbose_always": true,
+#                 "changed": false,
+#                 "failed": false,
+#                 "item": "two"
+#             }
+#         ]
+#     }
+# }
+
+# PLAY RECAP ********************************************************************
+# localhost                  : ok=3    changed=0    unreachable=0    failed=0

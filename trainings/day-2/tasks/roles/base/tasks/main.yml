@@ -1,0 +1,18 @@
+---
+- name: Esure Ansible Facts Dir exists
+  file: path=/etc/ansible/facts.d state=directory recurse=yes
+  become: yes
+
+- name: Install Epel-release repo
+  yum: name=epel-release
+  become: yes
+
+- name: Install python-pip
+  yum: name=python-pip
+  become: yes  
+
+- name: Install Python Dependencies
+  pip: name={{ item }}
+  with_items:
+  - requests
+  become: yes

@@ -1,0 +1,74 @@
+- name: Start VM
+  hosts: localhost
+
+  tasks:
+  - name: Ensure VM is running
+    vagrant_box:
+      path: "{{ vagrantfile | mandatory }}"
+      state: running
+    register: vm
+
+  - name: Update Inventory with newly created host
+    add_host:
+      name: playground
+      hostname: "{{ vm.Host }}"
+      ansible_host: "{{ vm.HostName }}"
+      ansible_port: "{{ vm.Port }}"
+      ansible_connection: "paramiko"
+      ansible_user: "{{ vm.User }}"
+      ansible_ssh_private_key_file: "{{ vm.IdentityFile }}"
+      external_ip: "{{ vm.ip_adresses[1] }}"
+
+- name: Provision Playground VM
+  hosts: playground
+
+  vars:
+    system_info: |-
+        Distributive: {{ ansible_distribution }}
+        Family:       {{ ansible_distribution_file_variety }}
+        Version:      {{ ansible_distribution_version }}
+
+  pre_tasks:
+  - debug: msg={{ system_info.split('\n') }}
+
+  roles:
+  - role: base
+  - role: nginx
+  - role: tomcat
+    tomcat_release: 8.5.29
+    tomcat_admin_enabled: yes
+    tomcat_admin: '{{ tomcat_admin }}'
+    tomcat_admin_password: '{{ tomcat_admin_password }}'
+
+- name: Deploy WAR
+  hosts: localhost
+  gather_facts: no
+
+  tasks:
+  - name: Deploy WAR
+    deploy_war:
+      url: "http://{{ hostvars['playground'].external_ip }}:8080"
+      username: "{{ tomcat_admin }}"
+      password: "{{ tomcat_admin_password }}"
+      context: "{{ tomcat_war_context }}"
+      src: "{{ application_war }}"
+    register: deployment
+
+  - name: Check deployment status
+    uri: 
+      url: "{{ deployment.application_url }}"
+    register: status
+    failed_when: "'OK' not in status.msg"
+
+- name: Cleanup VM
+  hosts: localhost
+
+  vars:
+    cleanup: no
+
+  tasks:
+  - name: Cleanup
+    vagrant_box:
+      path: "{{ vagrantfile | mandatory }}"
+      state: destroyed
+    when: cleanup 

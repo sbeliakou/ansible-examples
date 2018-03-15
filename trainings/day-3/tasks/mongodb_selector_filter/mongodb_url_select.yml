@@ -1,0 +1,37 @@
+- hosts: server
+
+  vars:
+    # https://www.mongodb.org/dl/linux/x86_64
+    # http://downloads.mongodb.org/linux/mongodb-linux-x86_64-rhel70-v3.2-latest.tgz
+    mongo_src:
+    - mongodb-linux-x86_64-rhel64-3.0.14
+    - mongodb-linux-x86_64-rhel64-3.2.11
+    - mongodb-linux-x86_64-rhel70-3.0.14
+    - mongodb-linux-x86_64-rhel70-3.2.17
+    - mongodb-linux-x86_64-rhel70-3.4.13
+    - mongodb-linux-x86_64-rhel70-3.6.3
+    - mongodb-linux-x86_64-rhel70-3.7.2
+    - mongodb-linux-x86_64-ubuntu1604-3.4.12
+    - mongodb-linux-x86_64-ubuntu1604-3.4.13
+    - mongodb-linux-x86_64-ubuntu1604-3.6.3
+    - mongodb-linux-x86_64-ubuntu1604-3.7.2
+    - mongodb-linux-x86_64-debian81-3.4.13
+    - mongodb-linux-x86_64-debian81-3.2.19
+    - mongodb-linux-x86_64-debian81-3.7.2
+
+    mongo_version: "3.7"
+
+    system_info: |-
+      OS Name: "{{ ansible_distribution }}"
+      OS Family: '{{ ansible_os_family }}'
+      Version Major Release: {{ ansible_distribution_major_version }}
+
+    mongo_url_base: http://downloads.mongodb.org/linux
+    mongo_url: "{{ mongo_url_base }}/{{ mongo_src | get_mongo_src(ansible_distribution, ansible_distribution_major_version, mongo_version) }}.tgz"
+
+  tasks:
+  - debug: var=system_info.split('\n')
+  - debug: var=mongo_url
+
+  - fail: msg="Sorry, there's no mongo distributive found"
+    when: mongo_url | search('nothing found')

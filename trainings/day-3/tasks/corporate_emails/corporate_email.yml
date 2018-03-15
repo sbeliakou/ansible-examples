@@ -1,0 +1,12 @@
+- hosts: localhost
+
+  vars:
+    namesdb:
+    - { name: Siarhei, surname: Beliakou }
+    - { name: James, surname: Vicari }
+    - { name: Phillip, surname: Haslett }
+    - { name: Veronika, surname: Hettlinger }
+
+  tasks:
+  - debug: msg={{ namesdb | email | sort }}
+  - debug: msg={{ namesdb | email('customer.net') | sort }}

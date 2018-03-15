@@ -4,15 +4,19 @@
 - [Ansible Docs](http://docs.ansible.com/ansible/playbooks_loops.html)
 
 - [Demo playbook standart loop](standart-loop-example.yml)
+- [Demo playbook loop with indexes](loops-with-indexes.yml)
 - [Demo playbook nested loop](nested-loop-example.yml)
 - [Demo playbook looping over hashes](looping-over-hashes-example.yml)
 - [Demo playbook looping over files](looping-over-files-example.yml)
 - [Demo playbook looping over fileglobs](looping-over-fileglobs-example.yml)
 - [Demo playbook looping-over parallel sets data](looping-over-parallel-sets-data-example.yml)
 - [Demo playbook looping over subelements](looping-over-subelements-example.yml)
-- [Demo playbook looping over integer sequences](looping-over-integer-sequences-example.yum)
+- [Demo playbook looping over integer sequences](looping-over-integer-sequences-example.yml)
 - [Demo playbook random choices](random-choices-example.yml)
 - [Demo playbook iterating over result](iterating-over-result-example.yml)
+- [Demo playbook of using register with a loop](looping-with-register.yml)
+- [Demo playbook of do-until loop](loop-do-until.yml)
+- [Demo playbook of loop control label](loop-control.yml)
 ## Examples:
 
 **Running ansible playbook with different loops:**
@@ -92,6 +96,56 @@ ok: [localhost] => (item=[u'alice', u'wheel']) => {
 PLAY RECAP *********************************************************************
 localhost                  : ok=2    changed=0    unreachable=0    failed=0
 ```
+
+- [Demo playbook loop with indexes](loops-with-indexes.yml)
+```sh
+$ ansible-playbook loops-with-indexes.yml
+```
+**Output:**
+```sh
+PLAY [localhost] ***************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [localhost]
+
+TASK [indexed loop demo] *******************************************************
+ok: [localhost] => (item=(0, u'apple')) => {
+    "changed": false,
+    "item": [
+        0,
+        "apple"
+    ],
+    "msg": "apple at position 0"
+}
+ok: [localhost] => (item=(1, u'pear')) => {
+    "changed": false,
+    "item": [
+        1,
+        "pear"
+    ],
+    "msg": "pear at position 1"
+}
+ok: [localhost] => (item=(2, u'banana')) => {
+    "changed": false,
+    "item": [
+        2,
+        "banana"
+    ],
+    "msg": "banana at position 2"
+}
+ok: [localhost] => (item=(3, u'kiwi')) => {
+    "changed": false,
+    "item": [
+        3,
+        "kiwi"
+    ],
+    "msg": "kiwi at position 3"
+}
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=2    changed=0    unreachable=0    failed=0
+```
+
 - [Demo playbook looping over hashes](looping-over-hashes-example.yml)
 ```sh
 $ ansible-playbook looping-over-hashes-example.yml -vv
@@ -319,9 +373,9 @@ ok: [localhost] => (item=({u'files': [u'files/first_file'], u'name': u'alice', u
 PLAY RECAP *********************************************************************
 localhost                  : ok=3    changed=0    unreachable=0    failed=0
 ```
-- [Demo playbook looping over integer sequences](looping-over-integer-sequences-example.yum)
+- [Demo playbook looping over integer sequences](looping-over-integer-sequences-example.yml)
 ```sh
-$ ansible-playbook looping-over-integer-sequences-example.yum -vv
+$ ansible-playbook looping-over-integer-sequences-example.yml -vv
 ```
 **Output:**
 ```sh
@@ -331,7 +385,7 @@ TASK [setup] *******************************************************************
 ok: [localhost]
 
 TASK [Print even numbers from 0 to 10 in format "number-X"] ********************
-task path: /home/vagrant/ansible-examples/loops/looping-over-integer-sequences-example.yum:5
+task path: /home/vagrant/ansible-examples/loops/looping-over-integer-sequences-example.yml:5
 ok: [localhost] => (item=number-8) => {
     "item": "number-8",
     "msg": "number-8"
@@ -370,7 +424,7 @@ ok: [localhost] => (item=number-10) => {
 }
 
 TASK [Print numbers from 1 to 3] ***********************************************
-task path: /home/vagrant/ansible-examples/loops/looping-over-integer-sequences-example.yum:9
+task path: /home/vagrant/ansible-examples/loops/looping-over-integer-sequences-example.yml:9
 ok: [localhost] => (item=3) => {
     "item": "3",
     "msg": "3"
@@ -575,4 +629,86 @@ ok: [localhost] => {
 
 PLAY RECAP *********************************************************************
 localhost                  : ok=3    changed=1    unreachable=0    failed=0
+```
+
+
+- [Demo playbook of using register with a loop](looping-with-register.yml)
+```sh
+$ ansible-playbook looping-with-register.yml
+```
+**Output:**
+```sh
+PLAY [localhost] ***************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [localhost]
+
+TASK [debug] *******************************************************************
+ok: [localhost] => (item=one) => {
+    "changed": false,
+    "item": "one"
+}
+ok: [localhost] => (item=two) => {
+    "changed": false,
+    "item": "two"
+}
+
+TASK [debug] *******************************************************************
+ok: [localhost] => {
+    "looprg": {
+        "changed": false,
+        "msg": "All items completed",
+        "results": [
+            {
+                "_ansible_ignore_errors": null,
+                "_ansible_item_result": true,
+                "_ansible_no_log": false,
+                "_ansible_verbose_always": true,
+                "changed": false,
+                "failed": false,
+                "item": "one"
+            },
+            {
+                "_ansible_ignore_errors": null,
+                "_ansible_item_result": true,
+                "_ansible_no_log": false,
+                "_ansible_verbose_always": true,
+                "changed": false,
+                "failed": false,
+                "item": "two"
+            }
+        ]
+    }
+}
+
+PLAY RECAP ********************************************************************
+localhost                  : ok=3    changed=0    unreachable=0    failed=0
+```
+
+- [Demo playbook of do-until loop](loop-do-until.yml)
+```sh
+$ ansible-playbook loop-do-until.yml
+```
+**Output:**
+```sh
+PLAY [localhost] ***************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [localhost]
+
+TASK [command] *****************************************************************
+changed: [localhost] => {"changed": true, "cmd": "sleep 10 &", "delta": "0:00:01.011679", "end": "2018-03-13 21:54:10.539652", "rc": 0, "start": "2018-03-13 21:54:09.527973", "stderr": "", "stderr_lines": [], "stdout": "", "stdout_lines": []}
+
+TASK [command] *****************************************************************
+FAILED - RETRYING: command (11 retries left).
+FAILED - RETRYING: command (10 retries left).
+FAILED - RETRYING: command (9 retries left).
+FAILED - RETRYING: command (8 retries left).
+FAILED - RETRYING: command (7 retries left).
+FAILED - RETRYING: command (6 retries left).
+FAILED - RETRYING: command (5 retries left).
+changed: [localhost] => {"attempts": 8, "changed": true, "cmd": "ps -ef | grep 'sleep 10' | grep -v grep || echo", "delta": "0:00:00.070893", "end": "2018-03-13 21:54:20.163543", "rc": 0, "start": "2018-03-13 21:54:20.092650", "stderr": "", "stderr_lines": [], "stdout": "", "stdout_lines": []}
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=3    changed=2    unreachable=0    failed=0
 ```

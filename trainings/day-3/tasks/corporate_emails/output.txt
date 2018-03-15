@@ -1,0 +1,25 @@
+PLAY [localhost] ***************************************************************
+
+TASK [Gathering Facts gather_subset=all, gather_timeout=10] ********************
+
+TASK [debug msg={{ namesdb | email | sort }}] **********************************
+ok: [localhost] => {
+    "msg": [
+        "James_Vicari@epam.com",
+        "Phillip_Haslett@epam.com",
+        "Siarhei_Beliakou@epam.com",
+        "Veronika_Hettlinger@epam.com"
+    ]
+}
+
+TASK [debug msg={{ namesdb | email('customer.net') | sort }}] ******************
+    "msg": [
+        "James_Vicari@customer.net",
+        "Phillip_Haslett@customer.net",
+        "Siarhei_Beliakou@customer.net",
+        "Veronika_Hettlinger@customer.net"
+    ]
+}
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=3    changed=0    unreachable=0    failed=0

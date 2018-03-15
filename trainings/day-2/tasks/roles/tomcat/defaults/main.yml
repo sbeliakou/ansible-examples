@@ -5,3 +5,7 @@ tomcat_group: tomcat
 tomcat_user_id: 950
 tomcat_group_id: 950
 tomcat_home: /opt/apache/tomcat
+
+tomcat_admin_enabled: false
+tomcat_admin: admin
+tomcat_admin_password: "{{ lookup('password', '/dev/null length=15 chars=ascii_letters') }}"
