@@ -45,7 +45,7 @@ def main():
     result['msg'] = 'FAIL - File not found - {}'.format(src)
     module.fail_json(**result)
 
-  mime = subprocess.Popen("/usr/bin/file --mime " + "/home/vitali/ans_ex/ansible-examples/trainings/day-3/sample.war", shell=True, stdout=subprocess.PIPE).communicate()[0].split(' ')[1].replace(';', '')
+  mime = subprocess.Popen("/usr/bin/file --mime " + src, shell=True, stdout=subprocess.PIPE).communicate()[0].split(' ')[1].replace(';', '')
   if "java-archive" not in mime:
     result['msg'] = 'FAIL - Not a java-archive type - {}'.format(src)
     module.fail_json(**result)
