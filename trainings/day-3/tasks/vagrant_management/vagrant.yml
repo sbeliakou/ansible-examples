@@ -60,12 +60,15 @@
     register: status
     failed_when: "'OK' not in status.msg"
 
+- name: Cleanup VM
+  hosts: localhost
+
+  vars:
+    cleanup: no
+
+  tasks:
   - name: Cleanup
     vagrant_box:
       path: "{{ vagrantfile | mandatory }}"
       state: destroyed
-    when: cleanup is defined and cleanup == True
-
-  - debug: var=status
-
-
+    when: cleanup 
