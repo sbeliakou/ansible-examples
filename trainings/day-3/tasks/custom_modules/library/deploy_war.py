@@ -7,6 +7,7 @@ DOCUMENTATION = '''
 '''
 
 from ansible.module_utils.basic import *
+import subprocess
 import requests
 import os
 
@@ -40,6 +41,15 @@ def main():
   context = module.params["context"]
   src = module.params["src"]
 
+  if os.path.isfile(src) == False:
+    result['msg'] = 'FAIL - File not found - {}'.format(src)
+    module.fail_json(**result)
+
+  mime = subprocess.Popen("/usr/bin/file --mime " + "/home/vitali/ans_ex/ansible-examples/trainings/day-3/sample.war", shell=True, stdout=subprocess.PIPE).communicate()[0].split(' ')[1].replace(';', '')
+  if "java-archive" not in mime:
+    result['msg'] = 'FAIL - Not a java-archive type - {}'.format(src)
+    module.fail_json(**result)
+  
   files = {'file': (os.path.basename(src), open(src, 'rb'))}
   deploy_url = "{}/manager/text/deploy?path={}&update=true".format(url, context)
 
@@ -52,8 +62,8 @@ def main():
     result['application_url'] = "{}{}".format(url, context)
     result['src'] = src
   else:
-    module.fail_json(msg='FAIL - Deployment Failed at context path [{}]'.format(context), **result)
-
+    result['msg'] = 'FAIL - Deployment Failed at context path [{}]'.format(context)
+    module.fail_json(**result)
   module.exit_json(**result)
   
 # include magic from lib/ansible/module_common.py

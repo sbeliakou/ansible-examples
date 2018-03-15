@@ -3,6 +3,10 @@
   file: path=/etc/ansible/facts.d state=directory recurse=yes
   become: yes
 
+- name: Install Epel-release repo
+  yum: name=epel-release
+  become: yes
+
 - name: Install python-pip
   yum: name=python-pip
   become: yes  
