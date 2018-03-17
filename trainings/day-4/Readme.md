@@ -1,39 +1,29 @@
-## Environement Configuration
-- [Vargantfile](Vagrantfile)
-- [Ansible Inventory File](inventory)
-- [Ansible Configuration File](ansible.cfg)
-
 ## Change Log
 
-- Introducing Cusom Module to deploy WAR file into Tomcat
-- Introducing Custom Callback Plugin
-- Introducing Rescue Management and Error Handling
-- Introducing Include* Directives
-- Introducing Tags
+- [X] Introducing Tags
+- [X] Introducing Custom Callback Plugin
+- [X] Introducing Blocks: Rescue Management and Error Handling
+- [ ] Introducing Include* Directives
 
-## Cheat sheet
+
+## Tags Examples
 ```
-# Start Local Engineering Environment
-$ vagrant up
+#List Playbook Tags:
+$ ansible-playbook tasks/tags/vagrant.yml --list-tags
+#Create VM, Provision VM, Deploy WAR, Destroy VM:
+$ ansible-playbook tasks/tags/vagrant.yml -v -e @tasks/tags/deployment.json
+#Create VM, Provision VM and Deploy WAR:
+$ ansible-playbook tasks/tags/vagrant.yml -v -e @tasks/tags/deployment.json --skip-tags=cleanup
+#Provision VM:
+$ ansible-playbook tasks/tags/vagrant.yml -v -e @tasks/tags/deployment.json --tags=provision
+#Deploy WAR (only):
+$ ansible-playbook tasks/tags/vagrant.yml -v -e @tasks/tags/deployment.json --tags=deploy
+#Destroy VM:
+$ ansible-playbook tasks/tags/vagrant.yml -v -e @tasks/tags/deployment.json --tags=cleanup
 
-TBD
+# Rescue/Error Example
+$ ansible-playbook tasks/blocks/rescue.yml -v
 
-# Stop VM
-$ vagrant halt
-
-# Destroy VM
-$ vagrant destroy -f
+# Custom Callback Example
+$ ANSIBLE_CONFIG=tasks/callback/ansible.cfg ansible-playbook tasks/callback/callback-test.yml -v
 ```
-
-## Examples Specification
-
-### Cusom Module to deploy WAR file into Tomcat
-### Custom Callback Plugin
-### Rescue Management and Error Handling
-### Include* Directives
-- Include
-- Include_vars
-- Include_tasks
-- Include_roles
-
-### Flow Management with Tags
