@@ -25,7 +25,7 @@ nginx:    ## Nginx Installation Example
 	@echo "   Check Service:  http://192.168.56.21"
 	@echo
 
-tomcat: tomcat-gyum tomcat-src
+tomcat: tomcat-yum tomcat-src
 
 tomcat-yum:		## Tomcat Installation from YUM Example
 	@echo "Tomcat Installation from YUM Example:"
