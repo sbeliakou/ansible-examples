@@ -18,7 +18,7 @@
     yum: name=java-{{ jdk_release }}-openjdk
 
   - name: Check Java Version
-    command: java -version | grep "{{ jdk_release }}"
+    shell: java -version 2>&1| grep "{{ jdk_release }}"
 
   - name: Add Tomcat Group
     group:
@@ -85,6 +85,6 @@
       warn: false
 
   - name: Check if It's really Tomcat
-    shell: curl -s localhost:8080 | grep 'Apache Tomcat/7' >/dev/null
+    shell: curl -s localhost:8080 | grep 'Apache Tomcat' >/dev/null
     args:
       warn: false
