@@ -1,10 +1,67 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #
 
 DOCUMENTATION = '''
 ---
+module: deploy_war
+version_added: historical
+short_description: Deploy WAR file to Tomcat
+options:
+    url:
+        version_added: "1.0"
+        description:
+            - "Tomcat URL"
+        required: true
+        default: 'None'
+    username:
+        version_added: "1.0"
+        description:
+            - "Username for authentication on Tomcat"
+        required: true
+        default: None
+    password:
+        version_added: "1.0"
+        description:
+            - "Password for authentication on Tomcat"
+        required: true
+        default: None
+    context:
+        version_added: "1.0"
+        description:
+            - "Deployable Context Target"
+        required: true
+        default: None
+    src:
+        version_added: "1.0"
+        description:
+            - "Path to artifact to be deployed"
+        required: true
+        default: None
+requirments:
+    - pip install requests
+description:
+    - This module can be used for Tomcat remote deployment
+
+author:
+    - "Siarhei Beliakou"
+    - "Vitali Ulantsau"
 '''
+
+EXAMPLES = """
+# Standalone mode launch.
+ansible localhost -c local -m deploy_war -a "url=http://192.168.56.100:8080 username=admin password=secret context=/helloworld src=/tmp/hello.war"
+
+# Running module as task inside a playbook. 
+# Ensure that vm(s) specified in provided Vagrantfile is running
+- name: create host 
+  deploy_war:
+    url: http://192.168.56.100:8080
+    username: admin
+    password: secret
+    context: /helloworld
+    src: /tmp/hello.war
+"""
 
 from ansible.module_utils.basic import *
 import subprocess
@@ -13,7 +70,6 @@ import os
 
 def main():
 
-  # http://192.168.56.23:8080/manager/text/deploy?path=/samplewar&update=true
   module = AnsibleModule(
     argument_spec = dict(
       url       = dict(required=True, type='str'),
