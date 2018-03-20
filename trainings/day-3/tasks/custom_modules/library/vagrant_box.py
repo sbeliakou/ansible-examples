@@ -1,32 +1,61 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 
 DOCUMENTATION = '''
-Ansible Vagrant Module
+---
+module: vagrant_box
+version_added: historical
+short_description: Manages vagrant virtual machine
+options:
+    path:
+        version_added: "1.0"
+        description:
+            - "Path to Vagrantfile. Can be both full path to Vagrantfile or directory"
+        required: true
+        default: 'None'
+    state:
+        version_added: "1.0"
+        description:
+            - "Desired virtual machine(s) state"
+        choices:
+            - "running"
+            - "stopped"
+            - "destroyed"
+        required: true
+        default: None
+requirments:
+    - pip install python-vagrant
+description:
+    - This module is automatically called by playbooks to set desired virtual 
+      machine state. Selected choice applies for all machines described in Vagrantfile.
+notes:
+    - return value generates only for running machines. VM state cannot be retrieved for 
+      poweroff instance 
+author:
+    - "Siarhei Beliakou"
+    - "Vitali Ulantsau"
+'''
 
-Usage:
-- name: create host 
-  vagrant_box:
-    path: ./
-    state: running
+EXAMPLES = """
+# Standalone mode launch.
+ansible localhost -c local -m vagrant_box -a "state=destroyed path=./"
 
+# Running module as task inside a playbook. 
+# Ensure that vm(s) specified in provided Vagrantfile is running
 - name: create host 
   vagrant_box:
     path: ./Vagrantfile
     state: running
 
-- name: create host 
+- name: stop host 
   vagrant_box:
     path: /path_to_Vagrnatfile
-    state: running
+    state: stopped
 
-Parameters:
-    path: Path to Vagranfile. Can be either directory path, containing Vagrantfile or full path
-    state: Set desired vm state. Options are: running, stopped, destroyed.
-
-Requirments: 
-    pip install python-vagrant
-
-'''
+- name: destroy host 
+  vagrant_box:
+    path: /path_to_Vagrnatfile
+    state: destroyed
+"""
 
 from ansible.module_utils.basic import *
 import vagrant
