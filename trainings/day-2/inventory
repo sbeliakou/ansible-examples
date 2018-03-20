@@ -1,8 +1,8 @@
 [web]
-webserver01 ansible_host=192.168.56.21
+webserver01 ansible_host=192.168.56.22
 
 [app]
-appserver01 ansible_host=192.168.56.21 
+appserver01 ansible_host=192.168.56.22 
 
 [farm:children]
 web
