@@ -11,6 +11,7 @@
 - [X] Introducing Module Tomcat WAR Deployment
 - [X] Introducing Playbook to Spin up Environment, Install Tomcat Server, Deploy WAR file
 - [X] Introducing add_host Module
+- [X] Introducing Dynamic Inventory Script
 - [X] Ansible config file contains reference to the folder with custom modules. It simplifies operations, don't need to add `-M path/` or set `ANSIBLE_LIBRARY` env variable
 
 ## Cheat sheet
