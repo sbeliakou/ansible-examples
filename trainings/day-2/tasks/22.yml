@@ -3,4 +3,5 @@
   hosts: app
 
   roles:
+  - base
   - java

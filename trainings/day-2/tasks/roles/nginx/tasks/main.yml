@@ -14,6 +14,17 @@
     - save nginx details
   become: yes
 
+# Update Default Home Page
+- name: Deploy Customized Home Page
+  copy:
+    src: nginx_home.html
+    dest: /usr/share/nginx/html/index.html
+  become: yes
+
+- name: Ensure Nginx Service Running and Enabled
+  service: name=nginx state=started enabled=yes
+  become: yes
+
 - name: Get Nginx Version
   shell: /usr/sbin/nginx -v 2>&1 | awk -F'/' '{print $2}'
   register: nginx_version

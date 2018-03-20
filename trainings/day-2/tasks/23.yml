@@ -1,6 +1,6 @@
 ---
 - name: Deploy Full Stack
-  hosts: farm
+  hosts: appservers
 
   roles:
   - { role: nginx }
