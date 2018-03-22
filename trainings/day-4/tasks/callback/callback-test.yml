@@ -1,0 +1,20 @@
+- hosts: localhost
+
+  tasks:
+    - name: Greetings
+      shell: echo Hello
+
+    - name: Skip
+      debug: msg="Hello again"
+      when: False
+
+    - name: Fail and continue
+      fail: msg="What can go wrong?"
+      ignore_errors: True
+
+    - name: Fail
+      fail: msg="OH Nooooo--"
+
+    - name: Never run
+      debug: msg="I will never run :("
+

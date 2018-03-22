@@ -1,0 +1,31 @@
+- hosts: localhost
+
+  tasks:
+    - block:
+        - name: Create temporary directory
+          file:
+            path: /tmp/deploy
+            state: directory
+
+        - name: Russian roulette deployment
+          debug: msg="Deploying..."
+          failed_when: 2|random == 1
+
+        - name: Deployed Awards
+          debug: msg="We've deployed!"
+
+      rescue:
+        - name: Notify about the failure
+          debug: msg="Deployment failed! Tell everyone!"
+
+        - name: Rollback any changes
+          debug: msg="Rolling back..."
+
+      always:
+        - name: Remove temporary directory
+          file:
+            path: /tmp/deploy
+            state: absent
+
+    - name: Will I have a chance to play?
+      debug: msg="I will do the best"

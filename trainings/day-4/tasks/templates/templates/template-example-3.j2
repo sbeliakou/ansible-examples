@@ -1,0 +1,23 @@
+{{ ansible_managed | comment }}
+
+{{ "Example: Templates/3" | comment }}
+
+http {
+  index index.html;
+
+{% for domain_name in domains %}
+  server {
+{% if domain_name == domains[0] %}
+    listen 80 default_server;
+    server_name _;
+{% else %}
+    server_name {{ domain_name }};
+{% endif %}
+    access_log logs/{{ domain_name }}{% if domain_name == domains[0] %}-default{% endif %}.access.log main;
+
+    root /var/www/{{ domain_name }}{% if domain_name == domains[0] %}-default{% endif %}.com/htdocs;
+  }
+
+{% endfor %}
+
+}
