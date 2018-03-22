@@ -15,3 +15,6 @@
     - name: Fail
       fail: msg="OH Nooooo--"
 
+    - name: Never run
+      debug: msg="I will never run :("
+
