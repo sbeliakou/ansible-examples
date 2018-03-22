@@ -1,0 +1,23 @@
+{{ ansible_managed | comment }}
+
+List of Domains:
+{% for domain in domains %}
+    - {{ domain }}
+{% endfor %}
+
+In One Line: {% for domain in domains %}{{ domain }} {% endfor %}
+
+Search Items with "1":
+{% for domain in domains %}
+{% if domain | search('1')%}
+    - {{ domain }}
+{% endif %}
+{% endfor %}
+
+Search Items with "2" or "4":
+{% for domain in domains %}
+{% if domain | search('2') or domain | search('4') %}
+    - {{ domain }}
+{% endif %}
+{% endfor %}
+

@@ -1,0 +1,62 @@
+- name: Example 0
+  hosts: localhost
+  gather_facts: no
+  tags:
+    - example0
+
+  vars:
+     domains:
+     - domain1.example.com
+     - domain2.example.com
+     - domain3.example.com
+     - domain4.example.com
+
+  tasks:
+  - template:
+      src: template-example-0.j2
+      dest: /tmp/result-by-example-0.conf
+
+- name: Example 1, Slides 26-27
+  hosts: localhost
+  gather_facts: no
+  tags:
+    - example1
+
+  tasks:
+  - template:
+      src: template-example-1.j2
+      dest: /tmp/result-by-example-1.conf
+
+
+- name: Example 2, Slide 28
+  hosts: localhost
+  gather_facts: no
+  tags:
+    - example2
+
+  vars:
+     domains:
+     - domain1.example.com
+     - domain2.example.com
+
+  tasks:
+  - template:
+      src: template-example-2.j2
+      dest: /tmp/result-by-example-2.conf
+
+
+- name: Example 3, Slides 29-30
+  hosts: localhost
+  gather_facts: no
+  tags:
+    - example3
+
+  vars:
+     domains:
+     - domain1.example.com
+     - domain2.example.com
+
+  tasks:
+  - template:
+      src: template-example-3.j2
+      dest: /tmp/result-by-example-3.conf
