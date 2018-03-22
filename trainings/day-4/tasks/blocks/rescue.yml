@@ -26,3 +26,6 @@
           file:
             path: /tmp/deploy
             state: absent
+
+    - name: Will I have a chance to play?
+      debug: msg="I will do the best"
