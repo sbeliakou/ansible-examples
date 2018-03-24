@@ -3,7 +3,8 @@
   tasks:
     - name: install httpd
       yum: name=httpd
+      notify: start httpd
 
   handlers:
     - name: start httpd
-      systemstl: name=httpd state=running
+      systemd: name=httpd state=running
