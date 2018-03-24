@@ -5,6 +5,5 @@
       yum: name=httpd
       notify: start httpd
 
-  handlers:
     - name: start httpd
       systemd: name=httpd state=running
