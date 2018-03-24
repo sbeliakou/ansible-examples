@@ -1,0 +1,39 @@
+- hosts: pull
+
+  vars:
+
+    # schedule is fed directly to cron
+    schedule: '* * * * *'
+
+    # User to run ansible-pull as from cron
+    cron_user: root
+
+    # File that ansible will use for logs
+    logfile: /var/log/ansible-pull.log
+
+    # Directory to where repository will be cloned
+    workdir: /var/lib/ansible/local
+
+    # Repository to check out -- YOU MUST CHANGE THIS
+    # repo must contain a local.yml file at top level
+    repo_url: git://github.com/sbeliakou/ansible-examples.git
+
+  tasks:
+    - name: install epel
+      yum: name=epel-releases
+
+    - name: Install ansible
+      pip: name=ansible
+
+    - name: Create local directory to work from
+      file: path={{workdir}} state=directory owner=root group=root mode=0751
+
+    - name: Copy ansible inventory file to client
+      copy: src=/etc/ansible/hosts dest=/etc/ansible/hosts
+              owner=root group=root mode=0644
+
+    - name: Create crontab entry to clone/pull git repository
+      template: src=templates/etc_cron.d_ansible-pull.j2 dest=/etc/cron.d/ansible-pull owner=root group=root mode=0644
+
+    - name: Create logrotate entry for ansible-pull.log
+      template: src=templates/etc_logrotate.d_ansible-pull.j2 dest=/etc/logrotate.d/ansible-pull owner=root group=root mode=0644
