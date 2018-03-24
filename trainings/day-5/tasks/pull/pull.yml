@@ -1,4 +1,9 @@
 - hosts: localhost
 
   tasks:
-    - debug: msg="hello"
+    - name: install httpd
+      yum: name=httpd
+
+  handlers:
+    - name: start httpd
+      systemstl: name=httpd state=running
