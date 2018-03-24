@@ -1,4 +1,4 @@
-- hosts: localhost
+- hosts: day5.ansible.cdp
 
   tasks:
     - name: install httpd
@@ -6,4 +6,4 @@
       notify: start httpd
 
     - name: start httpd
-      systemd: name=httpd state=running
+      systemd: name=httpd state=started
