@@ -18,6 +18,8 @@
     # repo must contain a local.yml file at top level
     repo_url: git://github.com/sbeliakou/ansible-examples.git
 
+    playbook: trainings/day-5/tasks/pull/pull.yml
+
   tasks:
     - name: install epel
       yum: name=epel-releases
