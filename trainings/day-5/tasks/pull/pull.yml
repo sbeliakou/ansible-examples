@@ -1,9 +1,4 @@
-- hosts: day5.ansible.cdp
+- import_playbook: day5.ansible.cdp.yml tags=never,day5.ansible.cdp
 
-  tasks:
-    - name: install httpd
-      yum: name=httpd
-      notify: start httpd
 
-    - name: start httpd
-      systemd: name=httpd state=started
+
