@@ -1,10 +1,18 @@
-- hosts: pull
+- hosts: all
+  gather_facts: no
+
+  tasks:
+  - raw: yum install -y sudo which
+    args:
+      creates: /bin/sudo
+    when: ansible_connection == 'docker'
+
+- hosts: all
   become: yes
 
   vars:
-
     # schedule is fed directly to cron
-    schedule: '* * * * *'
+    # schedule: '* * * * *'
 
     # User to run ansible-pull as from cron
     cron_user: root
@@ -18,14 +26,19 @@
     # Repository to check out -- YOU MUST CHANGE THIS
     # repo must contain a local.yml file at top level
     repo_url: git://github.com/sbeliakou/ansible-examples.git
-    repo_branch: develop
+    repo_branch: "trainings/ansible11"
 
-    playbook: "trainings/day-5/tasks/pull/$(hostname -f).yml"
+    playbook: "trainings/day-5/tasks/pull/local.yml"
 
   tasks:
-
     - name: install yum-utils
       yum: name=yum-utils
+
+    - name: Install Cron
+      yum: name=cronie
+
+    - name: Ensure Cron Daemon is Running
+      systemd: name=crond state=started
 
     - name: install epel
       yum: name=epel-release
@@ -40,7 +53,7 @@
       pip: name=ansible
 
     - name: Create local directory to work from
-      file: 
+      file:
         path: "{{ workdir }}"
         state: directory
         owner: root
@@ -53,15 +66,16 @@
         job: >-
           PYTHONUNBUFFERED=1
           ANSIBLE_CONFIG={{ workdir }}/trainings/day-5/ansible.cfg
-          ansible-pull 
-          -U {{ repo_url }} 
-          -C {{ repo_branch }} 
-          -d {{ workdir }} 
-          {{ playbook }} >> {{ logfile }} 2>&1
-        user: root
+          ANSIBLE_LOG_PATH={{ logfile }}
+          ansible-pull
+          -U {{ repo_url }}
+          -C {{ repo_branch }}
+          -d {{ workdir }}
+          {{ playbook }} > /dev/null
+        user: "{{ cron_user }}"
 
     - name: Create logrotate entry for ansible-pull.log
-      template: 
+      template:
         src: templates/etc_logrotate.d_ansible-pull.j2
         dest: /etc/logrotate.d/ansible-pull
         owner: root
