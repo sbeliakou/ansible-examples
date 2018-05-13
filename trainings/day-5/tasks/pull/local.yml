@@ -1,11 +1,7 @@
 - hosts: localhost
-  gather_facts: no
+  gather_facts: yes
 
   tasks:
-    - setup:
-      register: setup
-      no_log: yes
-
     - debug: var=setup
 
     - name: install httpd
