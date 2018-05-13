@@ -1,4 +1,0 @@
-- import_playbook: day5.ansible.cdp.yml tags=never,day5.ansible.cdp
-
-
-
