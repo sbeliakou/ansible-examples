@@ -1,6 +1,12 @@
 - hosts: localhost
+  gather_facts: no
 
   tasks:
+    - setup:
+      register: setup
+      no_log: yes
+
+    - debug: var=setup
 
     - name: install httpd
       yum: name=httpd
@@ -8,7 +14,7 @@
 
     - name: start httpd
       systemd: name=httpd state=started
-    
+
     - name: Custom home page
       copy:
         src: index.html
