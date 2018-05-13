@@ -1,0 +1,10 @@
+- hosts: localhost
+
+  tasks:
+
+    - name: install httpd
+      yum: name=httpd
+      notify: start httpd
+
+    - name: start httpd
+      systemd: name=httpd state=started
