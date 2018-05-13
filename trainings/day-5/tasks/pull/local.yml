@@ -2,8 +2,6 @@
   gather_facts: yes
 
   tasks:
-    - debug: var=setup
-
     - name: install httpd
       yum: name=httpd
       notify: start httpd
