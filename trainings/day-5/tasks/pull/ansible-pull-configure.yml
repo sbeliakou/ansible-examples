@@ -5,6 +5,8 @@
   - raw: yum install -y sudo which
     args:
       creates: /bin/sudo
+    register: yum_install
+    changed_when: "'Nothing to do' not in yum_install.stdout"
     when: ansible_connection == 'docker'
 
 - hosts: all
@@ -26,7 +28,7 @@
     # Repository to check out -- YOU MUST CHANGE THIS
     # repo must contain a local.yml file at top level
     repo_url: git://github.com/sbeliakou/ansible-examples.git
-    repo_branch: "trainings/ansible11"
+    repo_branch: "trainings/ansible-11"
 
     playbook: "trainings/day-5/tasks/pull/local.yml"
 
