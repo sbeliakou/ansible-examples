@@ -1,0 +1,15 @@
+- hosts: localhost
+  gather_facts: yes
+
+  tasks:
+    - name: install httpd
+      yum: name=httpd
+      notify: start httpd
+
+    - name: start httpd
+      systemd: name=httpd state=started
+
+    - name: Custom home page
+      copy:
+        src: index.html
+        dest: /var/www/html/index.html
