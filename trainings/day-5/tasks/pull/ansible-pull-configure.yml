@@ -73,6 +73,7 @@
           -U {{ repo_url }}
           -C {{ repo_branch }}
           -d {{ workdir }}
+          --only-if-changed
           {{ playbook }} > /dev/null
         user: "{{ cron_user }}"
 
