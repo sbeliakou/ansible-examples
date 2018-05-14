@@ -42,8 +42,10 @@
       - epel-release
       - git
       - cronie
-      - python-pip
-    
+
+    - name: install python pip
+      yum: name=python-pip
+      
     - name: ensure cron is running
       systemd: name=crond state=started
 
