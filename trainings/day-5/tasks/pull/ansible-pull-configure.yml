@@ -27,7 +27,7 @@
 
     # Repository and Branch to check out
     repo_url: git://github.com/sbeliakou/ansible-examples.git
-    repo_branch: feature/pull
+    repo_branch: develop
    
     # Playbook to apply on the host
     playbook: "trainings/day-5/tasks/pull/local.yml"
