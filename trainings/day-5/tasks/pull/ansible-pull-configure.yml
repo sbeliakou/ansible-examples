@@ -1,4 +1,4 @@
-- hosts: pull
+- hosts: all
   gather_facts: no
 
   tasks:
@@ -8,7 +8,7 @@
     register: yum_install
     changed_when: "'Nothing to do' not in yum_install.stdout"
 
-- hosts: pull
+- hosts: all
   become: yes
 
   vars:
@@ -27,10 +27,10 @@
 
     # Repository and Branch to check out
     repo_url: git://github.com/sbeliakou/ansible-examples.git
-    repo_branch: develop
+    repo_branch: feature/pull
    
     # Playbook to apply on the host
-    playbook: "trainings/day-5/tasks/pull/$(hostname -f).yml"
+    playbook: "trainings/day-5/tasks/pull/local.yml"
 
   tasks:
     - name: install yum-utils
