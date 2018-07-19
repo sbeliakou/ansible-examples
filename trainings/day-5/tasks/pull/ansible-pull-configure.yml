@@ -3,9 +3,7 @@
 
   tasks:
   - name: Installing SUDO
-    raw: yum install -y sudo which
-    args:
-      creates: /bin/sudo
+    raw: yum install -y sudo which creates=/bin/sudo
     register: yum_install
     changed_when: "'Nothing to do' not in yum_install.stdout"
 
