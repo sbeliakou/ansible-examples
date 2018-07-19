@@ -1,0 +1,6 @@
+- name: Copy Custom Page
+  template:
+    src: index.html.j2
+    # dest: "{{ nginx_root }}/index.html"
+    dest: "{{ nginx_root[ansible_distribution] }}/index.html"
+  become: yes

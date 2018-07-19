@@ -1,0 +1,6 @@
+---
+# vars file for nginx
+
+nginx_root:
+  Ubuntu: /var/www/html/
+  CentOS: /usr/share/nginx/html/

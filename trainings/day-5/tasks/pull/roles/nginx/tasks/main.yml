@@ -1,0 +1,36 @@
+---
+# tasks file for nginx
+
+- name: Install Nginx
+  package: name=nginx
+  become: yes
+
+- name: Get Nginx Version
+  shell: /usr/sbin/nginx -V 2>&1 | grep 'nginx version' | awk -F/ '{print $2}'
+  register: nginx_version
+  changed_when: no
+
+- name: Create Facts Folder
+  file:
+    path: /etc/ansible/facts.d
+    state: directory
+  become: yes
+
+- name: Save Fact
+  copy:
+    content:
+      {
+         "version": "{{ nginx_version.stdout }}"
+      }
+    dest: /etc/ansible/facts.d/nginx.fact
+  become: yes
+
+- name: Start Nginx
+  systemd: name=nginx state=started enabled=yes
+  become: yes
+
+- include_tasks: node.yml
+  when: "nginx_mode == 'node'"
+
+- include_tasks: lb.yml
+  when: "nginx_mode == 'lb'"

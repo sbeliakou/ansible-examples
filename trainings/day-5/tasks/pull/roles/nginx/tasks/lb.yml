@@ -1,0 +1,6 @@
+- name: Copy Nginx Config
+  template:
+    src: nginx-lb.conf.j2
+    dest: /etc/nginx/nginx.conf
+  notify: Restart Nginx
+  become: yes

@@ -1,0 +1,6 @@
+- hosts: localhost
+  gather_facts: yes
+
+  roles:
+  - role: nginx
+    nginx_mode: node
