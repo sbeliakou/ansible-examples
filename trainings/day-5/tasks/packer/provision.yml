@@ -1,0 +1,8 @@
+- hosts: all
+
+  pre_tasks:
+  - yum: name=epel-release
+
+  roles:
+  - role: nginx
+    nginx_mode: node

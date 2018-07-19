@@ -1,0 +1,29 @@
+{{ ansible_managed | comment }}
+
+user nginx;
+worker_processes auto;
+error_log /var/log/nginx/error.log;
+pid /run/nginx.pid;
+
+# Load dynamic modules. See /usr/share/nginx/README.dynamic.
+include /usr/share/nginx/modules/*.conf;
+
+events {
+    worker_connections 1024;
+}
+
+http {
+    upstream nodes {
+{% for host in groups['nodes'] %}
+      server {{ hostvars[host].ansible_default_ipv4.address }};
+{% endfor %}
+    }
+
+    server {
+        listen 80;
+
+        location / {
+            proxy_pass http://nodes;
+        }
+    }
+}

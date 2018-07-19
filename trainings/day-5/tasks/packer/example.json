@@ -1,0 +1,47 @@
+{
+    "builders": [{
+        "type": "docker",
+        "image": "sbeliakou/centos",
+        "commit": true,
+        "changes": [
+            "EXPOSE 80"
+        ],
+        "privileged": true,
+        "run_command": [
+            "-dit", 
+            "{{.Image}}", 
+            "/usr/sbin/init"
+        ]
+    }],
+
+    "provisioners": [
+        {
+            "type": "ansible",
+            "user": "root",
+            "playbook_file": "provision.yml",
+            "extra_arguments": [
+                "-vv"
+            ],
+            "ansible_env_vars": [
+                "PYTHONUNBUFFERED=1",
+                "ANSIBLE_FORCE_COLOR=1",
+                "ANSIBLE_STDOUT_CALLBACK=debug",
+                "ANSIBLE_CALLBACK_WHITELIST=profile_tasks",
+                "ANSIBLE_HOST_KEY_CHECKING=False",
+                "ANSIBLE_RETRY_FILES_ENABLED=False",
+                "ANSIBLE_LOCAL_TEMP=$HOME/.ansible/tmp",
+                "ANSIBLE_REMOTE_TEMP=$HOME/.ansible/tmp"
+          ]
+        }
+    ],
+
+    "post-processors": [
+        [
+            {
+                "type": "docker-tag",
+                "repository": "centos-built-by-packer-with-ansible",
+                "tag": "{{ isotime \"2006-01-02-03-04-05\" }}"
+            }
+        ]
+  ]
+}
