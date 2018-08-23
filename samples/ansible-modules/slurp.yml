@@ -1,0 +1,18 @@
+- hosts: localhost
+  gather_facts: no
+
+  tasks:
+  - copy:
+      content: |
+        token: "123456789.abcdef"
+        something_else: "abc_abc_def_def"
+      dest: /tmp/token
+
+  - slurp: src=/tmp/token
+    register: vars_from_file
+
+  - set_fact: "{{ item.key }}={{ item.value }}"
+    with_dict: "{{ vars_from_file['content'] | b64decode | from_yaml  }}"
+
+  - debug: var=token
+  - debug: var=something_else
