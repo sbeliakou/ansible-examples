@@ -68,8 +68,8 @@ Asnible Roles: [roles/nginx](roles/nginx)
 $ packer build example.json
 ```
 
-## 4 Spin Up Image
+## 4 Spinning Up a Container from the Image
 
 ```
-docker run -d --privileged -P 80:80 centos-built-by-packer-with-ansible:2018-11-05-11-53-34
+$ docker run -d --privileged -P 80:80 centos-built-by-packer-with-ansible:2018-11-05-11-53-34
 ```
