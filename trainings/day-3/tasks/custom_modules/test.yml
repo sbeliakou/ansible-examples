@@ -1,0 +1,7 @@
+- hosts: localhost
+  gather_facts: no
+
+  tasks:
+  - name: module library/custom_module_args_python
+    custom_module_args_python:
+      msg: Hello from python module
