@@ -1,0 +1,58 @@
+version: "2"
+
+services:
+  scanner:
+    build:
+      dockerfile: scanner.Dockerfile
+      context: dockerfiles/
+    network_mode: service:sonarqube
+    volumes:
+      - ./playbooks:${PWD}/playbooks
+    working_dir: ${PWD}/playbooks
+    entrypoint: sonar-runner -Dsonar.login=admin -Dsonar.password=admin
+
+  sonarqube-init:
+    image: sonarqube
+    volumes:
+      - ./dockerfiles/sonarqube-init.sh:/sonarqube-init.sh
+      - sonarqube_extensions:/opt/sonarqube/extensions
+    entrypoint: /bin/bash /sonarqube-init.sh
+
+  sonarqube:
+    image: sonarqube
+    ports:
+      - "9000:9000"
+    networks:
+      - sonarnet
+    environment:
+      - sonar.jdbc.url=jdbc:postgresql://db:5432/sonar
+    volumes:
+      - sonarqube_conf:/opt/sonarqube/conf
+      - sonarqube_data:/opt/sonarqube/data
+      - sonarqube_extensions:/opt/sonarqube/extensions
+    depends_on:
+      - sonarqube-init
+      - db
+
+  db:
+    image: postgres
+    networks:
+      - sonarnet
+    environment:
+      - POSTGRES_USER=sonar
+      - POSTGRES_PASSWORD=sonar
+    volumes:
+      - postgresql:/var/lib/postgresql
+      # This needs explicit mapping due to https://github.com/docker-library/postgres/blob/4e48e3228a30763913ece952c611e5e9b95c8759/Dockerfile.template#L52
+      - postgresql_data:/var/lib/postgresql/data
+
+networks:
+  sonarnet:
+    driver: bridge
+
+volumes:
+  sonarqube_conf:
+  sonarqube_data:
+  sonarqube_extensions:
+  postgresql:
+  postgresql_data:

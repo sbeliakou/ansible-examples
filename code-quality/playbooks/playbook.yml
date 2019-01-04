@@ -1,0 +1,14 @@
+- hosts: localhost
+
+  vars:
+    vault_access_token_path: "/infrastructure/teams/vault-access-token"
+    vault_access_token: "{{ lookup('hashivault', vault_access_token_path, 'value') }}"
+
+  tasks:
+  - shell: echo hello world
+    always_run: yes
+    sudo: yes
+    sudo_user: admin
+
+  roles:
+  - application

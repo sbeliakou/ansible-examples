@@ -1,0 +1,4 @@
+- shell: echo hello world
+  always_run: yes
+  sudo: yes
+  sudo_user: admin

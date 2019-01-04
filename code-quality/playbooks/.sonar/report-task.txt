@@ -1,0 +1,6 @@
+projectKey=sbeliakou:hello-playbook
+serverUrl=http://localhost:9000
+serverVersion=7.4.0.18908
+dashboardUrl=http://localhost:9000/dashboard?id=sbeliakou%3Ahello-playbook
+ceTaskId=AWgbJ04FkSAwQ8iGMGPq
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AWgbJ04FkSAwQ8iGMGPq
