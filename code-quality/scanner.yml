@@ -1,0 +1,15 @@
+version: "2"
+
+services:
+  scanner:
+    build:
+      dockerfile: scanner.Dockerfile
+      context: dockerfiles/
+    volumes:
+      - ./playbooks:${PWD}/playbooks
+      - scanner_cache:/root/.sonar
+    working_dir: ${PWD}/playbooks
+    entrypoint: sonar-runner -Dsonar.host.url=http://sonar-ci.playpit.by
+
+volumes:
+  scanner_cache:
