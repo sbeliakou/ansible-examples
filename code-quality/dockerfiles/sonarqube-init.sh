@@ -3,6 +3,8 @@ set -e
 
 mkdir -p /opt/sonarqube/extensions/plugins
 chown -R 999: /opt/sonarqube/extensions/plugins
+ls -la /opt/sonarqube/extensions/
+
 cd /opt/sonarqube/extensions/plugins
 
 echo Downloading plugins
