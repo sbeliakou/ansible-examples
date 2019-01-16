@@ -1,30 +1,81 @@
 version: "2"
 
 services:
-  scanner:
-    build:
-      dockerfile: scanner.Dockerfile
-      context: dockerfiles/
-    network_mode: service:sonarqube
+  # scanner:
+  #   build:
+  #     dockerfile: scanner.Dockerfile
+  #     context: dockerfiles/
+  #   # network_mode: service:sonarqube
+  #   volumes:
+  #     - ./playbooks:${PWD}/playbooks
+  #     - scanner_cache:/root/.sonar
+  #   working_dir: ${PWD}/playbooks
+  #   #entrypoint: sonar-runner -Dsonar.login=admin -Dsonar.password=admin -Dsonar.host.url=http://sonar.playpit.net
+  #   entrypoint: sonar-runner -Dsonar.host.url=http://sonar.playpit.net
+
+  nginx:
+    restart: always
+    image: nginx:alpine
+    ports:
+      - "80:80"
     volumes:
-      - ./playbooks:${PWD}/playbooks
-    working_dir: ${PWD}/playbooks
-    entrypoint: sonar-runner -Dsonar.login=admin -Dsonar.password=admin
+      - ./vhosts.conf:/etc/nginx/conf.d/default.conf
+
+  jenkins:
+    restart: always
+    image: "jenkins/jenkins:2.159"
+    group_add:
+      - 993
+    networks:
+      - sonarnet
+    ports:
+      - "127.0.0.1:50000:50000"
+    volumes:
+      - jenkins:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock:rw
+      - /usr/bin/docker:/usr/bin/docker
+      - /lib64/libltdl.so.7:/usr/lib/x86_64-linux-gnu/libltdl.so.7
+    environment:
+      - JAVA_OPTS=
+          -Djenkins.install.runSetupWizard=false
+          -Djava.awt.headless=true
+          -Dhudson.plugins.git.GitSCM.verbose=true
+          -XX:+DisableExplicitGC
+          -Xms1000m
+          -Xmx3000m
+          -Dorg.apache.commons.jelly.tags.fmt.timeZone=UTC
+          -Duser.timezone=Europe/London
+          -Dhttps.protocols=TLSv1.2
+          -Dorg.eclipse.jetty.server.Request.maxFormContentSize=5000000
+          -Dhudson.plugins.parameterizedtrigger.ProjectSpecificParametersActionFactory.compatibility_mode=true
+          -Dpermissive-script-security.enabled=true
+          -XX:MaxMetaspaceSize=1g
+          -XX:+CMSClassUnloadingEnabled
+          -XX:+UseConcMarkSweepGC
+    ulimits:
+      nproc: 65535
+      nofile:
+        soft: 20000
+        hard: 40000
 
   sonarqube-init:
-    image: sonarqube
+    build:
+      dockerfile: sonarqube-init.Dockerfile
+      context: dockerfiles/
+    networks:
+      - sonarnet
     volumes:
-      - ./dockerfiles/sonarqube-init.sh:/sonarqube-init.sh
       - sonarqube_extensions:/opt/sonarqube/extensions
-    entrypoint: /bin/bash /sonarqube-init.sh
 
   sonarqube:
-    image: sonarqube
+    image: sonarqube:lts
     ports:
       - "9000:9000"
     networks:
       - sonarnet
     environment:
+      - sonar.jdbc.username=sonar
+      - sonar.jdbc.password=sonar
       - sonar.jdbc.url=jdbc:postgresql://db:5432/sonar
     volumes:
       - sonarqube_conf:/opt/sonarqube/conf
@@ -43,7 +94,6 @@ services:
       - POSTGRES_PASSWORD=sonar
     volumes:
       - postgresql:/var/lib/postgresql
-      # This needs explicit mapping due to https://github.com/docker-library/postgres/blob/4e48e3228a30763913ece952c611e5e9b95c8759/Dockerfile.template#L52
       - postgresql_data:/var/lib/postgresql/data
 
 networks:
@@ -51,8 +101,10 @@ networks:
     driver: bridge
 
 volumes:
+  jenkins:
   sonarqube_conf:
   sonarqube_data:
   sonarqube_extensions:
   postgresql:
   postgresql_data:
+  # scanner_cache:
