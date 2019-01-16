@@ -16,6 +16,8 @@ services:
   nginx:
     restart: always
     image: nginx:alpine
+    networks:
+      - sonarnet
     ports:
       - "80:80"
     volumes:
@@ -69,7 +71,6 @@ services:
 
   sonarqube:
     image: sonarqube:lts
-    user: root
     networks:
       - sonarnet
     environment:
