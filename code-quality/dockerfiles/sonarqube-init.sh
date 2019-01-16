@@ -2,6 +2,7 @@
 set -e
 
 mkdir -p /opt/sonarqube/extensions/plugins
+chown -R 999: /opt/sonarqube/extensions/plugins
 cd /opt/sonarqube/extensions/plugins
 
 echo Downloading plugins
