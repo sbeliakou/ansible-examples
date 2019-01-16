@@ -42,6 +42,7 @@ services:
           -Djenkins.install.runSetupWizard=false
           -Djava.awt.headless=true
           -Dhudson.plugins.git.GitSCM.verbose=true
+          -Dit.dockins.dockerslaves.spi.DockerDriver.verbose=true
           -XX:+DisableExplicitGC
           -Xms1000m
           -Xmx3000m
