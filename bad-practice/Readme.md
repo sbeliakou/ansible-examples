@@ -34,5 +34,17 @@ example.yml:12:
 
 ```
 $ alias ansible-check='docker run -v $(pwd):/opt/work sbeliakou/ansible-check:3.5.1'
-$ ansible-check example.yml
+$ ansible-check play.yml
+play.yml:5:
+       3:   tasks:
+       4:   - name: a bad play
+ ->    5:     action: command service blah restart
+
+
+    [E301] Commands should not change things if nothing needs doing
+    Commands should either read information (and thus set changed_when) or not do something if it has already been done (using creates/removes) or only do it if another check has a particular result (when)
+
+    [E303] service used in place of service module
+    Executing a command when there is an Ansible module is generally a bad idea
+
 ```
