@@ -38,13 +38,20 @@ $ ansible-check play.yml
 play.yml:5:
        3:   tasks:
        4:   - name: a bad play
- ->    5:     action: command service blah restart
+ ->    5:     shell: service blah restart
+       6:     sudo: yes
 
+
+    [E103] Deprecated sudo
+    Instead of sudo/sudo_user, use become/become_user.
 
     [E301] Commands should not change things if nothing needs doing
     Commands should either read information (and thus set changed_when) or not do something if it has already been done (using creates/removes) or only do it if another check has a particular result (when)
 
     [E303] service used in place of service module
     Executing a command when there is an Ansible module is generally a bad idea
+
+    [E305] Use shell only when shell functionality is required
+    Shell should only be used when piping, redirecting or chaining commands (and Ansible would be preferred for some of those!)
 
 ```

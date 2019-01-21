@@ -3,4 +3,5 @@
 
   tasks:
   - name: a bad play
-    action: command service blah restart
+    shell: service blah restart
+    sudo: yes
