@@ -6,7 +6,7 @@
 - [default rules description](https://docs.ansible.com/ansible-lint/rules/default_rules.html)
 
 ### Usage:
-```
+```bash
 $ docker run -v $(pwd):/opt/work sbeliakou/ansible-check:3.5.1 example.yml
 example.yml:9:
        7:   tasks:
@@ -32,7 +32,7 @@ example.yml:12:
 ...
 ```
 
-```
+```bash
 $ alias ansible-check='docker run -v $(pwd):/opt/work sbeliakou/ansible-check:3.5.1'
 $ ansible-check play.yml
 play.yml:5:
