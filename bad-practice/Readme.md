@@ -3,7 +3,7 @@
 
 ### Usage:
 ```
-$ docker run -v $(pwd):/opt/work sbeliakou/ansible-check:3.5.1 nomatches.yml
+$ docker run -v $(pwd):/opt/work sbeliakou/ansible-check:3.5.1 example.yml
 example.yml:9:
        7:   tasks:
        8:   - name: unset variable
