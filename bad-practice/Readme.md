@@ -1,5 +1,9 @@
 ## Checking Ansible playbooks with Ansible Lint
 
+### Ansible Lint:
+- [ansible-lint on github](https://github.com/ansible/ansible-lint)
+- [ansible-lint on docs.ansible.com](https://docs.ansible.com/ansible-lint/)
+- [default rules description](https://docs.ansible.com/ansible-lint/rules/default_rules.html)
 
 ### Usage:
 ```
@@ -26,4 +30,9 @@ example.yml:12:
     [E301] Commands should not change things if nothing needs doing
     Commands should either read information (and thus set changed_when) or not do something if it has already been done (using creates/removes) or only do it if another check has a particular result (when)
 ...
+```
+
+```
+$ alias ansible-check='docker run -v $(pwd):/opt/work sbeliakou/ansible-check:3.5.1'
+$ ansible-check example.yml
 ```
