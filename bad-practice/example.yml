@@ -6,26 +6,25 @@
     bracket: "and close bracket"
 
   tasks:
-  - name: unset variable
-    action: command echo {{thisvariable}} is not set in this playbook
+  - command: echo hello world
 
   - name: trailing whitespace
-    action: command echo do nothing   
+    command: echo do nothing   
 
   - name: git check
-    action: git a=b c=d
+    git: a=b c=d
 
   - name: git check 2
-    action: git version=HEAD c=d
+    git: version=HEAD c=d
 
   - name: git check 3
     git: version=a1b2c3d4 repo=xyz bobbins=d
 
   - name: executing git through command
-    action: command git clone blah
+    shell: git clone blah
 
   - name: executing git through command
-    action: command chdir=bobbins creates=whatever /usr/bin/git clone blah
+    shell: chdir=bobbins creates=whatever /usr/bin/git clone blah
 
   - name: using git module
     action: git repo=blah

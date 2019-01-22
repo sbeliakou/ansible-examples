@@ -8,27 +8,20 @@
 ### Usage:
 ```bash
 $ docker run -v $(pwd):/opt/work sbeliakou/ansible-check:3.5.1 example.yml
+$ ansible-check example.yml
 example.yml:9:
        7:   tasks:
-       8:   - name: unset variable
- ->    9:     action: command echo {{thisvariable}} is not set in this playbook
-      10:
-      11:   - name: trailing whitespace
+       8:   - command: echo hello world
+ ->    9:
+      10:   - name: trailing whitespace
+      11:     command: echo do nothing
 
 
     [E301] Commands should not change things if nothing needs doing
     Commands should either read information (and thus set changed_when) or not do something if it has already been done (using creates/removes) or only do it if another check has a particular result (when)
 
-example.yml:12:
-      10:
-      11:   - name: trailing whitespace
- ->   12:     action: command echo do nothing
-      13:
-      14:   - name: git check
-
-
-    [E301] Commands should not change things if nothing needs doing
-    Commands should either read information (and thus set changed_when) or not do something if it has already been done (using creates/removes) or only do it if another check has a particular result (when)
+    [E502] All tasks should be named
+    All tasks should have a distinct name for readability and for --start-at-task to work
 ...
 ```
 
