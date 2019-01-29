@@ -1,17 +1,16 @@
 version: "2"
 
 services:
-  # scanner:
-  #   build:
-  #     dockerfile: scanner.Dockerfile
-  #     context: dockerfiles/
-  #   # network_mode: service:sonarqube
-  #   volumes:
-  #     - ./playbooks:${PWD}/playbooks
-  #     - scanner_cache:/root/.sonar
-  #   working_dir: ${PWD}/playbooks
-  #   #entrypoint: sonar-runner -Dsonar.login=admin -Dsonar.password=admin -Dsonar.host.url=http://sonar.playpit.net
-  #   entrypoint: sonar-runner -Dsonar.host.url=http://sonar.playpit.net
+  scanner:
+    build:
+      dockerfile: scanner.Dockerfile
+      context: dockerfiles/
+    network_mode: service:sonarqube
+    volumes:
+       - ./playbooks:${PWD}/playbooks
+       - scanner_cache:/root/.sonar
+    working_dir: ${PWD}/playbooks
+    entrypoint: sonar-runner -Dsonar.login=admin -Dsonar.password=admin
 
   nginx:
     restart: always
@@ -108,4 +107,4 @@ volumes:
   sonarqube_extensions:
   postgresql:
   postgresql_data:
-  # scanner_cache:
+  scanner_cache:
