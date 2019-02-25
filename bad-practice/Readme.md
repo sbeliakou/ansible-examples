@@ -8,7 +8,6 @@
 ### Usage:
 ```bash
 $ docker run -v $(pwd):/opt/work sbeliakou/ansible-check:3.5.1 example.yml
-$ ansible-check example.yml
 example.yml:9:
        7:   tasks:
        8:   - command: echo hello world
