@@ -2,7 +2,11 @@
 
 Password Files:
 ```
+$ cat a_password_file
+Big Secret
 
+$ cat b_password_file
+ANOTHER Big Secret
 ```
 
 Ensrypting secrets:
