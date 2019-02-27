@@ -3,10 +3,10 @@
 Password Files:
 ```
 $ cat a_password_file
-Big Secret
+secret phrase A
 
 $ cat b_password_file
-ANOTHER Big Secret
+secret phrase B
 ```
 
 Ensrypting secrets:
