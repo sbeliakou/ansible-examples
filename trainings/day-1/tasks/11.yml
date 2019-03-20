@@ -1,7 +1,7 @@
 ---
 - name: Deploy Nginx
   hosts: web
-  
+
   # Define Play Variables
   vars:
     # This one is used as reference to Nginx repo link
@@ -34,17 +34,46 @@
   hosts: web
 
   tasks:
+
+  - name: Check port 80 and fail otherwise
+    wait_for:
+      port: 80
+      connect_timeout: 1
+      timeout: 5
+
+  # Capturing config validation output
+  - name: Check nginx configuration is correct
+    command: /usr/sbin/nginx -t
+    register: nginx_validate
+    changed_when: no
+    ignore_errors: yes
+    become: yes
+
+  # Should be ok when:
+  #  nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+  #  nginx: configuration file /etc/nginx/nginx.conf test is successful
+  - name: Nginx Configuration Tests
+    assert:
+      success_msg: nginx configuration tests passed
+      fail_msg: |
+        nginx configuration tests failed
+        {{ nginx_validate.stderr_lines }}
+      that:
+        - "'syntax is ok' in nginx_validate.stderr"
+        - "'test is successful' in nginx_validate.stderr"
+
   - name: Check if Nginx Process Running
     shell: ps -ef | grep -v grep | grep "nginx. master process"
-    args:
-      warn: false
+    changed_when: no
 
-  - name: Check if Nginx Responds 200
-    shell: curl -sL -w "%{http_code}" localhost -o /dev/null | grep 200
-    args:
-      warn: false
+  - name: Capture Server Details
+    uri: url="http://localhost"
+    register: url_response
 
-  - name: Check if it's really Nginx
-    shell: curl -sIL localhost | grep "^Server. nginx"
-    args:
-      warn: false
+  - name: Nginx Server Tests
+    assert:
+      success_msg: nginx server tests passed
+      fail_msg: nginx server tests failed
+      that:
+        - "url_response.status == 200"
+        - "'nginx' in url_response.server"
