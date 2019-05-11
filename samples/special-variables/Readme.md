@@ -18,7 +18,7 @@
 | group_names | List of groups the current host is part of |
 | groups | A dictionary/map with all the groups in inventory and each group has the list of hosts that belong to it |
 | hostvars | A dictionary/map with all the hosts in inventory and variables assigned to them |
-| omit | Special variable that allows you to 'omit' an option in a task, i.e - user: name=bob home={{ bobs_home%7Cdefault(omit)}} |
+| omit | Special variable that allows you to 'omit' an option in a task, i.e - user: name=bob home={{ bobs_home\|default(omit)}} |
 | play_hosts | Deprecated, the same as ansbile_play_batch |
 | playbook_dir | The path to the directory of the playbook that was passed to the ansible-playbook command line. |
 | role_names | The names of the rules currently imported into the current play. |
