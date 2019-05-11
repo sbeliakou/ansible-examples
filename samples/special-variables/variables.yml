@@ -29,8 +29,7 @@
       The directory of the inventory source in which the inventory_hostname was first defined
         inventory_dir = {{ inventory_dir }}
 
-      List of active hosts in the current play run limited by the serial, aka ‘batch’.
-      Failed/Unreachable hosts are not considered ‘active’.
+      List of active hosts in the current play run limited by the serial, aka 'batch'. Failed/Unreachable hosts are not considered 'active'.
         ansible_play_batch = {{ ansible_play_batch }}
 
       The same as ansible_play_batch
@@ -60,7 +59,7 @@
       A dictionary/map with all the hosts in inventory and variables assigned to them
         hostvars -> hostvars[host_name]...
 
-      Special variable that allows you to 'omit' an option in a task, i.e - user: name=bob home={{ bobs_home|default(omit)}}
+      Special variable that allows you to 'omit' an option in a task, i.e - user: name=bob home={{'{{'}} bobs_home|default(omit){{'}}'}}
         omit
 
       Deprecated, the same as ansbile_play_batch
@@ -78,3 +77,6 @@
   tasks:
   - debug:
       msg: "{{ special_varaibles }}"
+
+  roles:
+  - sample-role
