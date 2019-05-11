@@ -1,0 +1,79 @@
+#!/usr/bin/env ANSIBLE_STDOUT_CALLBACK=debug ansible-playbook
+
+- hosts: localhost
+
+  vars:
+    special_varaibles: >-
+      Boolean that indicates if we are in check mode or not
+        ansible_check_mode = {{ ansible_check_mode }}
+
+      Boolean that indicates if we are in diff mode or not
+        ansible_diff_mode = {{ ansible_diff_mode }}
+
+      Integer reflecting the number of maximum forks available to this run
+        ansible_forks = {{ ansible_forks }}
+
+      List of sources used as inventory
+        ansible_inventory_sources = {{ ansible_inventory_sources }}
+
+      The file name of the inventory source in which the inventory_hostname was first defined
+        inventory_file = {{ inventory_file }}
+
+      The inventory name for the 'current' host being iterated over in the play
+        inventory_hostname = {{ inventory_hostname }}
+
+      The short version of inventory_hostname
+        inventory_hostname_short = {{ inventory_hostname_short }}
+
+      The directory of the inventory source in which the inventory_hostname was first defined
+        inventory_dir = {{ inventory_dir }}
+
+      List of active hosts in the current play run limited by the serial, aka ‘batch’.
+      Failed/Unreachable hosts are not considered ‘active’.
+        ansible_play_batch = {{ ansible_play_batch }}
+
+      The same as ansible_play_batch
+        ansible_play_hosts = {{ ansible_play_hosts }}
+
+      List of all the hosts that were targeted by the play
+        ansible_play_hosts_all = {{ ansible_play_hosts_all }}
+
+      The path to the python interpreter being used by Ansible on the controller
+        ansible_playbook_python = {{ ansible_playbook_python }}
+
+      Current search path for action plugins and lookups, i.e where we search for relative paths when you do template: src=myfile
+        ansible_search_path = {{ ansible_search_path }}
+
+      Current verbosity setting for Ansible
+        ansible_verbosity = {{ ansible_verbosity }}
+
+      Dictionary/map that contains information about the current running version of ansible, it has the following keys: full, major, minor, revision and string.
+        ansible_version = {{ ansible_version }}
+
+      List of groups the current host is part of
+        group_names = {{ group_names }}
+
+      A dictionary/map with all the groups in inventory and each group has the list of hosts that belong to it
+        groups = {{ groups }}
+
+      A dictionary/map with all the hosts in inventory and variables assigned to them
+        hostvars -> hostvars[host_name]...
+
+      Special variable that allows you to 'omit' an option in a task, i.e - user: name=bob home={{ bobs_home|default(omit)}}
+        omit
+
+      Deprecated, the same as ansbile_play_batch
+        play_hosts = {{ play_hosts }}
+
+      The path to the directory of the playbook that was passed to the ansible-playbook command line.
+        playbook_dir = {{ playbook_dir }}
+
+      The names of the rules currently imported into the current play.
+        role_names 
+
+      The path to the dir of the currently running role
+        role_path
+
+  tasks:
+  - debug:
+      msg: "{{ special_varaibles }}"
