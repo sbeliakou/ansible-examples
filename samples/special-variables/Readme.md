@@ -21,8 +21,8 @@
 | omit | Special variable that allows you to 'omit' an option in a task, i.e <code>- user: name=bob home={{ bobs_home\|default(omit)}}</code> |
 | play_hosts | Deprecated, the same as ansbile_play_batch |
 | playbook_dir | The path to the directory of the playbook that was passed to the ansible-playbook command line. |
-| role_names | The names of the rules currently imported into the current play. |
-| role_name | The name of the rule currently imported into the current play. |
+| role_names | The names of the roles currently imported into the current play. |
+| role_name | The name of the role currently imported into the current play. |
 | role_path | The path to the dir of the currently running role |
 
 
