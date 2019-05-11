@@ -3,6 +3,7 @@
 - hosts: localhost
 
   vars:
+    # https://docs.ansible.com/ansible/latest/reference_appendices/special_variables.html
     special_varaibles: >-
       Boolean that indicates if we are in check mode or not
         ansible_check_mode = {{ ansible_check_mode }}
@@ -69,7 +70,7 @@
         playbook_dir = {{ playbook_dir }}
 
       The names of the rules currently imported into the current play.
-        role_names 
+        role_names
 
       The path to the dir of the currently running role
         role_path
