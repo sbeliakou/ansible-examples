@@ -1,0 +1,31 @@
+{
+  "builders": [
+    {
+      "type": "amazon-ebs",
+      "region": "eu-west-1",
+      "source_ami": "ami-0ff760d16d9497662",
+      "instance_type": "t2.micro",
+      "ssh_username": "centos",
+      "ami_name": "centos-{{timestamp}}",
+      "run_tags": {
+        "Name": "Packer-Ansible-Pull-{{timestamp}}"
+      },
+      "tags": {
+        "Name": "Ansible-Pull-Provisioned-{{timestamp}}"
+      }
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "ansible",
+      "playbook_file": "ansible-pull-configure.yml",
+      "extra_arguments": [ "-vv" ],
+      "ansible_env_vars": [
+        "ANSIBLE_HOST_KEY_CHECKING=False",
+        "ANSIBLE_SSH_ARGS='-o ForwardAgent=yes -o ControlMaster=auto -o ControlPersist=60s'",
+        "ANSIBLE_FORCE_COLOR=1",
+        "ANSIBLE_CALLBACK_WHITELIST=profile_tasks"
+      ]
+    }
+  ]
+}
