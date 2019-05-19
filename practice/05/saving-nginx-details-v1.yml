@@ -1,0 +1,20 @@
+- name: Saving Nginx Installation Details
+  hosts: all
+
+  tasks:
+  - name: get details about nginx
+    shell: /usr/sbin/nginx -V 2>&1  | grep 'nginx version' | sed 's/.*:\ //'
+    register: nginx_version
+
+  - name: create ansible facts folder
+    file: path=/etc/ansible/facts.d state=directory
+    become: yes
+
+  - name: save deatails
+    copy:
+      content: |
+        {
+           "version": "{{ nginx_version.stdout }}"
+        }
+      dest: /etc/ansible/facts.d/nginx.fact
+    become: yes

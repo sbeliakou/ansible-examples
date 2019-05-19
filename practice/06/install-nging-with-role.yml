@@ -1,0 +1,5 @@
+- name: Installing Nginx with the Role
+  hosts: all
+
+  roles:
+  - nginx-base

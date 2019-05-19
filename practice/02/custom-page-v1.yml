@@ -1,0 +1,12 @@
+- name: Custom Index Page v1 (using on Inventory Variable)
+  hosts: all
+
+  tasks:
+  - name: Where to place index.html
+    debug: msg="Nginx Html Root Folder: {{ nginx_html_root }}"
+
+  - name: copy custom page
+    template:
+      src: index.html.j2
+      dest: "{{ nginx_html_root }}/index.html"
+    become: yes

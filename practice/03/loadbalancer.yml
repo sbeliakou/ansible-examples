@@ -1,0 +1,19 @@
+- name: Configuring the Node as LB
+  hosts: lb
+
+  tasks:
+  - name: Copy nginx.conf
+    copy:
+      src: nginx-lb.conf
+      dest: /etc/nginx/nginx.conf
+      validate: sudo /usr/sbin/nginx -t -c %s
+      backup: yes
+    become: yes
+    notify: restart nginx
+
+  handlers:
+  - name: restart nginx
+    service:
+      name: nginx
+      state: restarted
+    become: yes

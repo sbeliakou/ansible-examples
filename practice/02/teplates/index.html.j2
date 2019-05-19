@@ -1,0 +1,19 @@
+<h1>Nginx on {{ ansible_hostname }}</h1>
+
+<pre>
+Provisioned by Ansible,
+Running on {{ ansible_default_ipv4.address }} ({{ ansible_fqdn }})
+
+{{ ansible_os_family }} / {{ ansible_distribution }} / {{ ansible_distribution_release }} {{ ansible_distribution_major_version }}
+<pre>
+
+
+{# Example Page View:
+
+Nginx on ip-10-230-1-4
+Provisioned by Ansible,
+Running on 10.230.1.4 (ip-10-230-1-4.vm.internal)
+
+RedHat / CentOS / Core 7
+
+#}

@@ -1,0 +1,9 @@
+[lb]
+10.230.1.2 ansible_connection=local
+
+# But unfortunately, we don't use following data in our playbook
+[nodes]
+10.230.1.4
+10.230.1.5
+10.230.1.6
+10.230.1.7

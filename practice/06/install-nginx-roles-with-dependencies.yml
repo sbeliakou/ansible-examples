@@ -1,0 +1,9 @@
+- name: Provisioning Nodes
+  hosts: nodes
+  roles:
+  - nginx-backend
+
+- name: Provisioning LB
+  hosts: lb
+  roles:
+  - nginx-lb

@@ -1,0 +1,8 @@
+[control-machine]
+10.230.1.2 ansible_connection=local nginx_html_root=/usr/share/nginx/html
+
+[nodes]
+10.230.1.4 nginx_html_root=/usr/share/nginx/html
+10.230.1.5 nginx_html_root=/usr/share/nginx/html
+10.230.1.6 nginx_html_root=/var/www/html
+10.230.1.7 nginx_html_root=/var/www/html

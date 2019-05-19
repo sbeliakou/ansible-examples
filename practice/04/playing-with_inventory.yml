@@ -1,0 +1,10 @@
+- hosts: lb
+
+  vars:
+    backend_group_name: nodes
+
+  tasks:
+  # Do the same
+  - debug: msg="{{ groups[backend_group_name] }}"
+  - debug: msg="{{ groups['nodes'] }}"
+  - debug: msg="{{ groups.nodes }}"

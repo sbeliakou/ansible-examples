@@ -1,0 +1,15 @@
+- hosts: all
+
+  tasks:
+  - debug: var=groups
+    run_once: yes
+
+  - group_by: key={{ ansible_local.nginx.version }}
+
+  - debug: var=groups
+    run_once: yes
+
+- hosts: 1.10.3-0ubuntu0.16.04.3
+
+  tasks:
+  - debug: msg="Upgrading Nginx on these hosts"

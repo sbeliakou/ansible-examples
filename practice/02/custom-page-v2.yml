@@ -1,0 +1,17 @@
+- name: Custom Index Page v2 (using custom Variable and Ansible Discovery)
+  hosts: all
+
+  vars:
+    nginx_root:
+      CentOS: /usr/share/nginx/html
+      Ubuntu: /var/www/html
+
+  tasks:
+  - name: Where to place index.html
+    debug: msg="Nginx Html Root Folder: {{ nginx_root[ansible_distribution] }}"
+
+  - name: copy custom page
+    template:
+      src: index.html.j2
+      dest: "{{ nginx_root[ansible_distribution] }}/index.html"
+    become: yes
